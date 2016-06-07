@@ -3,11 +3,14 @@ package xyz.jadonfowler.fountain.api.plugin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassReader;
@@ -41,11 +44,16 @@ public class PluginManager {
                     try {
                         ClassLoader loader = URLClassLoader.newInstance(new URL[] { file.toURI().toURL() });
                         ArrayList<String> classes = getClasses(file);
+                        JarFile jar = new JarFile(file);
                         for (String className : classes) {
-                            FileInputStream in = new FileInputStream(new File(className));
+                            JarEntry entry = jar.getJarEntry(className);
+                            String m = className.replaceAll("/", "\\.");
+                            String clazz = m.substring(0, m.length() - 6);
+                            InputStream in = jar.getInputStream(entry);
                             ClassReader cr = new ClassReader(in);
-                            cr.accept(new AnnotationScanner(this, loader, className), 0);
+                            cr.accept(new AnnotationScanner(this, loader, clazz), 0);
                         }
+                        jar.close();
                     }
                     catch (MalformedURLException e) {
                         e.printStackTrace();
@@ -60,6 +68,7 @@ public class PluginManager {
 
     private void loadPlugin(ClassLoader loader, String className) {
         try {
+            System.out.println("Plugin found: " + className);
             plugins.add(loader.loadClass(className).newInstance());
         }
         catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
@@ -76,7 +85,7 @@ public class PluginManager {
                 jarEntry = jarStream.getNextJarEntry();
                 if (jarEntry == null) break;
                 if (jarEntry.getName().endsWith(".class")) {
-                    classes.add(jarEntry.getName().replaceAll("/", "\\."));
+                    classes.add(jarEntry.getName());
                 }
             }
             jarStream.close();
@@ -85,6 +94,10 @@ public class PluginManager {
             e.printStackTrace();
         }
         return classes;
+    }
+    
+    public ArrayList<Object> getPlugins() {
+        return plugins;
     }
 
     class AnnotationScanner extends ClassVisitor {
@@ -101,7 +114,7 @@ public class PluginManager {
         }
 
         @Override public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
-            if (desc.equals(Type.getInternalName(Plugin.class))) {
+            if (desc.contains(Type.getInternalName(Plugin.class))) {
                 pluginManager.loadPlugin(loader, className);
             }
             return super.visitAnnotation(desc, visible);
