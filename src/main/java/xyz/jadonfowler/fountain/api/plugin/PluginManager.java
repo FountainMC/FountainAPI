@@ -51,7 +51,7 @@ public class PluginManager {
                             String clazz = m.substring(0, m.length() - 6);
                             InputStream in = jar.getInputStream(entry);
                             ClassReader cr = new ClassReader(in);
-                            cr.accept(new AnnotationScanner(this, loader, clazz), 0);
+                            cr.accept(new AnnotationScanner(this, loader, clazz, cr), 0);
                         }
                         jar.close();
                     }
@@ -66,10 +66,15 @@ public class PluginManager {
         }
     }
 
-    private void loadPlugin(ClassLoader loader, String className) {
+    private void loadPlugin(ClassLoader loader, String className, ClassReader classReader) {
         try {
             System.out.println("Plugin found: " + className);
-            plugins.add(loader.loadClass(className).newInstance());
+            classReader.accept(new ListenerImplementer(), 0);
+            @SuppressWarnings("unchecked") Class<? extends Listener> clazz = (Class<? extends Listener>) loader
+                    .loadClass(className);
+            Listener plugin = clazz.newInstance();
+            plugins.add(plugin);
+            eventBus.register(plugin);
         }
         catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -95,9 +100,13 @@ public class PluginManager {
         }
         return classes;
     }
-    
+
     public ArrayList<Object> getPlugins() {
         return plugins;
+    }
+
+    public EventBus<Event, Listener> getEventBus() {
+        return eventBus;
     }
 
     class AnnotationScanner extends ClassVisitor {
@@ -105,19 +114,46 @@ public class PluginManager {
         private PluginManager pluginManager;
         private ClassLoader loader;
         private String className;
+        private ClassReader classReader;
 
-        private AnnotationScanner(PluginManager pluginManager, ClassLoader loader, String className) {
+        private AnnotationScanner(PluginManager pluginManager, ClassLoader loader, String className,
+                ClassReader classReader) {
             super(Opcodes.ASM4);
             this.pluginManager = pluginManager;
             this.loader = loader;
             this.className = className;
+            this.classReader = classReader;
         }
 
         @Override public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
             if (desc.contains(Type.getInternalName(Plugin.class))) {
-                pluginManager.loadPlugin(loader, className);
+                pluginManager.loadPlugin(loader, className, classReader);
             }
             return super.visitAnnotation(desc, visible);
+        }
+    }
+
+    class ListenerImplementer extends ClassVisitor {
+
+        private ListenerImplementer() {
+            super(Opcodes.ASM4);
+        }
+
+        @Override public void visit(int version, int access, String name, String signature, String superName,
+                String[] interfaces) {
+            interfaces = concat(interfaces == null ? new String[] {} : interfaces,
+                    new String[] { Type.getInternalName(Listener.class) });
+            System.out.println(Arrays.toString(interfaces));
+            super.visit(version, access, name, signature, superName, interfaces);
+        }
+
+        private String[] concat(String[] a, String[] b) {
+            int aLen = a.length;
+            int bLen = b.length;
+            String[] c = new String[aLen + bLen];
+            System.arraycopy(a, 0, c, 0, aLen);
+            System.arraycopy(b, 0, c, aLen, bLen);
+            return c;
         }
     }
 }
