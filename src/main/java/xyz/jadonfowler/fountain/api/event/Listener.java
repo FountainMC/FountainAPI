@@ -1,3 +1,5 @@
 package xyz.jadonfowler.fountain.api.event;
 
-public interface Listener {}
+public interface Listener {
+    
+}
