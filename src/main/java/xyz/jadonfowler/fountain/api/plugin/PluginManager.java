@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
@@ -42,7 +42,11 @@ public class PluginManager {
             if (directoryListing != null) {
                 for (File file : directoryListing) {
                     try {
-                        ClassLoader loader = URLClassLoader.newInstance(new URL[] { file.toURI().toURL() });
+                        URL url = file.toURI().toURL();
+                        URLClassLoader loader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+                        Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+                        method.setAccessible(true);
+                        method.invoke(loader, url);
                         ArrayList<String> classes = getClasses(file);
                         JarFile jar = new JarFile(file);
                         for (String className : classes) {
@@ -55,10 +59,8 @@ public class PluginManager {
                         }
                         jar.close();
                     }
-                    catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
-                    catch (IOException e) {
+                    catch (IOException | NoSuchMethodException | SecurityException | InvocationTargetException
+                            | IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
@@ -72,6 +74,8 @@ public class PluginManager {
             classReader.accept(new ListenerImplementer(), 0);
             @SuppressWarnings("unchecked") Class<? extends Listener> clazz = (Class<? extends Listener>) loader
                     .loadClass(className);
+            Plugin anno = clazz.getAnnotation(Plugin.class);
+            System.out.println(anno.id() + " has been loaded.");
             Listener plugin = clazz.newInstance();
             plugins.add(plugin);
             eventBus.register(plugin);
@@ -143,17 +147,17 @@ public class PluginManager {
                 String[] interfaces) {
             interfaces = concat(interfaces == null ? new String[] {} : interfaces,
                     new String[] { Type.getInternalName(Listener.class) });
-            System.out.println(Arrays.toString(interfaces));
             super.visit(version, access, name, signature, superName, interfaces);
         }
-
-        private String[] concat(String[] a, String[] b) {
-            int aLen = a.length;
-            int bLen = b.length;
-            String[] c = new String[aLen + bLen];
-            System.arraycopy(a, 0, c, 0, aLen);
-            System.arraycopy(b, 0, c, aLen, bLen);
-            return c;
-        }
     }
+
+    private String[] concat(String[] a, String[] b) {
+        int aLen = a.length;
+        int bLen = b.length;
+        String[] c = new String[aLen + bLen];
+        System.arraycopy(a, 0, c, 0, aLen);
+        System.arraycopy(b, 0, c, aLen, bLen);
+        return c;
+    }
+
 }
