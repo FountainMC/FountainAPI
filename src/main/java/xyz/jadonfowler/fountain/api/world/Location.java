@@ -7,6 +7,13 @@ public class Location {
     private double z;
     private World world;
 
+    public Location(World world, int x, int y, int z) {
+        this.world = world;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
     public double getX() {
         return x;
     }
@@ -30,11 +37,11 @@ public class Location {
     public void setZ(double z) {
         this.z = z;
     }
-    
-    public World getWorld(){
+
+    public World getWorld() {
         return world;
     }
-    
+
     public void setWorld(World world) {
         this.world = world;
     }
