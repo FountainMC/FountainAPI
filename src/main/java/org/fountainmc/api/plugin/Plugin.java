@@ -18,4 +18,6 @@ public @interface Plugin {
     String description() default "";
 
     String url() default "";
+
+    String[] author() default {};
 }
