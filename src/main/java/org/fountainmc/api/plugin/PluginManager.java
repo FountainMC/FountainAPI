@@ -1,4 +1,4 @@
-package org.fountainmc.plugin;
+package org.fountainmc.api.plugin;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 
-import org.fountainmc.event.Event;
+import org.fountainmc.api.event.Event;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;

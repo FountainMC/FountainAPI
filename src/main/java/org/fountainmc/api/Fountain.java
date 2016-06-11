@@ -1,4 +1,4 @@
-package org.fountainmc;
+package org.fountainmc.api;
 
 public final class Fountain {
 

@@ -1,6 +1,6 @@
-package org.fountainmc.event.server;
+package org.fountainmc.api.event.server;
 
-import org.fountainmc.event.Event;
+import org.fountainmc.api.event.Event;
 
 public class ServerStartEvent extends Event {
 

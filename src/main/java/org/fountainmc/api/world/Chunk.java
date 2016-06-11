@@ -1,6 +1,6 @@
-package org.fountainmc;
+package org.fountainmc.api.world;
 
-import org.fountainmc.block.Block;
+import org.fountainmc.api.world.block.Block;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -12,7 +12,7 @@ public interface Chunk {
 
     public World getWorld();
 
-    public default Block getBlockAt(BlockPosition pos) {
+    public default Block getBlockAt(Block pos) {
         checkNotNull(pos, "Null position");
         checkArgument(pos.getWorld() == this.getWorld(), "Position's world %s doesn't equal chunk's world %s", pos.getWorld().getName(), this.getWorld().getName());
         return getBlockAt(pos.getX(), pos.getY(), pos.getZ());

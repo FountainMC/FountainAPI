@@ -1,4 +1,4 @@
-package org.fountainmc;
+package org.fountainmc.api.world;
 
 import javax.annotation.Nonnull;
 
@@ -52,8 +52,8 @@ public final class Location {
         return new Location(checkNotNull(world, "Null world"), x, y, z);
     }
 
-    public BlockPosition toBlockPosition() {
-        return new BlockPosition(world, (int) Math.floor(x), (int) Math.floor(y), (int) Math.floor(z));
+    public Block getBlock() {
+        return new Block(world, (int) Math.floor(x), (int) Math.floor(y), (int) Math.floor(z));
     }
 
 }

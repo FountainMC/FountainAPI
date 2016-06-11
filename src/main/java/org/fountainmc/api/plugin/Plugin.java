@@ -1,4 +1,4 @@
-package org.fountainmc.plugin;
+package org.fountainmc.api.plugin;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

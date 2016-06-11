@@ -1,6 +1,6 @@
-package org.fountainmc;
+package org.fountainmc.api;
 
-import org.fountainmc.plugin.PluginManager;
+import org.fountainmc.api.plugin.PluginManager;
 
 public interface Server {
 
