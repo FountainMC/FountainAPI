@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
@@ -20,19 +21,18 @@ import org.objectweb.asm.Type;
 import net.techcable.event4j.EventBus;
 import net.techcable.event4j.EventExecutor;
 import xyz.jadonfowler.fountain.api.event.Event;
-import xyz.jadonfowler.fountain.api.event.Listener;
 
 public class PluginManager {
 
     ArrayList<Object> plugins = new ArrayList<Object>();
-    EventBus<Event, Listener> eventBus;
+    EventBus<Event, Object> eventBus;
 
     public PluginManager() {
-        eventBus = EventBus.builder().eventClass(Event.class).listenerClass(Listener.class)
+        eventBus = EventBus.builder().eventClass(Event.class)
                 .executorFactory(EventExecutor.Factory.ASM_LISTENER_FACTORY.get()).build();
     }
 
-    public void registerListener(Listener listener) {
+    public void registerListener(Object listener) {
         eventBus.register(listener);
     }
 
@@ -70,13 +70,11 @@ public class PluginManager {
 
     private void loadPlugin(ClassLoader loader, String className, ClassReader classReader) {
         try {
-            System.out.println("Plugin found: " + className);
-            classReader.accept(new ListenerImplementer(), 0);
-            @SuppressWarnings("unchecked") Class<? extends Listener> clazz = (Class<? extends Listener>) loader
-                    .loadClass(className);
+            Class<?> clazz = loader.loadClass(className);
             Plugin anno = clazz.getAnnotation(Plugin.class);
-            System.out.println(anno.id() + " has been loaded.");
-            Listener plugin = clazz.newInstance();
+            System.out.println((anno.name().isEmpty() ? anno.id() : anno.name()) + " has been loaded.");
+            System.out.println(Arrays.toString(clazz.getInterfaces()));
+            Object plugin = clazz.newInstance();
             plugins.add(plugin);
             eventBus.register(plugin);
         }
@@ -109,7 +107,7 @@ public class PluginManager {
         return plugins;
     }
 
-    public EventBus<Event, Listener> getEventBus() {
+    public EventBus<Event, Object> getEventBus() {
         return eventBus;
     }
 
@@ -135,29 +133,6 @@ public class PluginManager {
             }
             return super.visitAnnotation(desc, visible);
         }
-    }
-
-    class ListenerImplementer extends ClassVisitor {
-
-        private ListenerImplementer() {
-            super(Opcodes.ASM4);
-        }
-
-        @Override public void visit(int version, int access, String name, String signature, String superName,
-                String[] interfaces) {
-            interfaces = concat(interfaces == null ? new String[] {} : interfaces,
-                    new String[] { Type.getInternalName(Listener.class) });
-            super.visit(version, access, name, signature, superName, interfaces);
-        }
-    }
-
-    private String[] concat(String[] a, String[] b) {
-        int aLen = a.length;
-        int bLen = b.length;
-        String[] c = new String[aLen + bLen];
-        System.arraycopy(a, 0, c, 0, aLen);
-        System.arraycopy(b, 0, c, aLen, bLen);
-        return c;
     }
 
 }
