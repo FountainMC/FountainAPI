@@ -20,6 +20,10 @@ public final class Location {
         this.z = z;
     }
 
+    public Location add(double x, double y, double z) {
+        return new Location(world, this.x + x, this.y + y, this.z + z);
+    }
+
     public double getX() {
         return x;
     }

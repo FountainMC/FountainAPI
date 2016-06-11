@@ -4,11 +4,9 @@ import org.fountainmc.api.plugin.PluginManager;
 
 public interface Server {
 
-    public String getName();
-    
-    public String getVersion();
-    
-    public String getMotd();
-    
+    public ServerInfo getServerInfo();
+
     public PluginManager getPluginManager();
+
+    public String[] getLaunchArguments();
 }
