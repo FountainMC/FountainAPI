@@ -1,6 +1,6 @@
-package xyz.jadonfowler.fountain.api.event.server;
+package org.fountainmc.event.server;
 
-import xyz.jadonfowler.fountain.api.event.Event;
+import org.fountainmc.event.Event;
 
 public class ServerStartEvent extends Event {
 

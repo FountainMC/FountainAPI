@@ -1,4 +1,4 @@
-package xyz.jadonfowler.fountain.api.plugin;
+package org.fountainmc.plugin;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

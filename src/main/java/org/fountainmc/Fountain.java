@@ -1,4 +1,4 @@
-package xyz.jadonfowler.fountain.api;
+package org.fountainmc;
 
 public final class Fountain {
 

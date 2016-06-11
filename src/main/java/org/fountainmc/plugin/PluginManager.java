@@ -1,4 +1,4 @@
-package xyz.jadonfowler.fountain.api.plugin;
+package org.fountainmc.plugin;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,10 +9,11 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
+
+import org.fountainmc.event.Event;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -20,7 +21,6 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import net.techcable.event4j.EventBus;
 import net.techcable.event4j.EventExecutor;
-import xyz.jadonfowler.fountain.api.event.Event;
 
 public class PluginManager {
 

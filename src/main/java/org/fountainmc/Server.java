@@ -1,6 +1,6 @@
-package xyz.jadonfowler.fountain.api;
+package org.fountainmc;
 
-import xyz.jadonfowler.fountain.api.plugin.PluginManager;
+import org.fountainmc.plugin.PluginManager;
 
 public interface Server {
 
