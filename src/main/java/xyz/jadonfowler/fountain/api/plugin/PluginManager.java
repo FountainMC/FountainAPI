@@ -73,7 +73,6 @@ public class PluginManager {
             Class<?> clazz = loader.loadClass(className);
             Plugin anno = clazz.getAnnotation(Plugin.class);
             System.out.println((anno.name().isEmpty() ? anno.id() : anno.name()) + " has been loaded.");
-            System.out.println(Arrays.toString(clazz.getInterfaces()));
             Object plugin = clazz.newInstance();
             plugins.add(plugin);
             eventBus.register(plugin);
