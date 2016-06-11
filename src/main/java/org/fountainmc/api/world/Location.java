@@ -52,8 +52,8 @@ public final class Location {
         return new Location(checkNotNull(world, "Null world"), x, y, z);
     }
 
-    public Block getBlock() {
-        return new Block(world, (int) Math.floor(x), (int) Math.floor(y), (int) Math.floor(z));
+    public BlockPosition getBlock() {
+        return new BlockPosition(world, (int) Math.floor(x), (int) Math.floor(y), (int) Math.floor(z));
     }
 
 }

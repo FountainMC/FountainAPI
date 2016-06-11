@@ -36,6 +36,10 @@ public class PluginManager {
         eventBus.register(listener);
     }
 
+    public void fireEvent(Event event) {
+        eventBus.fire(event);
+    }
+    
     public void loadPlugins(File dir) {
         if (dir.isDirectory()) {
             File[] directoryListing = dir.listFiles();

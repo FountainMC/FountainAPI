@@ -6,5 +6,5 @@ public interface World {
 
     Chunk getChunk(int x, int y);
 
-    Block getBlockAt(int x, int y, int z);
+    BlockPosition getBlockAt(int x, int y, int z);
 }
