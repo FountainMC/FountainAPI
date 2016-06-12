@@ -11,11 +11,11 @@ public class BlockBreakEvent extends CancellableBase {
         this.block = block;
     }
 
-    public BlockPosition getBlock() {
+    public BlockPosition getBlockPosition() {
         return block;
     }
 
-    public void setBlock(BlockPosition block) {
+    public void setBlockPosition(BlockPosition block) {
         this.block = block;
     }
 }
