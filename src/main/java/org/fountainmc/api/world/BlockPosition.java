@@ -2,6 +2,8 @@ package org.fountainmc.api.world;
 
 import javax.annotation.Nonnull;
 
+import org.fountainmc.api.Direction;
+
 import static com.google.common.base.Preconditions.*;
 
 @Nonnull
@@ -40,6 +42,10 @@ public final class BlockPosition {
         return new BlockPosition(world, x, y, z);
     }
 
+    public BlockPosition withCoordinates(int x, int y, int z) {
+        return new BlockPosition(world, x, y, z);
+    }
+
     public World getWorld() {
         return world;
     }
@@ -51,4 +57,38 @@ public final class BlockPosition {
     public Location toLocation() {
         return new Location(world, x, y, z);
     }
+
+    public BlockPosition offset(Direction direction) {
+        return offset(direction, 1);
+    }
+
+    public BlockPosition offset(Direction direction, int amount) {
+        int x = this.x;
+        int y = this.y;
+        int z = this.z;
+        switch (checkNotNull(direction, "Null direction")) {
+            case NORTH:
+                x -= amount;
+                break;
+            case SOUTH:
+                x += amount;
+                break;
+            case EAST:
+                z += amount;
+                break;
+            case WEST:
+                z -= amount;
+                break;
+            case UP:
+                y += amount;
+                break;
+            case DOWN:
+                y -= amount;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid direction: " + direction);
+        }
+        return withCoordinates(x, y, z);
+    }
+
 }
