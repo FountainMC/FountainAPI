@@ -28,15 +28,19 @@ public class CommandManager {
     public void fireCommand(String command, String[] arguments, CommandSender sender) {
         for (CommandHandler handler : commands) {
             if (handler.command.name().equalsIgnoreCase(command)) {
-                Class<? extends CommandSender> senderClass = handler.command.allow();
-                if (senderClass.isAssignableFrom(sender.getClass())) {
-                    try {
-                        handler.method.invoke(handler.source, arguments, senderClass.cast(sender));
-                    }
-                    catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                }
+                fireCommand(handler, arguments, sender);
+            }
+        }
+    }
+
+    public void fireCommand(CommandHandler handler, String[] arguments, CommandSender sender) {
+        Class<? extends CommandSender> senderClass = handler.command.allow();
+        if (senderClass.isAssignableFrom(sender.getClass())) {
+            try {
+                handler.method.invoke(handler.source, arguments, senderClass.cast(sender));
+            }
+            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                e.printStackTrace();
             }
         }
     }
