@@ -9,3 +9,4 @@ bin
 
 # Maven
 target
+dependency-reduced-pom.xml
