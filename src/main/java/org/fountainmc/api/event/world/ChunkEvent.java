@@ -5,7 +5,7 @@ import org.fountainmc.api.world.Chunk;
 
 public class ChunkEvent extends Event {
 
-    private Chunk chunk;
+    private final Chunk chunk;
 
     public ChunkEvent(Chunk chunk) {
         this.chunk = chunk;
