@@ -3,6 +3,7 @@ package org.fountainmc.api;
 import javax.annotation.Nonnull;
 
 import org.fountainmc.api.plugin.PluginManager;
+import org.fountainmc.api.command.CommandManager;;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -10,6 +11,8 @@ import static com.google.common.base.Preconditions.*;
 public interface Server extends ServerInfo {
 
     public PluginManager getPluginManager();
+    
+    public CommandManager getCommandManager();
 
     public String[] getLaunchArguments();
 
