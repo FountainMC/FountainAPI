@@ -6,8 +6,8 @@ import org.fountainmc.api.world.block.BlockState;
 
 public class BlockBreakEvent extends CancellableBase {
 
-    private BlockState state;
-    private BlockPosition position;
+    private final BlockState state;
+    private final BlockPosition position;
 
     public BlockBreakEvent(BlockState state, BlockPosition position) {
         this.state = state;
