@@ -41,16 +41,32 @@ public class CommandManager {
         }
     }
 
-    private class CommandHandler {
+    public List<CommandHandler> getCommands() {
+        return commands;
+    }
+
+    public class CommandHandler {
 
         private final Command command;
         private final Method method;
         private final Object source;
 
-        public CommandHandler(Command command, Method method, Object source) {
+        private CommandHandler(Command command, Method method, Object source) {
             this.command = command;
             this.method = method;
             this.source = source;
+        }
+
+        public Command getCommand() {
+            return command;
+        }
+
+        public Method getMethod() {
+            return method;
+        }
+
+        public Object getSource() {
+            return source;
         }
     }
 
