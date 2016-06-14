@@ -2,7 +2,7 @@ package org.fountainmc.api.world.block;
 
 import org.fountainmc.api.Direction;
 
-public interface Chest extends BlockState {
+public interface Chest extends BlockState, DirectionalBlock {
 
     public Direction getDirection();
 
@@ -10,8 +10,12 @@ public interface Chest extends BlockState {
      * Get a clone of this chest with the given direction
      *
      * @param direction the new direction
-     * @return the new piston
+     * @return the new chest
      */
-    public PistonBlock withDirection(Direction direction);
+    public Chest withDirection(Direction direction);
 
+    @Override
+    public default boolean mayBeVertical() {
+        return false;
+    }
 }

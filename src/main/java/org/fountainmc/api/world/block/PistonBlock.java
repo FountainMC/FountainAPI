@@ -8,7 +8,7 @@ import org.fountainmc.api.Direction;
  * The state for pistons and piston extensions
  */
 @Nonnull
-public interface PistonBlock extends BlockState {
+public interface PistonBlock extends BlockState, DirectionalBlock {
     /**
      * Return if the piston has been extended
      *
@@ -35,6 +35,11 @@ public interface PistonBlock extends BlockState {
      * @return the new piston
      */
     public PistonBlock withDirection(Direction direction);
+
+    @Override
+    public default boolean mayBeVertical() {
+        return true;
+    }
 
     /**
      * Return if the piston is sticky

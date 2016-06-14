@@ -2,7 +2,7 @@ package org.fountainmc.api.world.block;
 
 import org.fountainmc.api.Direction;
 
-public interface StairBlock extends BlockState {
+public interface StairBlock extends BlockState, DirectionalBlock {
     /**
      * Get the direction the stair is facing
      * <p>The direction is <b>never</b> vertical.</p>
@@ -21,13 +21,19 @@ public interface StairBlock extends BlockState {
      */
     public StairBlock withDirection(Direction direction);
 
+    @Override
+    public default boolean mayBeVertical() {
+        return false;
+    }
+
     public boolean isUpsideDown();
 
     public StairBlock withUpsideDown(boolean b);
 
     /**
-     * Get
-     * @return
+     * Get the type of the stairs
+     *
+     * @return the type
      */
     public StairType getType();
 

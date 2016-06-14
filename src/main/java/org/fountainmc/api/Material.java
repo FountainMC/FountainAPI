@@ -11,11 +11,7 @@ public interface Material {
 
     public String getName();
 
-    public boolean hasGravity();
-
     public boolean isBlock();
-
-    public boolean isBurnable();
 
     public boolean isEdible();
 

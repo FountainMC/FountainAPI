@@ -5,6 +5,19 @@ public enum Direction {
     SOUTH,
     EAST,
     WEST,
-    UP,
-    DOWN;
+    UP(true),
+    DOWN(true);
+    private final boolean vertical;
+
+    Direction() {
+        this(true);
+    }
+
+    Direction(boolean vertical) {
+        this.vertical = vertical;
+    }
+
+    public boolean isVertical() {
+        return vertical;
+    }
 }
