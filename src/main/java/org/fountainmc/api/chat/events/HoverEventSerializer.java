@@ -15,7 +15,8 @@ public class HoverEventSerializer implements JsonDeserializer<HoverEvent>, JsonS
         HoverEvent.Action action = HoverEvent.Action.valueOf(object.get("action").getAsString());
         switch (action) {
             case SHOW_TEXT:
-                return HoverEvent.showText(context.deserialize(object.get("value"), new TypeToken<Component<Text>>() {}.getType()));
+                return HoverEvent.showText(context.deserialize(object.get("value"), new TypeToken<Component<Text>>() {
+                }.getType()));
             case SHOW_ACHIEVEMENT:
                 return HoverEvent.showAchievement(object.get("value").getAsString());
             case SHOW_ITEM:

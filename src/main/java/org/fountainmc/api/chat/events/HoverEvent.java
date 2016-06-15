@@ -16,16 +16,9 @@ public class HoverEvent<T> {
         this.value = value;
     }
 
-    public Action getAction() {
-        return action;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
     /**
      * Create a hover event that shows text when the component is hovered over.
+     *
      * @param component the component to display
      * @return the hover event
      */
@@ -35,6 +28,7 @@ public class HoverEvent<T> {
 
     /**
      * Create a hover event to show information on a Minecraft game achievement.
+     *
      * @param achievement the achievement to show
      * @return the hover event
      */
@@ -44,11 +38,20 @@ public class HoverEvent<T> {
 
     /**
      * Create a hover event to show information on a given item.
+     *
      * @param item the item to show
      * @return the hover event
      */
     public static HoverEvent<String> showItem(String item) {
         return new HoverEvent<>(Action.SHOW_ITEM, Preconditions.checkNotNull(item, "item"));
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public T getValue() {
+        return value;
     }
 
     public enum Action {

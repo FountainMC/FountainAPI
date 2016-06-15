@@ -6,12 +6,15 @@ import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.events.HoverEvent;
 import org.fountainmc.api.chat.values.ComponentValue;
 
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * This class represents a Minecraft chat component.
+ * This class represents a Minecraft chat component. This class is immutable and is thread-safe.
  */
+@Immutable
 public class Component<T extends ComponentValue> {
     private final Component<?> parent;
     private final Boolean bold;
@@ -81,39 +84,48 @@ public class Component<T extends ComponentValue> {
         return parent != null && parent.obfuscated;
     }
 
-    protected Boolean isBoldRaw() {
+    @Nullable
+    Boolean isBoldRaw() {
         return bold;
     }
 
-    protected Boolean isItalicRaw() {
+    @Nullable
+    Boolean isItalicRaw() {
         return italic;
     }
 
-    protected Boolean isUnderlinedRaw() {
+    @Nullable
+    Boolean isUnderlinedRaw() {
         return underlined;
     }
 
-    protected Boolean isStrikethroughRaw() {
+    @Nullable
+    Boolean isStrikethroughRaw() {
         return strikethrough;
     }
 
-    protected Boolean isObfuscatedRaw() {
+    @Nullable
+    Boolean isObfuscatedRaw() {
         return obfuscated;
     }
 
-    protected ChatColor getColorRaw() {
+    @Nullable
+    ChatColor getColorRaw() {
         return color;
     }
 
-    protected HoverEvent<?> getHoverEventRaw() {
+    @Nullable
+    HoverEvent<?> getHoverEventRaw() {
         return hoverEvent;
     }
 
-    protected ClickEvent getClickEventRaw() {
+    @Nullable
+    ClickEvent getClickEventRaw() {
         return clickEvent;
     }
 
-    protected String getInsertionRaw() {
+    @Nullable
+    String getInsertionRaw() {
         return insertion;
     }
 
@@ -124,25 +136,26 @@ public class Component<T extends ComponentValue> {
         return parent != null ? parent.color : ChatColor.WHITE;
     }
 
-    public Optional<HoverEvent> getHoverEvent() {
+    @Nullable
+    public HoverEvent getHoverEvent() {
         if (hoverEvent == null) {
-            return parent != null ? parent.getHoverEvent() : Optional.empty();
+            return parent != null ? parent.getHoverEvent() : null;
         }
-        return Optional.of(hoverEvent);
+        return hoverEvent;
     }
 
-    public Optional<ClickEvent> getClickEvent() {
+    public ClickEvent getClickEvent() {
         if (clickEvent == null) {
-            return parent != null ? parent.getClickEvent() : Optional.empty();
+            return parent != null ? parent.getClickEvent() : null;
         }
-        return Optional.of(clickEvent);
+        return clickEvent;
     }
 
-    public Optional<String> getInsertion() {
+    public String getInsertion() {
         if (insertion == null) {
-            return parent != null ? parent.getInsertion() : Optional.empty();
+            return parent != null ? parent.getInsertion() : null;
         }
-        return Optional.of(insertion);
+        return insertion;
     }
 
     public T getValue() {
@@ -153,35 +166,66 @@ public class Component<T extends ComponentValue> {
         return extra == null ? ImmutableList.of() : ImmutableList.copyOf(extra);
     }
 
-    public Optional<Component<?>> getParent() {
-        return Optional.ofNullable(parent);
+    @Nullable
+    public Component<?> getParent() {
+        return parent;
     }
 
+    /**
+     * Returns a copy of this component with a new {@code bold} value.
+     * @param bold the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withBold(boolean bold) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code italic} value.
+     * @param italic the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withItalic(boolean italic) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code underlined} value.
+     * @param underlined the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withUnderlined(boolean underlined) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code strikethrough} value.
+     * @param strikethrough the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withStrikethrough(boolean strikethrough) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code obfuscated} value.
+     * @param obfuscated the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withObfuscated(boolean obfuscated) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code color} value.
+     * @param color the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withColor(ChatColor color) {
         if (color != null) {
             Preconditions.checkArgument(!color.isFormatting(), "color is a formatting code");
@@ -190,21 +234,42 @@ public class Component<T extends ComponentValue> {
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code hoverEvent} value.
+     * @param hoverEvent the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withHoverEvent(HoverEvent<?> hoverEvent) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code clickEvent} value.
+     * @param clickEvent the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withClickEvent(ClickEvent clickEvent) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code insertion} value.
+     * @param insertion the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withInsertion(String insertion) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code value). Note that a component can only have its value changed
+     * from the one it currently has.
+     * @param value the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withValue(T value) {
         Preconditions.checkNotNull(value, "value");
         Preconditions.checkArgument(value.getClass().isAssignableFrom(this.value.getClass()), "invalid value, needs to implement current value's class");
@@ -212,11 +277,21 @@ public class Component<T extends ComponentValue> {
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code parent).
+     * @param parent the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withParent(Component<?> parent) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
 
+    /**
+     * Returns a copy of this component with a new {@code extra} value.
+     * @param extra the new value
+     * @return a copy of this component with a new value
+     */
     public Component<T> withExtra(List<Component<?>> extra) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);

@@ -9,21 +9,27 @@ import org.fountainmc.api.chat.values.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link ComponentBuilder} handles the creation of text-based {@link Component}s using a fluent API.
  */
 public class ComponentBuilder {
-    private Component<Text> currentComponent = Components.EMPTY_TEXT;
     private final List<Component<Text>> components = new ArrayList<>();
+    private Component<Text> currentComponent = Components.EMPTY_TEXT;
 
     private ComponentBuilder(String first) {
         currentComponent = currentComponent.withValue(Text.of(checkNotNull(first, "first")));
     }
 
+    public static ComponentBuilder start(String first) {
+        return new ComponentBuilder(Preconditions.checkNotNull(first));
+    }
+
     /**
      * Creates a new component, preserving existing formatting.
+     *
      * @param text the new text to use
      * @return itself, for chaining
      */
@@ -36,6 +42,7 @@ public class ComponentBuilder {
 
     /**
      * Changes the color of the current component.
+     *
      * @param color the color to use
      * @return itself, for chaining
      */
@@ -48,6 +55,7 @@ public class ComponentBuilder {
 
     /**
      * Changes the insertion (text inserted on shift-click) of this text.
+     *
      * @param insertion the insertion to use
      * @return itself, for chaining
      */
@@ -58,6 +66,7 @@ public class ComponentBuilder {
 
     /**
      * Changes the hover event for use.
+     *
      * @param event the hover event to use
      * @return itself, for chaining
      */
@@ -68,6 +77,7 @@ public class ComponentBuilder {
 
     /**
      * Changes the click event for use.
+     *
      * @param event the click event to use.
      * @return itself, for chaining
      */
@@ -78,6 +88,7 @@ public class ComponentBuilder {
 
     /**
      * Changes whether or not the text is bold.
+     *
      * @param bold whether or not the text is bold
      * @return itself, for chaining
      */
@@ -88,6 +99,7 @@ public class ComponentBuilder {
 
     /**
      * Changes whether or not the text is italic.
+     *
      * @param italic whether or not the text is italic
      * @return itself, for chaining
      */
@@ -98,6 +110,7 @@ public class ComponentBuilder {
 
     /**
      * Changes whether or not the text is underlined.
+     *
      * @param underlined whether or not the text is underlined
      * @return itself, for chaining
      */
@@ -108,6 +121,7 @@ public class ComponentBuilder {
 
     /**
      * Changes whether or not the text is obfuscated.
+     *
      * @param obfuscated whether or not the text is obfuscated
      * @return itself, for chaining
      */
@@ -118,6 +132,7 @@ public class ComponentBuilder {
 
     /**
      * Changes whether or not the text is stricken through.
+     *
      * @param strikethrough whether or not the text is stricken through
      * @return itself, for chaining
      */
@@ -134,9 +149,5 @@ public class ComponentBuilder {
     public List<Component<Text>> build() {
         components.add(currentComponent);
         return ImmutableList.copyOf(components);
-    }
-
-    public static ComponentBuilder start(String first) {
-        return new ComponentBuilder(Preconditions.checkNotNull(first));
     }
 }

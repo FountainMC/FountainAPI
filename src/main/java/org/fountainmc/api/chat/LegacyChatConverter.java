@@ -12,11 +12,11 @@ import java.util.regex.Pattern;
  * This class is used to parse the text in a legacy chat message using a state machine.
  */
 class LegacyChatConverter {
+    private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
     private final String text;
     private final List<LegacyChatPart> parts = new ArrayList<>();
     private final Set<ChatColor> formattingFound = EnumSet.noneOf(ChatColor.class);
     private boolean parsed = false;
-    private static final Pattern url = Pattern.compile( "^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$" );
 
     LegacyChatConverter(String text) {
         this.text = text;
@@ -27,16 +27,15 @@ class LegacyChatConverter {
         //   (i.e. &c&lTEST)
         StringBuilder foundText = new StringBuilder();
         State state = State.TEXT;
-        textParse: for (int i = 0; i < text.length(); i++) {
+        textParse:
+        for (int i = 0; i < text.length(); i++) {
             char at = text.charAt(i);
             switch (state) {
                 case LOOKING_FOR_CODE:
                     // Is this a code?
-                    Optional<ChatColor> colorOptional = ChatColor.getForChar(at);
-                    if (colorOptional.isPresent()) {
+                    ChatColor color = ChatColor.getForChar(at);
+                    if (color != null) {
                         // Yes, it is.
-                        ChatColor color = colorOptional.get();
-
                         if (formattingFound.contains(color)) {
                             // No need, since this is a duplicate.
                             state = State.TEXT;
@@ -150,6 +149,11 @@ class LegacyChatConverter {
         return components;
     }
 
+    private enum State {
+        TEXT,
+        LOOKING_FOR_CODE
+    }
+
     private class LegacyChatPart {
         private final Set<ChatColor> formattingFound;
         private final String url;
@@ -160,10 +164,5 @@ class LegacyChatConverter {
             this.url = url;
             this.text = text;
         }
-    }
-
-    private enum State {
-        TEXT,
-        LOOKING_FOR_CODE
     }
 }

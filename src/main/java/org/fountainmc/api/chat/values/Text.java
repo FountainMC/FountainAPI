@@ -13,19 +13,21 @@ public class Text implements ComponentValue {
     }
 
     /**
-     * Returns the component's text.
-     * @return the text in this value
-     */
-    public String getText() {
-        return text;
-    }
-
-    /**
      * Creates a new {@link Text} instance.
+     *
      * @param text the text to use
      * @return the value
      */
     public static Text of(String text) {
         return new Text(Preconditions.checkNotNull(text, "text"));
+    }
+
+    /**
+     * Returns the component's text.
+     *
+     * @return the text in this value
+     */
+    public String getText() {
+        return text;
     }
 }

@@ -29,6 +29,7 @@ public class Components {
 
     /**
      * Returns the empty component ({@link #EMPTY_TEXT}).
+     *
      * @return the empty component
      */
     public static Component<Text> empty() {
@@ -37,6 +38,7 @@ public class Components {
 
     /**
      * Creates a component for some plain text.
+     *
      * @param text the plain text to use
      * @return the component created
      */
@@ -46,6 +48,7 @@ public class Components {
 
     /**
      * Creates components from legacy text with color codes.
+     *
      * @param text the text to convert
      * @return the components created
      */
@@ -57,6 +60,7 @@ public class Components {
 
     /**
      * Converts components into Minecraft JSON representation.
+     *
      * @param component the components to convert
      * @return JSON representation of components
      */
@@ -66,13 +70,16 @@ public class Components {
 
     /**
      * Deserializes Minecraft chat component JSON into a component.
+     *
      * @param json the JSON to deserialize
      * @return the deserialized components
      */
     public static List<Component<?>> fromJson(String json) {
         if (!json.startsWith("[")) {
-            return ImmutableList.of(GSON.fromJson(json, new TypeToken<Component>() {}.getType()));
+            return ImmutableList.of(GSON.fromJson(json, new TypeToken<Component>() {
+            }.getType()));
         }
-        return GSON.fromJson(json, new TypeToken<List<Component<?>>>() {}.getType());
+        return GSON.fromJson(json, new TypeToken<List<Component<?>>>() {
+        }.getType());
     }
 }

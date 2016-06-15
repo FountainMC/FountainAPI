@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectMaps;
 import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 /**
@@ -50,6 +51,16 @@ public enum ChatColor {
     STRIKETHROUGH('m', true),
     RESET('r', true);
 
+    private static final Char2ObjectMap<ChatColor> COLOR_MAP;
+
+    static {
+        Char2ObjectMap<ChatColor> colors = new Char2ObjectOpenHashMap<>();
+        for (ChatColor color : values()) {
+            colors.put(color.colorCode, color);
+        }
+        COLOR_MAP = Char2ObjectMaps.unmodifiable(colors);
+    }
+
     private final char colorCode;
     private final boolean isFormatting;
 
@@ -58,25 +69,16 @@ public enum ChatColor {
         this.isFormatting = isFormatting;
     }
 
+    @Nullable
+    public static ChatColor getForChar(char ch) {
+        return COLOR_MAP.get(ch);
+    }
+
     public char getColorCode() {
         return colorCode;
     }
 
     public boolean isFormatting() {
         return isFormatting;
-    }
-
-    private static final Char2ObjectMap<ChatColor> COLOR_MAP;
-
-    public static Optional<ChatColor> getForChar(char ch) {
-        return Optional.ofNullable(COLOR_MAP.get(ch));
-    }
-
-    static {
-        Char2ObjectMap<ChatColor> colors = new Char2ObjectOpenHashMap<>();
-        for (ChatColor color : values()) {
-            colors.put(color.colorCode, color);
-        }
-        COLOR_MAP = Char2ObjectMaps.unmodifiable(colors);
     }
 }

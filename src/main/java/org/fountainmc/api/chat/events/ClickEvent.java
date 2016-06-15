@@ -2,7 +2,6 @@ package org.fountainmc.api.chat.events;
 
 import com.google.common.base.Preconditions;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -17,16 +16,9 @@ public class ClickEvent {
         this.value = value;
     }
 
-    public Action getAction() {
-        return action;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
     /**
      * Creates a click event for opening a URL.
+     *
      * @param url the URL to open when clicked
      * @return the click event
      */
@@ -36,6 +28,7 @@ public class ClickEvent {
 
     /**
      * Creates a click event for opening a URL.
+     *
      * @param url the URL to open when clicked
      * @return the click event
      */
@@ -45,6 +38,7 @@ public class ClickEvent {
 
     /**
      * Creates a click event for opening a file on the user's local computer.
+     *
      * @param file the file to open
      * @return the click event
      */
@@ -54,6 +48,7 @@ public class ClickEvent {
 
     /**
      * Creates a click event to run a command when the component is clicked.
+     *
      * @param command the command to run
      * @return the click event
      */
@@ -63,11 +58,20 @@ public class ClickEvent {
 
     /**
      * Creates a click event to fill a command to run when the component is clicked.
+     *
      * @param command the command to suggest
      * @return the click event
      */
     public static ClickEvent suggestCommand(String command) {
         return new ClickEvent(Action.SUGGEST_COMMAND, Preconditions.checkNotNull(command, "command"));
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     public enum Action {
