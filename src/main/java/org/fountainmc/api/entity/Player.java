@@ -11,22 +11,53 @@ import org.fountainmc.api.command.CommandSender;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * An Entity that can walk, talk, eat, sleep, and die.
+ */
 @ParametersAreNonnullByDefault
-public interface Player extends EntityLiving, CommandSender {
+public interface Player extends LivingEntity, CommandSender {
 
+    /**
+     * Get the name of the Player.
+     * 
+     * @return name of the Player
+     */
     @Nonnull
-    public String getName();
+    String getName();
 
+    /**
+     * Get the Unique Identifier of the Player.
+     * 
+     * @return UUID of the Player
+     */
     @Nonnull
-    public UUID getUUID();
+    UUID getUUID();
 
-    public void sendMessage(String message);
+    /**
+     * Send a chat message to the Player
+     * 
+     * @param message String to send
+     */
+    void sendMessage(String message);
 
-    public default void sendMessages(String... messages) {
+    /**
+     * Send multiple messages to the Player
+     * 
+     * @param messages
+     *            Strings to send
+     */
+    default void sendMessages(String... messages) {
         for (int i = 0; i < checkNotNull(messages, "Null messages array").length; i++) {
             String message = messages[i];
             checkNotNull(message, "Null message at index %s", i);
             sendMessage(message);
         }
     }
+
+    /**
+     * Hide an Entity from the Player's view.
+     * 
+     * @param entity Entity to hide
+     */
+    void hide(Entity entity);
 }
