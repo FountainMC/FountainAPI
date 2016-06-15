@@ -1,5 +1,8 @@
 package org.fountainmc.api.chat;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,12 +13,10 @@ import org.fountainmc.api.chat.events.HoverEvent;
 import org.fountainmc.api.chat.events.HoverEventSerializer;
 import org.fountainmc.api.chat.values.Text;
 
-import java.util.Collections;
-import java.util.List;
-
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Components {
+
     /**
      * An empty component with no text.
      */
@@ -82,4 +83,5 @@ public class Components {
         return GSON.fromJson(json, new TypeToken<List<Component<?>>>() {
         }.getType());
     }
+
 }

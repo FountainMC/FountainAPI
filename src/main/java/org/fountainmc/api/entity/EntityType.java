@@ -6,6 +6,7 @@ import org.fountainmc.api.entity.hanging.LeashKnot;
 import org.fountainmc.api.entity.hanging.Painting;
 
 public interface EntityType<T extends Entity> {
+
     public static final EntityType<Player> PLAYER = Fountain.getServer().getEntityType("Player", Player.class);
     public static final EntityType<Entity> XP_ORB = Fountain.getServer().getEntityType("XPOrb", Entity.class);
     public static final EntityType<Entity> AREA_EFFECT_CLOUD = Fountain.getServer().getEntityType("AreaEffectCloud", Entity.class);
@@ -89,4 +90,5 @@ public interface EntityType<T extends Entity> {
      * @return the class that implements this entity type
      */
     public Class<? extends T> getEntityClass();
+
 }

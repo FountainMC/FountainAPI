@@ -1,6 +1,7 @@
 package org.fountainmc.api.world.block.plants;
 
 public interface Leaves extends Plant {
+
     /**
      * Return if the leaves can decay
      *
@@ -18,4 +19,5 @@ public interface Leaves extends Plant {
         ACACIA,
         DARK_OAK;
     }
+
 }

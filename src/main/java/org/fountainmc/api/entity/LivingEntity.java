@@ -44,4 +44,5 @@ public interface LivingEntity extends Entity {
 
     @Override
     public EntityType<? extends LivingEntity> getEntityType();
+
 }

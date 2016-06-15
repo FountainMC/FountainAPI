@@ -1,6 +1,7 @@
 package org.fountainmc.api.event;
 
 public class CancellableBase extends Event implements Cancellable {
+
     private boolean cancelled;
 
     @Override
@@ -12,4 +13,5 @@ public class CancellableBase extends Event implements Cancellable {
     public void setCancelled(boolean value) {
         cancelled = value;
     }
+
 }

@@ -1,15 +1,18 @@
 package org.fountainmc.api.chat;
 
+import java.util.List;
+
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.values.Text;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class LegacyComponentTest {
+
     @Test
     public void simpleLegacyText() {
         List<Component<Text>> converted = Components.forLegacyText("Hello, world!");
@@ -151,4 +154,5 @@ public class LegacyComponentTest {
         assertThat(converted.get(1).getValue().getText(), equalTo("http://fountainmc.org"));
         assertThat(converted.get(1).getColor(), equalTo(ChatColor.WHITE));
     }
+
 }

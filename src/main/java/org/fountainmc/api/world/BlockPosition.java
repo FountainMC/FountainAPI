@@ -4,10 +4,11 @@ import javax.annotation.Nonnull;
 
 import org.fountainmc.api.Direction;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Nonnull
 public final class BlockPosition {
+
     private final World world;
     private final int x, y, z;
 

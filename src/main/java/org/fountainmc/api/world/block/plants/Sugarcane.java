@@ -3,6 +3,7 @@ package org.fountainmc.api.world.block.plants;
 import javax.annotation.Nonnegative;
 
 public interface Sugarcane extends GrowingPlant {
+
     public static int MAXIMUM_GROWTH = 16;
 
     @Override
@@ -12,4 +13,5 @@ public interface Sugarcane extends GrowingPlant {
     public default int getMaxGrowth() {
         return MAXIMUM_GROWTH;
     }
+
 }

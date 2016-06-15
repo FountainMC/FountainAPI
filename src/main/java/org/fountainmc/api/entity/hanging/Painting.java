@@ -18,4 +18,5 @@ public interface Painting extends HangingEntity {
      * @return the height of the painting
      */
     int getHeight();
+
 }

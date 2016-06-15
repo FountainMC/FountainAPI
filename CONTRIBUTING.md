@@ -62,7 +62,7 @@ We follow [Google's Java Style](https://google.github.io/styleguide/javaguide.ht
 * Vertical whitespace
 
   * Place a blank line before the first member of a class, interface, enum, etc., as
-    well as after the last member.
+    well as after the last member. A blank line should come after the last `}`.
     
     ```
     public interface Example {
@@ -70,6 +70,7 @@ We follow [Google's Java Style](https://google.github.io/styleguide/javaguide.ht
         void method();
     
     }
+    
     ```
 
 * Imports
@@ -87,16 +88,16 @@ We follow [Google's Java Style](https://google.github.io/styleguide/javaguide.ht
 
   * For exceptions that are to be ignored, name the exception variable ``ignored``.
 
-* Field accesses
-
-  * Qualify **all** field accesses with ``this``
-
 * Javadocs
 
   * Do not use ``@author``
   * Wrap additional paragraphs in ``<p>`` and ``</p>``
   * Capitalize the first letter in the descriptions within each "at clause", i.e. ``@param name Player to affect``, no
     periods.
+    
+* Patches
+
+  * Keep the diffs for patches _minimal_.
 
 ### Comitting your changes
 This is a very important setp in submitting changes. If you're commits are trash, we won't accept them.

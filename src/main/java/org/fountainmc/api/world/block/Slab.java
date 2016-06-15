@@ -32,12 +32,10 @@ public interface Slab extends BlockState {
      *
      * @return if rightside-up
      */
-    @SuppressWarnings("SpellCheckingInspection") // I googled it!
     public boolean isRightsideUp();
 
     public StairBlock withUpsideDown(boolean b);
 
-    @SuppressWarnings("SpellCheckingInspection") // I googled it!
     public default StairBlock asRightsideUp() {
         return withUpsideDown(false);
     }
@@ -45,4 +43,5 @@ public interface Slab extends BlockState {
     public default StairBlock asUpsideDown() {
         return withUpsideDown(false);
     }
+
 }

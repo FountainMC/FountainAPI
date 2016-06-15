@@ -1,11 +1,18 @@
 package org.fountainmc.api.chat.events;
 
-import com.google.gson.*;
-
 import java.lang.reflect.Type;
 import java.util.Locale;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
 public class ClickEventSerializer implements JsonSerializer<ClickEvent>, JsonDeserializer<ClickEvent> {
+
     @Override
     public ClickEvent deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
@@ -20,4 +27,5 @@ public class ClickEventSerializer implements JsonSerializer<ClickEvent>, JsonDes
         object.addProperty("value", event.getValue());
         return object;
     }
+
 }

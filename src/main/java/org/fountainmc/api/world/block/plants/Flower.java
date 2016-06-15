@@ -4,7 +4,6 @@ public interface Flower extends Plant {
 
     public FlowerType getType();
 
-    @SuppressWarnings("SpellCheckingInspection") // Stupid flowers
     public static enum FlowerType {
         POPPY,
         BLUE_ORCHARD,

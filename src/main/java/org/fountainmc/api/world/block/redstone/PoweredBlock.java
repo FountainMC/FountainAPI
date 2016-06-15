@@ -5,6 +5,7 @@ import javax.annotation.Nonnegative;
 import org.fountainmc.api.world.block.BlockState;
 
 public interface PoweredBlock extends BlockState {
+
     public static final int MAXIMUM_POWER = 15;
 
     @Nonnegative
@@ -18,4 +19,5 @@ public interface PoweredBlock extends BlockState {
      * @return the new chest
      */
     public PoweredBlock withPower(@Nonnegative int power);
+
 }

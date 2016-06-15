@@ -6,4 +6,5 @@ public interface RedstoneWire extends PoweredBlock {
 
     @Override
     public RedstoneWire withPower(@Nonnegative int power);
+
 }

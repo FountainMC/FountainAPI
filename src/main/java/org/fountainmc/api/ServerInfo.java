@@ -3,6 +3,7 @@ package org.fountainmc.api;
 import java.net.InetSocketAddress;
 
 public interface ServerInfo {
+
     String getName();
 
     String getVersion();
@@ -14,4 +15,5 @@ public interface ServerInfo {
     String getOwner();
 
     InetSocketAddress getAddress();
+
 }

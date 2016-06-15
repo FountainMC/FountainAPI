@@ -27,4 +27,5 @@ public interface ItemFrame extends HangingEntity {
      * @param material the Material to set the Item in the ItemFrame to
      */
     void setMaterial(Material material);
+
 }

@@ -9,6 +9,7 @@ import org.fountainmc.api.Direction;
  */
 @Nonnull
 public interface PistonBlock extends BlockState, DirectionalBlock {
+
     /**
      * Return if the piston has been extended
      *
@@ -82,4 +83,5 @@ public interface PistonBlock extends BlockState, DirectionalBlock {
      * @return if the block is an extension
      */
     public boolean isExtension();
+
 }

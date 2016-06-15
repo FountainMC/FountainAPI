@@ -1,21 +1,23 @@
 package org.fountainmc.api.chat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.events.HoverEvent;
 import org.fountainmc.api.chat.values.Text;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * {@link ComponentBuilder} handles the creation of text-based {@link Component}s using a fluent API.
+ * {@link ComponentBuilder} handles the creation of text-based {@link Component}
+ * s using a fluent API.
  */
 public class ComponentBuilder {
+
     private final List<Component<Text>> components = new ArrayList<>();
     private Component<Text> currentComponent = Components.EMPTY_TEXT;
 
@@ -150,4 +152,5 @@ public class ComponentBuilder {
         components.add(currentComponent);
         return ImmutableList.copyOf(components);
     }
+
 }

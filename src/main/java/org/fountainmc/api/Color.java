@@ -21,4 +21,5 @@ public enum Color {
     public int getWoolId() {
         return ordinal();
     }
+
 }

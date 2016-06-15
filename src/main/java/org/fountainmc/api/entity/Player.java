@@ -5,9 +5,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-
 import org.fountainmc.api.command.CommandSender;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -44,8 +42,7 @@ public interface Player extends LivingEntity, CommandSender {
     /**
      * Send multiple messages to the Player
      * 
-     * @param messages
-     *            Strings to send
+     * @param messages Strings to send
      */
     default void sendMessages(String... messages) {
         for (int i = 0; i < checkNotNull(messages, "Null messages array").length; i++) {
@@ -68,4 +65,5 @@ public interface Player extends LivingEntity, CommandSender {
     public default EntityType<Player> getEntityType() {
         return EntityType.PLAYER;
     }
+
 }

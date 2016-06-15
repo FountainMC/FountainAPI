@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
  * {@link Text} represents a plain text component value.
  */
 public class Text implements ComponentValue {
+
     private final String text;
 
     private Text(String text) {
@@ -33,8 +34,10 @@ public class Text implements ComponentValue {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Text text1 = (Text) o;
 
@@ -52,4 +55,5 @@ public class Text implements ComponentValue {
                 "text='" + text + '\'' +
                 '}';
     }
+
 }

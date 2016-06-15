@@ -8,6 +8,7 @@ import org.fountainmc.api.chat.Component;
  * Specifies behavior whilst hovering over a chat component.
  */
 public class HoverEvent<T> {
+
     private final Action action;
     private final T value;
 
@@ -57,8 +58,10 @@ public class HoverEvent<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         HoverEvent<?> that = (HoverEvent<?>) o;
         return action == that.action &&
                 Objects.equal(value, that.value);
@@ -92,4 +95,5 @@ public class HoverEvent<T> {
             return o.getClass().isAssignableFrom(acceptableType);
         }
     }
+
 }

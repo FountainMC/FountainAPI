@@ -13,14 +13,14 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 
+import net.techcable.event4j.EventBus;
+import net.techcable.event4j.EventExecutor;
 import org.fountainmc.api.event.Event;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import net.techcable.event4j.EventBus;
-import net.techcable.event4j.EventExecutor;
 
 public class PluginManager {
 
@@ -39,7 +39,7 @@ public class PluginManager {
     public void fireEvent(Event event) {
         eventBus.fire(event);
     }
-    
+
     public void loadPlugins(File dir) {
         if (dir.isDirectory()) {
             File[] directoryListing = dir.listFiles();
@@ -62,8 +62,7 @@ public class PluginManager {
                             cr.accept(new AnnotationScanner(this, loader, clazz, cr), 0);
                         }
                         jar.close();
-                    }
-                    catch (IOException | NoSuchMethodException | SecurityException | InvocationTargetException
+                    } catch (IOException | NoSuchMethodException | SecurityException | InvocationTargetException
                             | IllegalAccessException e) {
                         e.printStackTrace();
                     }
@@ -80,8 +79,7 @@ public class PluginManager {
             Object plugin = clazz.newInstance();
             plugins.add(plugin);
             eventBus.register(plugin);
-        }
-        catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -93,14 +91,14 @@ public class PluginManager {
             JarEntry jarEntry;
             while (true) {
                 jarEntry = jarStream.getNextJarEntry();
-                if (jarEntry == null) break;
+                if (jarEntry == null)
+                    break;
                 if (jarEntry.getName().endsWith(".class")) {
                     classes.add(jarEntry.getName());
                 }
             }
             jarStream.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return classes;
@@ -130,7 +128,8 @@ public class PluginManager {
             this.classReader = classReader;
         }
 
-        @Override public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
+        @Override
+        public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
             if (desc.contains(Type.getInternalName(Plugin.class))) {
                 pluginManager.loadPlugin(loader, className, classReader);
             }

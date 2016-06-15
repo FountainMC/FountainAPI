@@ -20,4 +20,5 @@ public @interface Plugin {
     String url() default "";
 
     String[] author() default {};
+
 }

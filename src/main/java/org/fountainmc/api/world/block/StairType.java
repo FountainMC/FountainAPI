@@ -12,41 +12,48 @@ public enum StairType {
     SANDSTONE_SLAB(Category.ROCKY),
     PURPUR(Category.PURPUR),
     OAK(Category.WOODEN) {
+
         @Override
         public WoodType getWoodType() {
             return WoodType.OAK;
         }
     },
     SPRUCE(Category.WOODEN) {
+
         @Override
         public WoodType getWoodType() {
             return WoodType.SPRUCE;
         }
     },
     BIRCH(Category.WOODEN) {
+
         @Override
         public WoodType getWoodType() {
             return WoodType.BIRCH;
         }
     },
     JUNGLE(Category.WOODEN) {
+
         @Override
         public WoodType getWoodType() {
             return WoodType.JUNGLE;
         }
     },
     ACACIA(Category.WOODEN) {
+
         @Override
         public WoodType getWoodType() {
             return WoodType.ACACIA;
         }
     },
     DARK_OAK(Category.WOODEN) {
+
         @Override
         public WoodType getWoodType() {
             return WoodType.DARK_OAK;
         }
     };
+
     private final Category category;
 
     StairType(Category category) {
@@ -74,4 +81,5 @@ public enum StairType {
         ROCKY,
         PURPUR;
     }
+
 }

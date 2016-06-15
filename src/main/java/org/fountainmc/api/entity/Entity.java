@@ -1,6 +1,7 @@
 package org.fountainmc.api.entity;
 
 import java.util.Collection;
+
 import javax.annotation.Nullable;
 
 import org.fountainmc.api.world.Location;
@@ -120,4 +121,5 @@ public interface Entity {
     void damage(int amount);
 
     public EntityType<?> getEntityType();
+
 }

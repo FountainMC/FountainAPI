@@ -38,8 +38,7 @@ public class CommandManager {
         if (senderClass.isAssignableFrom(sender.getClass())) {
             try {
                 handler.method.invoke(handler.source, arguments, senderClass.cast(sender));
-            }
-            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }

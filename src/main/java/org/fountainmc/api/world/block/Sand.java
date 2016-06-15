@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 @Nonnull
 public interface Sand extends FallingBlock {
+
     public SandType getType();
 
     public Sand withType(SandType type);
@@ -12,4 +13,5 @@ public interface Sand extends FallingBlock {
         SAND,
         RED_SAND;
     }
+
 }

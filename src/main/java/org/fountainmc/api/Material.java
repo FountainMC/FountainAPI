@@ -1,12 +1,11 @@
 package org.fountainmc.api;
 
-import static org.fountainmc.api.BlockType.*;
-
 /**
- * Get the material
- * <p>Plugins should keep in mind that forge mods may add new materials.</p>
+ * Get the material <p>Plugins should keep in mind that forge mods may add new
+ * materials.</p>
  */
 public interface Material {
+
     public int getId();
 
     public String getName();

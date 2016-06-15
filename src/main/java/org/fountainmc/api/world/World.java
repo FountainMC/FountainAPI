@@ -9,4 +9,5 @@ public interface World {
     Chunk getChunk(int x, int y);
 
     BlockState getBlockAt(int x, int y, int z);
+
 }

@@ -18,4 +18,5 @@ public interface Chest extends BlockState, DirectionalBlock {
     public default boolean mayBeVertical() {
         return false;
     }
+
 }

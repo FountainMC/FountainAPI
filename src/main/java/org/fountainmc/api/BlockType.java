@@ -3,6 +3,7 @@ package org.fountainmc.api;
 import org.fountainmc.api.world.block.BlockState;
 
 public interface BlockType extends Material {
+
     @Override
     public default boolean isBlock() {
         return true;

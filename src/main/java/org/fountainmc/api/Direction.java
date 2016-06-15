@@ -7,6 +7,7 @@ public enum Direction {
     WEST,
     UP(true),
     DOWN(true);
+
     private final boolean vertical;
 
     Direction() {
@@ -20,4 +21,5 @@ public enum Direction {
     public boolean isVertical() {
         return vertical;
     }
+
 }

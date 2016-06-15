@@ -1,14 +1,21 @@
 package org.fountainmc.api.chat.events;
 
-import com.google.gson.*;
+import java.lang.reflect.Type;
+import java.util.Locale;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 import org.fountainmc.api.chat.Component;
 import org.fountainmc.api.chat.values.Text;
 
-import java.lang.reflect.Type;
-import java.util.Locale;
-
 public class HoverEventSerializer implements JsonDeserializer<HoverEvent<?>>, JsonSerializer<HoverEvent<?>> {
+
     @Override
     public HoverEvent<?> deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
@@ -32,4 +39,5 @@ public class HoverEventSerializer implements JsonDeserializer<HoverEvent<?>>, Js
         object.add("value", context.serialize(event.getValue()));
         return object;
     }
+
 }

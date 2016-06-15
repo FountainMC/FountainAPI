@@ -4,19 +4,18 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.ImmutableList;
-
+import org.fountainmc.api.command.CommandManager;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.EntityType;
 import org.fountainmc.api.plugin.PluginManager;
-import org.fountainmc.api.command.CommandManager;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkArgument;
 
 @ParametersAreNonnullByDefault
 public interface Server extends ServerInfo {
 
     public PluginManager getPluginManager();
-    
+
     public CommandManager getCommandManager();
 
     public ImmutableList<String> getLaunchArguments();
@@ -44,4 +43,5 @@ public interface Server extends ServerInfo {
             throw new IllegalArgumentException("Entity type " + type + " is not a " + entityType.getTypeName());
         }
     }
+
 }

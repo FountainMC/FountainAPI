@@ -1,17 +1,24 @@
 package org.fountainmc.api.chat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Set;
+import java.util.regex.Pattern;
+
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.values.Text;
 
-import java.util.*;
-import java.util.regex.Pattern;
-
 /**
- * This class is used to parse the text in a legacy chat message using a state machine.
+ * This class is used to parse the text in a legacy chat message using a state
+ * machine.
  */
 class LegacyChatConverter {
+
     private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
     private final String text;
     private final List<LegacyChatPart> parts = new ArrayList<>();
@@ -25,14 +32,14 @@ class LegacyChatConverter {
     public boolean isParsed() {
         return parsed;
     }
-    
+
     public void parse() {
-        // - Formatting codes that are grouped together are part of the same component.
-        //   (i.e. &c&lTEST)
+        // - Formatting codes that are grouped together are part of the same
+        // component.
+        // (i.e. &c&lTEST)
         StringBuilder foundText = new StringBuilder();
         State state = State.TEXT;
-        textParse:
-        for (int i = 0; i < text.length(); i++) {
+        textParse: for (int i = 0; i < text.length(); i++) {
             char at = text.charAt(i);
             switch (state) {
                 case LOOKING_FOR_CODE:
@@ -47,7 +54,8 @@ class LegacyChatConverter {
                         }
 
                         if (foundText.length() > 0 || color == ChatColor.RESET) {
-                            // New text was found (or we're looking at a RESET), so this is a component.
+                            // New text was found (or we're looking at a RESET),
+                            // so this is a component.
                             parts.add(new LegacyChatPart(ImmutableSet.copyOf(formattingFound), null, foundText.toString()));
                             foundText.delete(0, foundText.length());
                         }
@@ -63,7 +71,8 @@ class LegacyChatConverter {
 
                         state = State.TEXT;
                     } else {
-                        // No, it's text. Proceed to add '&' and proceed as if we were looking at text.
+                        // No, it's text. Proceed to add '&' and proceed as if
+                        // we were looking at text.
                         foundText.append('&');
                         foundText.append(at);
                         state = State.TEXT;
@@ -86,7 +95,7 @@ class LegacyChatConverter {
         }
 
         // Now we can check for URLs
-        for (ListIterator<LegacyChatPart> it = parts.listIterator(); it.hasNext(); ) {
+        for (ListIterator<LegacyChatPart> it = parts.listIterator(); it.hasNext();) {
             LegacyChatPart part = it.next();
             String[] splitForUrl = part.text.split(" ");
             for (int i = 0; i < splitForUrl.length; i++) {
@@ -161,6 +170,7 @@ class LegacyChatConverter {
     }
 
     private class LegacyChatPart {
+
         private final Set<ChatColor> formattingFound;
         private final String url;
         private final String text;
@@ -171,4 +181,5 @@ class LegacyChatConverter {
             this.text = text;
         }
     }
+
 }

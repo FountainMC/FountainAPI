@@ -18,4 +18,5 @@ public interface HangingEntity extends Entity {
      */
     @Nullable
     Direction getDirection();
+
 }

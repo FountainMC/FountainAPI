@@ -2,7 +2,8 @@ package org.fountainmc.api.world;
 
 import javax.annotation.Nonnull;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Nonnull
 public final class Location {

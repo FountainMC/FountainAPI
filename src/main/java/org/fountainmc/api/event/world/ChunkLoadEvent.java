@@ -7,4 +7,5 @@ public class ChunkLoadEvent extends ChunkEvent {
     public ChunkLoadEvent(Chunk chunk) {
         super(chunk);
     }
+
 }

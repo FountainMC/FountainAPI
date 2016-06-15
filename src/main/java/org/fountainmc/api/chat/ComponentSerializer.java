@@ -1,15 +1,27 @@
 package org.fountainmc.api.chat;
 
-import com.google.gson.*;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.events.HoverEvent;
 import org.fountainmc.api.chat.values.ComponentValue;
 import org.fountainmc.api.chat.values.Text;
 
-import java.lang.reflect.Type;
-import java.util.*;
-
 public class ComponentSerializer implements JsonSerializer<Component<?>>, JsonDeserializer<Component<?>> {
+
     private static final ThreadLocal<Set<Component<?>>> DESERIALIZED_THIS_INVOCATION = new ThreadLocal<>();
 
     @Override
@@ -135,4 +147,5 @@ public class ComponentSerializer implements JsonSerializer<Component<?>>, JsonDe
             }
         }
     }
+
 }

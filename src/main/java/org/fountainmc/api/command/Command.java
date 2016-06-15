@@ -22,4 +22,5 @@ public @interface Command {
     public String usage() default "";
 
     public Class<? extends CommandSender> allow() default CommandSender.class;
+
 }

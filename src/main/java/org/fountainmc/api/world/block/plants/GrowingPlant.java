@@ -3,12 +3,14 @@ package org.fountainmc.api.world.block.plants;
 import javax.annotation.Nonnegative;
 
 public interface GrowingPlant extends Plant {
+
     @Nonnegative
     public default double getGrowthPercentage() {
         return getGrowth() / (double) getMaxGrowth();
     }
 
-    // NOTE a utility wither for 'withGrowthPercentage' is left out here because plugins should explicitly handle getMaxGrowth()
+    // NOTE a utility wither for 'withGrowthPercentage' is left out here because
+    // plugins should explicitly handle getMaxGrowth()
 
     @Nonnegative
     public int getGrowth();
@@ -34,4 +36,5 @@ public interface GrowingPlant extends Plant {
     public default boolean isFresh() {
         return getGrowth() == 0;
     }
+
 }

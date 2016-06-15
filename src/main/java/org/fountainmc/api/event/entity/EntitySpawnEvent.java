@@ -5,6 +5,7 @@ import org.fountainmc.api.event.CancellableBase;
 import org.fountainmc.api.world.Location;
 
 public class EntitySpawnEvent extends CancellableBase {
+
     private final Entity entity;
     private final Location location;
 
@@ -20,4 +21,5 @@ public class EntitySpawnEvent extends CancellableBase {
     public Location getLocation() {
         return location;
     }
+
 }

@@ -1,14 +1,15 @@
 package org.fountainmc.api.chat.events;
 
+import java.net.URL;
+
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
-
-import java.net.URL;
 
 /**
  * Specifies behavior to use when a component is clicked on.
  */
 public class ClickEvent {
+
     private final Action action;
     private final String value;
 
@@ -58,7 +59,8 @@ public class ClickEvent {
     }
 
     /**
-     * Creates a click event to fill a command to run when the component is clicked.
+     * Creates a click event to fill a command to run when the component is
+     * clicked.
      *
      * @param command the command to suggest
      * @return the click event
@@ -77,8 +79,10 @@ public class ClickEvent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ClickEvent that = (ClickEvent) o;
         return action == that.action &&
                 Objects.equal(value, that.value);
@@ -103,4 +107,5 @@ public class ClickEvent {
         RUN_COMMAND,
         SUGGEST_COMMAND;
     }
+
 }

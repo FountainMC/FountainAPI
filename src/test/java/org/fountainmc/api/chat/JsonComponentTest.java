@@ -1,14 +1,18 @@
 package org.fountainmc.api.chat;
 
+import java.util.List;
+
 import org.fountainmc.api.chat.values.Text;
 import org.junit.Test;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class JsonComponentTest {
+
     @Test
     public void simpleJsonDeserialize() {
         List<Component<?>> deserialized = Components.fromJson("[{\"text\":\"Hello, world!\"}]");
@@ -48,4 +52,5 @@ public class JsonComponentTest {
         assertThat(extra.getValue(), instanceOf(Text.class));
         assertThat(((Text) extra.getValue()).getText(), equalTo("Hello, world!"));
     }
+
 }

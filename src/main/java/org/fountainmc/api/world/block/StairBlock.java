@@ -3,6 +3,7 @@ package org.fountainmc.api.world.block;
 import org.fountainmc.api.Direction;
 
 public interface StairBlock extends BlockState, DirectionalBlock {
+
     /**
      * Get the direction the stair is facing
      * <p>The direction is <b>never</b> vertical.</p>
@@ -37,7 +38,6 @@ public interface StairBlock extends BlockState, DirectionalBlock {
      */
     public StairType getType();
 
-    @SuppressWarnings("SpellCheckingInspection") // I googled it!
     public default StairBlock asRightsideUp() {
         return withUpsideDown(false);
     }

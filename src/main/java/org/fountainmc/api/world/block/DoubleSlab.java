@@ -28,4 +28,5 @@ public interface DoubleSlab extends BlockState {
     public default DoubleSlab asRough() {
         return withSmoothness(false);
     }
+
 }
