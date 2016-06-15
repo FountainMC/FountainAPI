@@ -1,4 +1,4 @@
-package org.fountainmc.api.chat;
+package org.fountainmc.api.chat.events;
 
 import com.google.common.base.Preconditions;
 
@@ -12,7 +12,7 @@ public class ClickEvent {
     private final Action action;
     private final String value;
 
-    protected ClickEvent(Action action, String value) {
+    private ClickEvent(Action action, String value) {
         this.action = action;
         this.value = value;
     }
@@ -38,10 +38,9 @@ public class ClickEvent {
      * Creates a click event for opening a URL.
      * @param url the URL to open when clicked
      * @return the click event
-     * @throws MalformedURLException if the URL is not valid
      */
-    public static ClickEvent openUrl(String url) throws MalformedURLException {
-        return openUrl(new URL(url));
+    public static ClickEvent openUrl(String url) {
+        return new ClickEvent(Action.OPEN_URL, Preconditions.checkNotNull(url, "url"));
     }
 
     /**

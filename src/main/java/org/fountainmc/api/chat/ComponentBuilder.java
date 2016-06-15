@@ -1,7 +1,9 @@
 package org.fountainmc.api.chat;
 
 import com.google.common.base.Preconditions;
-import org.fountainmc.api.Color;
+import org.fountainmc.api.chat.events.ClickEvent;
+import org.fountainmc.api.chat.events.HoverEvent;
+import org.fountainmc.api.chat.values.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,21 +11,24 @@ import java.util.List;
 import static com.google.common.base.Preconditions.*;
 
 public class ComponentBuilder {
-    private TextComponent currentComponent = TextComponent.EMPTY;
-    private final List<TextComponent> components = new ArrayList<>();
+    private Component<Text> currentComponent = Components.EMPTY_TEXT;
+    private final List<Component<Text>> components = new ArrayList<>();
 
     private ComponentBuilder(String first) {
-        currentComponent = currentComponent.withText(checkNotNull(first, "first"));
+        currentComponent = currentComponent.withValue(Text.of(checkNotNull(first, "first")));
     }
 
     public ComponentBuilder then(String text) {
-        currentComponent = currentComponent.withText(checkNotNull(text, "text"));
+        currentComponent = currentComponent.withValue(Text.of(checkNotNull(text, "text")));
         components.add(currentComponent);
+        currentComponent = currentComponent.withParent(currentComponent);
         return this;
     }
 
-    public ComponentBuilder color(Color color) {
-        currentComponent = currentComponent.withColor(checkNotNull(color, "color"));
+    public ComponentBuilder color(ChatColor color) {
+        checkNotNull(color, color);
+        checkArgument(!color.isFormatting(), "color is a formatting code");
+        currentComponent = currentComponent.withColor(color);
         return this;
     }
 
@@ -47,6 +52,11 @@ public class ComponentBuilder {
         return this;
     }
 
+    public ComponentBuilder italic(boolean italic) {
+        currentComponent = currentComponent.withItalic(italic);
+        return this;
+    }
+
     public ComponentBuilder underlined(boolean underlined) {
         currentComponent = currentComponent.withUnderlined(underlined);
         return this;
@@ -63,7 +73,7 @@ public class ComponentBuilder {
     }
 
     public ComponentBuilder reset() {
-        currentComponent = TextComponent.EMPTY;
+        currentComponent = Components.EMPTY_TEXT;
         return this;
     }
 

@@ -1,6 +1,7 @@
-package org.fountainmc.api.chat;
+package org.fountainmc.api.chat.events;
 
 import com.google.common.base.Preconditions;
+import org.fountainmc.api.chat.Component;
 
 /**
  * Specifies behavior whilst hovering over a chat component.
@@ -9,7 +10,7 @@ public class HoverEvent<T> {
     private final Action action;
     private final T value;
 
-    protected HoverEvent(Action action, T value) {
+    private HoverEvent(Action action, T value) {
         this.action = action;
         Preconditions.checkArgument(action.isAcceptable(value), "Value class " + value.getClass() + " is not allowed by action " + action);
         this.value = value;
