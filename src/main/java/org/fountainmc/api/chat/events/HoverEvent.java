@@ -22,7 +22,7 @@ public class HoverEvent<T> {
      * @param component the component to display
      * @return the hover event
      */
-    public static HoverEvent<Component> showText(Component component) {
+    public static HoverEvent<Component<?>> showText(Component<?> component) {
         return new HoverEvent<>(Action.SHOW_ITEM, Preconditions.checkNotNull(component, "component"));
     }
 

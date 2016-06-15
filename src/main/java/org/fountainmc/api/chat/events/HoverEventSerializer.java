@@ -8,9 +8,9 @@ import org.fountainmc.api.chat.values.Text;
 import java.lang.reflect.Type;
 import java.util.Locale;
 
-public class HoverEventSerializer implements JsonDeserializer<HoverEvent>, JsonSerializer<HoverEvent> {
+public class HoverEventSerializer implements JsonDeserializer<HoverEvent<?>>, JsonSerializer<HoverEvent<?>> {
     @Override
-    public HoverEvent deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
+    public HoverEvent<?> deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject object = element.getAsJsonObject();
         HoverEvent.Action action = HoverEvent.Action.valueOf(object.get("action").getAsString());
         switch (action) {
@@ -26,7 +26,7 @@ public class HoverEventSerializer implements JsonDeserializer<HoverEvent>, JsonS
     }
 
     @Override
-    public JsonElement serialize(HoverEvent event, Type type, JsonSerializationContext context) {
+    public JsonElement serialize(HoverEvent<?> event, Type type, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
         object.addProperty("action", event.getAction().name().toLowerCase(Locale.US));
         object.add("value", context.serialize(event.getValue()));

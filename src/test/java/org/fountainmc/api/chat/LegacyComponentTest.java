@@ -5,7 +5,6 @@ import org.fountainmc.api.chat.values.Text;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
@@ -95,10 +94,10 @@ public class LegacyComponentTest {
     public void simpleLegacyTextUrl() {
         List<Component<Text>> converted = Components.forLegacyText("http://fountainmc.org");
         assertThat(converted, hasSize(1));
-        Optional<ClickEvent> event = converted.get(0).getClickEvent();
-        assertThat(event.isPresent(), is(true));
-        assertThat(event.get().getAction(), equalTo(ClickEvent.Action.OPEN_URL));
-        assertThat(event.get().getValue(), equalTo("http://fountainmc.org"));
+        ClickEvent event = converted.get(0).getClickEvent();
+        assertThat(event != null, is(true));
+        assertThat(event.getAction(), equalTo(ClickEvent.Action.OPEN_URL));
+        assertThat(event.getValue(), equalTo("http://fountainmc.org"));
         assertThat(converted.get(0).getValue().getText(), equalTo("http://fountainmc.org"));
     }
 
@@ -109,10 +108,10 @@ public class LegacyComponentTest {
 
         assertThat(converted.get(0).getValue().getText(), equalTo("abc mumble "));
 
-        Optional<ClickEvent> event = converted.get(1).getClickEvent();
-        assertThat(event.isPresent(), is(true));
-        assertThat(event.get().getAction(), equalTo(ClickEvent.Action.OPEN_URL));
-        assertThat(event.get().getValue(), equalTo("http://fountainmc.org"));
+        ClickEvent event = converted.get(1).getClickEvent();
+        assertThat(event != null, is(true));
+        assertThat(event.getAction(), equalTo(ClickEvent.Action.OPEN_URL));
+        assertThat(event.getValue(), equalTo("http://fountainmc.org"));
         assertThat(converted.get(1).getValue().getText(), equalTo("http://fountainmc.org"));
 
         assertThat(converted.get(2).getValue().getText(), equalTo(" grumble xyz"));
@@ -126,10 +125,10 @@ public class LegacyComponentTest {
         assertThat(converted.get(0).getValue().getText(), equalTo("test "));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.RED));
 
-        Optional<ClickEvent> event = converted.get(1).getClickEvent();
-        assertThat(event.isPresent(), is(true));
-        assertThat(event.get().getAction(), equalTo(ClickEvent.Action.OPEN_URL));
-        assertThat(event.get().getValue(), equalTo("http://fountainmc.org"));
+        ClickEvent event = converted.get(1).getClickEvent();
+        assertThat(event != null, is(true));
+        assertThat(event.getAction(), equalTo(ClickEvent.Action.OPEN_URL));
+        assertThat(event.getValue(), equalTo("http://fountainmc.org"));
         assertThat(converted.get(1).getValue().getText(), equalTo("http://fountainmc.org"));
         assertThat(converted.get(1).getColor(), equalTo(ChatColor.RED));
 
@@ -145,10 +144,10 @@ public class LegacyComponentTest {
         assertThat(converted.get(0).getValue().getText(), equalTo("test "));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.RED));
 
-        Optional<ClickEvent> event = converted.get(1).getClickEvent();
-        assertThat(event.isPresent(), is(true));
-        assertThat(event.get().getAction(), equalTo(ClickEvent.Action.OPEN_URL));
-        assertThat(event.get().getValue(), equalTo("http://fountainmc.org"));
+        ClickEvent event = converted.get(1).getClickEvent();
+        assertThat(event != null, is(true));
+        assertThat(event.getAction(), equalTo(ClickEvent.Action.OPEN_URL));
+        assertThat(event.getValue(), equalTo("http://fountainmc.org"));
         assertThat(converted.get(1).getValue().getText(), equalTo("http://fountainmc.org"));
         assertThat(converted.get(1).getColor(), equalTo(ChatColor.WHITE));
     }

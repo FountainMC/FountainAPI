@@ -22,6 +22,10 @@ class LegacyChatConverter {
         this.text = text;
     }
 
+    public boolean isParsed() {
+        return parsed;
+    }
+    
     public void parse() {
         // - Formatting codes that are grouped together are part of the same component.
         //   (i.e. &c&lTEST)
@@ -134,6 +138,8 @@ class LegacyChatConverter {
                             break;
                         case STRIKETHROUGH:
                             current = current.withStrikethrough(true);
+                            break;
+                        default:
                             break;
                     }
                 }

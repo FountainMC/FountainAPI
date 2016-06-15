@@ -76,7 +76,7 @@ public class Components {
      */
     public static List<Component<?>> fromJson(String json) {
         if (!json.startsWith("[")) {
-            return ImmutableList.of(GSON.fromJson(json, new TypeToken<Component>() {
+            return ImmutableList.of(GSON.fromJson(json, new TypeToken<Component<?>>() {
             }.getType()));
         }
         return GSON.fromJson(json, new TypeToken<List<Component<?>>>() {

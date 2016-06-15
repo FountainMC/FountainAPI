@@ -1,6 +1,5 @@
 package org.fountainmc.api.chat;
 
-import com.google.common.collect.ImmutableList;
 import org.fountainmc.api.chat.values.Text;
 import org.junit.Test;
 

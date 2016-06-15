@@ -9,11 +9,11 @@ import org.fountainmc.api.chat.values.Text;
 import java.lang.reflect.Type;
 import java.util.*;
 
-public class ComponentSerializer implements JsonSerializer<Component>, JsonDeserializer<Component> {
-    private static final ThreadLocal<Set<Component>> DESERIALIZED_THIS_INVOCATION = new ThreadLocal<>();
+public class ComponentSerializer implements JsonSerializer<Component<?>>, JsonDeserializer<Component<?>> {
+    private static final ThreadLocal<Set<Component<?>>> DESERIALIZED_THIS_INVOCATION = new ThreadLocal<>();
 
     @Override
-    public Component deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
+    public Component<?> deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
         if (element.isJsonPrimitive()) {
             // It's probably a regular old component.
             return Components.forPlainText(element.getAsString());
@@ -77,12 +77,12 @@ public class ComponentSerializer implements JsonSerializer<Component>, JsonDeser
             throw new JsonParseException("Invalid value");
         }
 
-        return new Component(null, bold, italic, underlined, strikethrough, obfuscated, color, hoverEvent, clickEvent,
+        return new Component<ComponentValue>(null, bold, italic, underlined, strikethrough, obfuscated, color, hoverEvent, clickEvent,
                 insertion, value, extra);
     }
 
     @Override
-    public JsonElement serialize(Component component, Type type, JsonSerializationContext context) {
+    public JsonElement serialize(Component<?> component, Type type, JsonSerializationContext context) {
         boolean first = false;
         if (DESERIALIZED_THIS_INVOCATION.get() == null) {
             DESERIALIZED_THIS_INVOCATION.set(new HashSet<>());

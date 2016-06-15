@@ -9,7 +9,6 @@ import org.fountainmc.api.chat.values.ComponentValue;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * This class represents a Minecraft chat component. This class is immutable and is thread-safe.
@@ -23,13 +22,13 @@ public class Component<T extends ComponentValue> {
     private final Boolean strikethrough;
     private final Boolean obfuscated;
     private final ChatColor color;
-    private final HoverEvent hoverEvent;
+    private final HoverEvent<?> hoverEvent;
     private final ClickEvent clickEvent;
     private final String insertion;
     private final T value;
     private final List<Component<?>> extra;
 
-    protected Component(Component<?> parent, Boolean bold, Boolean italic, Boolean underlined, Boolean strikethrough, Boolean obfuscated, ChatColor color, HoverEvent hoverEvent, ClickEvent clickEvent, String insertion, T value, List<Component<?>> extra) {
+    protected Component(Component<?> parent, Boolean bold, Boolean italic, Boolean underlined, Boolean strikethrough, Boolean obfuscated, ChatColor color, HoverEvent<?> hoverEvent, ClickEvent clickEvent, String insertion, T value, List<Component<?>> extra) {
         this.parent = parent;
         this.bold = bold;
         this.italic = italic;
@@ -137,7 +136,7 @@ public class Component<T extends ComponentValue> {
     }
 
     @Nullable
-    public HoverEvent getHoverEvent() {
+    public HoverEvent<?> getHoverEvent() {
         if (hoverEvent == null) {
             return parent != null ? parent.getHoverEvent() : null;
         }

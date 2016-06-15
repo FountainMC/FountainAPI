@@ -6,7 +6,6 @@ import it.unimi.dsi.fastutil.chars.Char2ObjectMaps;
 import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 /**
  * Represents all available chat colors in Minecraft.
