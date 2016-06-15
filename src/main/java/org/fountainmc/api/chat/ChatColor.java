@@ -7,6 +7,9 @@ import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
 
 import java.util.Optional;
 
+/**
+ * Represents all available chat colors in Minecraft.
+ */
 public enum ChatColor {
     @SerializedName("dark_red")
     DARK_RED('4', false),

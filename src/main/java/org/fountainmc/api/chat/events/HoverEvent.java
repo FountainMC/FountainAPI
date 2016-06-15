@@ -33,10 +33,20 @@ public class HoverEvent<T> {
         return new HoverEvent<>(Action.SHOW_ITEM, Preconditions.checkNotNull(component, "component"));
     }
 
+    /**
+     * Create a hover event to show information on a Minecraft game achievement.
+     * @param achievement the achievement to show
+     * @return the hover event
+     */
     public static HoverEvent<String> showAchievement(String achievement) {
         return new HoverEvent<>(Action.SHOW_ACHIEVEMENT, Preconditions.checkNotNull(achievement, "achievement"));
     }
 
+    /**
+     * Create a hover event to show information on a given item.
+     * @param item the item to show
+     * @return the hover event
+     */
     public static HoverEvent<String> showItem(String item) {
         return new HoverEvent<>(Action.SHOW_ITEM, Preconditions.checkNotNull(item, "item"));
     }
