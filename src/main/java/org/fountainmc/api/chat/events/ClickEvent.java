@@ -1,5 +1,6 @@
 package org.fountainmc.api.chat.events;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
 import java.net.URL;
@@ -72,6 +73,28 @@ public class ClickEvent {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClickEvent that = (ClickEvent) o;
+        return action == that.action &&
+                Objects.equal(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(action, value);
+    }
+
+    @Override
+    public String toString() {
+        return "ClickEvent{" +
+                "action=" + action +
+                ", value='" + value + '\'' +
+                '}';
     }
 
     public enum Action {

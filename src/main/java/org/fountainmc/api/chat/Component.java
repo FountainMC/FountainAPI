@@ -1,5 +1,6 @@
 package org.fountainmc.api.chat;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import org.fountainmc.api.chat.events.ClickEvent;
@@ -144,6 +145,7 @@ public class Component<T extends ComponentValue> {
         return hoverEvent;
     }
 
+    @Nullable
     public ClickEvent getClickEvent() {
         if (clickEvent == null) {
             return parent != null ? parent.getClickEvent() : null;
@@ -151,6 +153,7 @@ public class Component<T extends ComponentValue> {
         return clickEvent;
     }
 
+    @Nullable
     public String getInsertion() {
         if (insertion == null) {
             return parent != null ? parent.getInsertion() : null;
@@ -295,5 +298,46 @@ public class Component<T extends ComponentValue> {
     public Component<T> withExtra(List<Component<?>> extra) {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Component<?> component = (Component<?>) o;
+        return Objects.equal(parent, component.parent) &&
+                Objects.equal(bold, component.bold) &&
+                Objects.equal(italic, component.italic) &&
+                Objects.equal(underlined, component.underlined) &&
+                Objects.equal(strikethrough, component.strikethrough) &&
+                Objects.equal(obfuscated, component.obfuscated) &&
+                color == component.color &&
+                Objects.equal(hoverEvent, component.hoverEvent) &&
+                Objects.equal(clickEvent, component.clickEvent) &&
+                Objects.equal(insertion, component.insertion) &&
+                Objects.equal(value, component.value) &&
+                Objects.equal(extra, component.extra);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(parent, bold, italic, underlined, strikethrough, obfuscated, color, hoverEvent, clickEvent, insertion, value, extra);
+    }
+
+    @Override
+    public String toString() {
+        return "Component{" +
+                "bold=" + isBold() +
+                ", italic=" + isItalic() +
+                ", underlined=" + isUnderlined()+
+                ", strikethrough=" + isStrikethrough() +
+                ", obfuscated=" + isObfuscated() +
+                ", color=" + getColor() +
+                ", hoverEvent=" + getHoverEvent() +
+                ", clickEvent=" + getClickEvent() +
+                ", insertion='" + getInsertion() + '\'' +
+                ", value=" + getValue() +
+                ", extra=" + getExtra() +
+                '}';
     }
 }
