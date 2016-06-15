@@ -6,13 +6,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 
 import org.fountainmc.api.command.CommandSender;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * An Entity that can walk, talk, eat, sleep, and die.
+ * A connected player.
  */
 @ParametersAreNonnullByDefault
 public interface Player extends LivingEntity, CommandSender {
@@ -60,4 +61,11 @@ public interface Player extends LivingEntity, CommandSender {
      * @param entity Entity to hide
      */
     void hide(Entity entity);
+
+    public ImmutableList<? extends Entity> getHiddenEntities();
+
+    @Override
+    public default EntityType<Player> getEntityType() {
+        return EntityType.PLAYER;
+    }
 }
