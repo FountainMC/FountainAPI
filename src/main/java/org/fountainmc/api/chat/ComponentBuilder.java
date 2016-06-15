@@ -1,6 +1,7 @@
 package org.fountainmc.api.chat;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.events.HoverEvent;
 import org.fountainmc.api.chat.values.Text;
@@ -77,9 +78,9 @@ public class ComponentBuilder {
         return this;
     }
 
-    public Component[] build() {
+    public List<Component<Text>> build() {
         components.add(currentComponent);
-        return components.toArray(new Component[components.size()]);
+        return ImmutableList.copyOf(components);
     }
 
     public static ComponentBuilder start(String first) {

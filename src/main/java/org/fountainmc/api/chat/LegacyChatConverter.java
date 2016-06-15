@@ -1,5 +1,6 @@
 package org.fountainmc.api.chat;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.values.Text;
@@ -25,9 +26,7 @@ class LegacyChatConverter {
         // - Formatting codes that are grouped together are part of the same component.
         //   (i.e. &c&lTEST)
         StringBuilder foundText = new StringBuilder();
-        StringBuilder foundUrl = new StringBuilder();
         State state = State.TEXT;
-        formattingFound.add(ChatColor.WHITE);
         textParse: for (int i = 0; i < text.length(); i++) {
             char at = text.charAt(i);
             switch (state) {
@@ -38,6 +37,12 @@ class LegacyChatConverter {
                         // Yes, it is.
                         ChatColor color = colorOptional.get();
 
+                        if (formattingFound.contains(color)) {
+                            // No need, since this is a duplicate.
+                            state = State.TEXT;
+                            continue textParse;
+                        }
+
                         if (foundText.length() > 0 || color == ChatColor.RESET) {
                             // New text was found (or we're looking at a RESET), so this is a component.
                             parts.add(new LegacyChatPart(ImmutableSet.copyOf(formattingFound), null, foundText.toString()));
@@ -46,13 +51,14 @@ class LegacyChatConverter {
 
                         if (color == ChatColor.RESET) {
                             formattingFound.clear();
-                            formattingFound.add(ChatColor.WHITE);
                         } else {
                             if (!color.isFormatting()) {
                                 formattingFound.removeIf(c -> !c.isFormatting());
                             }
-                            formattingFound.add(colorOptional.get());
+                            formattingFound.add(color);
                         }
+
+                        state = State.TEXT;
                     } else {
                         // No, it's text. Proceed to add '&' and proceed as if we were looking at text.
                         foundText.append('&');
@@ -62,16 +68,12 @@ class LegacyChatConverter {
                     }
                     break;
                 case TEXT:
-                    if (at == '&') {
+                    if (at == '\u00a7') {
                         state = State.LOOKING_FOR_CODE;
-                    } else if (at == ' ') {
                     } else {
                         foundText.append(at);
                     }
                     break;
-            }
-            if (at == '&') {
-                state = State.LOOKING_FOR_CODE;
             }
         }
 
@@ -80,10 +82,37 @@ class LegacyChatConverter {
             parts.add(new LegacyChatPart(ImmutableSet.copyOf(formattingFound), null, foundText.toString()));
         }
 
+        // Now we can check for URLs
+        for (ListIterator<LegacyChatPart> it = parts.listIterator(); it.hasNext(); ) {
+            LegacyChatPart part = it.next();
+            String[] splitForUrl = part.text.split(" ");
+            for (int i = 0; i < splitForUrl.length; i++) {
+                String at = splitForUrl[i];
+                if (url.matcher(at).matches()) {
+                    // We need to rewrite this part.
+                    it.remove();
+
+                    String previousText = Joiner.on(' ').join(Arrays.copyOfRange(splitForUrl, 0, i)) + " ";
+                    LegacyChatPart newPreviousPart = new LegacyChatPart(part.formattingFound, null, previousText);
+                    LegacyChatPart thisPart = new LegacyChatPart(part.formattingFound, at, at);
+                    String nextText = " " + Joiner.on(' ').join(Arrays.copyOfRange(splitForUrl, i + 1, splitForUrl.length));
+                    LegacyChatPart nextPart = new LegacyChatPart(part.formattingFound, null, nextText);
+
+                    if (!previousText.trim().isEmpty()) {
+                        it.add(newPreviousPart);
+                    }
+                    it.add(thisPart);
+                    if (!nextText.trim().isEmpty()) {
+                        it.add(nextPart);
+                    }
+                }
+            }
+        }
+
         parsed = true;
     }
 
-    public Component<?>[] toComponents() {
+    public List<Component<Text>> toComponents() {
         List<Component<Text>> components = new ArrayList<>();
         for (LegacyChatPart part : parts) {
             Component<Text> current = Components.forPlainText(part.text);
@@ -118,7 +147,7 @@ class LegacyChatConverter {
         if (components.isEmpty()) {
             components.add(Components.EMPTY_TEXT);
         }
-        return components.toArray(new Component[components.size()]);
+        return components;
     }
 
     private class LegacyChatPart {
@@ -135,7 +164,6 @@ class LegacyChatConverter {
 
     private enum State {
         TEXT,
-        LOOKING_FOR_CODE,
-        LOOKING_FOR_URL
+        LOOKING_FOR_CODE
     }
 }
