@@ -12,7 +12,7 @@ public class ClickEvent {
     private final Action action;
     private final String value;
 
-    private ClickEvent(Action action, String value) {
+    ClickEvent(Action action, String value) {
         this.action = action;
         this.value = value;
     }

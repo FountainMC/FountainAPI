@@ -10,7 +10,7 @@ public class HoverEvent<T> {
     private final Action action;
     private final T value;
 
-    private HoverEvent(Action action, T value) {
+    HoverEvent(Action action, T value) {
         this.action = action;
         Preconditions.checkArgument(action.isAcceptable(value), "Value class " + value.getClass() + " is not allowed by action " + action);
         this.value = value;

@@ -216,4 +216,9 @@ public class Component<T extends ComponentValue> {
         return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
                 hoverEvent, clickEvent, insertion, value, extra);
     }
+
+    public Component<T> withExtra(List<Component<?>> extra) {
+        return new Component<>(parent, bold, italic, underlined, strikethrough, obfuscated, color,
+                hoverEvent, clickEvent, insertion, value, extra);
+    }
 }
