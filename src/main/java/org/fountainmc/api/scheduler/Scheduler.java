@@ -6,8 +6,7 @@ import java.util.concurrent.Executor;
 /**
  * The {@link Scheduler} class represents a task scheduler, which may or may not be asynchronous.
  *
- * {@code Scheduler} makes no timing guarantees except for synchronous tasks, which are run in the main thread tick
- * loop.
+ * {@code Scheduler} makes no timing guarantees (it will make a best-effort attempt to execute on the desired tick).
  */
 @ParametersAreNonnullByDefault
 public interface Scheduler {

@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 
 import org.fountainmc.api.plugin.PluginManager;
 import org.fountainmc.api.command.CommandManager;
+import org.fountainmc.api.scheduler.Scheduler;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -25,4 +26,8 @@ public interface Server extends ServerInfo {
         checkArgument(material instanceof BlockType, "%s is not a block!", name);
         return (BlockType) material;
     }
+
+    public Scheduler getBlockingScheduler();
+
+    public Scheduler getAsynchronousScheduler();
 }
