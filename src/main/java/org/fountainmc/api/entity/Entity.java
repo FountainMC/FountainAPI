@@ -3,12 +3,14 @@ package org.fountainmc.api.entity;
 import java.util.Collection;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.fountainmc.api.world.Location;
 
 /**
  * Base interface for every Entity.
  */
+@ParametersAreNonnullByDefault
 public interface Entity {
 
     /**
@@ -19,11 +21,11 @@ public interface Entity {
     Location getLocation();
 
     /**
-     * Set the Location of the Entity.
+     * Teleport the entity to the specified location
      *
-     * @param loc The Location to send the Entity
+     * @param destination The destination location to send the Entity to
      */
-    void setLocation(Location loc);
+    void teleport(Location destination);
 
     /**
      * Get the Pitch of the Entity.
