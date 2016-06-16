@@ -3,6 +3,7 @@ package org.fountainmc.api.world;
 import javax.annotation.Nonnull;
 
 import org.fountainmc.api.Direction;
+import org.fountainmc.api.world.block.BlockState;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -90,6 +91,10 @@ public final class BlockPosition {
                 throw new IllegalArgumentException("Invalid direction: " + direction);
         }
         return withCoordinates(x, y, z);
+    }
+
+    public void setState(BlockState state) {
+        world.setBlock(this, state);
     }
 
 }

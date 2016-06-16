@@ -8,6 +8,16 @@ public interface World {
 
     Chunk getChunk(int x, int y);
 
-    BlockState getBlockAt(int x, int y, int z);
+    BlockState getBlock(int x, int y, int z);
+
+    default BlockState getBlock(BlockPosition pos) {
+        return getBlock(pos.getX(), pos.getY(), pos.getZ());
+    }
+
+    void setBlock(int x, int y, int z, BlockState state);
+
+    default void setBlock(BlockPosition pos, BlockState state) {
+        setBlock(pos.getX(), pos.getY(), pos.getZ(), state);
+    }
 
 }

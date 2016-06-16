@@ -433,5 +433,9 @@ public class Blocks {
     public static BlockType getByName(String name) {
         return Fountain.getServer().getBlockType(name);
     }
+    
+    public static BlockType getById(int id) {
+        return Fountain.getServer().getBlockType(id);
+    }
 
 }

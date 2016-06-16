@@ -14,28 +14,38 @@ import static com.google.common.base.Preconditions.checkArgument;
 @ParametersAreNonnullByDefault
 public interface Server extends ServerInfo {
 
-    public PluginManager getPluginManager();
+    PluginManager getPluginManager();
 
-    public CommandManager getCommandManager();
+    CommandManager getCommandManager();
 
-    public ImmutableList<String> getLaunchArguments();
-
-    @Nonnull
-    public Material getMaterial(String name);
+    ImmutableList<String> getLaunchArguments();
 
     @Nonnull
-    public default BlockType getBlockType(String name) {
+    Material getMaterial(String name);
+
+    @Nonnull
+    Material getMaterial(int id);
+
+    @Nonnull
+    default BlockType getBlockType(String name) {
         Material material = getMaterial(name);
         checkArgument(material instanceof BlockType, "%s is not a block!", name);
         return (BlockType) material;
     }
 
     @Nonnull
-    public EntityType<?> getEntityType(String name);
+    default BlockType getBlockType(int id) {
+        Material material = getMaterial(id);
+        checkArgument(material instanceof BlockType, "%s is not a block!", id);
+        return (BlockType) material;
+    }
+
+    @Nonnull
+    EntityType<?> getEntityType(String name);
 
     @Nonnull
     @SuppressWarnings("unchecked")
-    public default <T extends Entity> EntityType<T> getEntityType(String name, Class<T> entityType) {
+    default <T extends Entity> EntityType<T> getEntityType(String name, Class<T> entityType) {
         EntityType<?> type = getEntityType(name);
         if (entityType.isAssignableFrom(type.getEntityClass())) {
             return (EntityType<T>) type;
