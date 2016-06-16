@@ -59,10 +59,10 @@ public interface Player extends LivingEntity, CommandSender {
      */
     void hide(Entity entity);
 
-    public ImmutableList<? extends Entity> getHiddenEntities();
+    ImmutableList<? extends Entity> getHiddenEntities();
 
     @Override
-    public default EntityType<Player> getEntityType() {
+    default EntityType<Player> getEntityType() {
         return EntityType.PLAYER;
     }
 
