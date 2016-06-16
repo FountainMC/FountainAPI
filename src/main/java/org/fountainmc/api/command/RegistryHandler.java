@@ -6,7 +6,7 @@ package org.fountainmc.api.command;
  * Allows to register plugins on {@link CommandManager}#registerCommands(Object source) and {@link CommandManager}#registerCommand(ICommand command).
  */
 public interface RegistryHandler {
-    void onRegister(ICommand iCommand);
+    void onRegister(AbstractCommand iCommand);
 
     void onRegister(CommandManager.CommandHandler commandHandler);
 }

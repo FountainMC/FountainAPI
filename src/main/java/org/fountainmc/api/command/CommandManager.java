@@ -9,12 +9,12 @@ import java.util.List;
 public class CommandManager {
 
     private final List<CommandHandler> commands;
-    private final List<ICommand> dynamicCommands;
+    private final List<AbstractCommand> dynamicCommands;
     private final List<RegistryHandler> handlers;
 
     public CommandManager() {
         this.commands = new ArrayList<CommandHandler>();
-        this.dynamicCommands = new ArrayList<ICommand>();
+        this.dynamicCommands = new ArrayList<AbstractCommand>();
         this.handlers = new ArrayList<RegistryHandler>();
     }
 
@@ -33,19 +33,15 @@ public class CommandManager {
         }
     }
 
-    public CommandBuilder newCommand(String cmdName) {
-        return new CommandBuilder(this, cmdName);
-    }
-
     public void registerHandler(RegistryHandler handler) {
         this.handlers.add(handler);
     }
 
-    void registerCommand(ICommand iCommand) {
+    void registerCommand(AbstractCommand abstractCommand) {
         for (RegistryHandler handler : handlers) {
-            handler.onRegister(iCommand);
+            handler.onRegister(abstractCommand);
         }
-        dynamicCommands.add(iCommand);
+        dynamicCommands.add(abstractCommand);
     }
 
 
@@ -56,7 +52,7 @@ public class CommandManager {
                 return;
             }
         }
-        for (ICommand dynCmd : dynamicCommands) {
+        for (AbstractCommand dynCmd : dynamicCommands) {
             if (dynCmd.name().equalsIgnoreCase(command)) {
                 fireCommand(dynCmd, arguments, sender);
                 return;
@@ -64,7 +60,7 @@ public class CommandManager {
         }
     }
 
-    public void fireCommand(ICommand command, String[] arguments, CommandSender sender) {
+    public void fireCommand(AbstractCommand command, String[] arguments, CommandSender sender) {
         Class<? extends CommandSender> senderClass = command.allow();
         if (senderClass.isAssignableFrom(sender.getClass())) {
             command.onExecute(senderClass.cast(sender), arguments);
@@ -86,7 +82,7 @@ public class CommandManager {
         return commands;
     }
 
-    public List<ICommand> getDynamicCommands() {
+    public List<AbstractCommand> getDynamicCommands() {
         return dynamicCommands;
     }
 
