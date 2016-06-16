@@ -48,13 +48,6 @@
             <version>5.0.4</version>
             <scope>compile</scope>
         </dependency>
-        <!-- Got2gofast -->
-        <dependency>
-            <groupId>it.unimi.dsi</groupId>
-            <artifactId>fastutil</artifactId>
-            <version>7.0.12</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

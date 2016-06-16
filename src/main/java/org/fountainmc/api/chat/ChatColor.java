@@ -2,10 +2,10 @@ package org.fountainmc.api.chat;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.annotations.SerializedName;
-import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
-import it.unimi.dsi.fastutil.chars.Char2ObjectMaps;
-import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
+
+import java.util.Map;
 
 /**
  * Represents all available chat colors in Minecraft.
@@ -35,14 +35,14 @@ public enum ChatColor {
     STRIKETHROUGH('m', true),
     RESET('r', true);
 
-    private static final Char2ObjectMap<ChatColor> COLOR_MAP;
+    private static final Map<Character, ChatColor> COLOR_MAP;
 
     static {
-        Char2ObjectMap<ChatColor> colors = new Char2ObjectOpenHashMap<>();
+        ImmutableMap.Builder<Character, ChatColor> builder = ImmutableMap.builder();
         for (ChatColor color : values()) {
-            colors.put(color.colorCode, color);
+            builder.put(color.getColorCode(), color);
         }
-        COLOR_MAP = Char2ObjectMaps.unmodifiable(colors);
+        COLOR_MAP = builder.build();
     }
 
     private final char colorCode;
