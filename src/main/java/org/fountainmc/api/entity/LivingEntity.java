@@ -31,7 +31,14 @@ public interface LivingEntity extends Entity {
      *
      * @param maxHealth the new maximum health
      */
-    public void setMaxHealth(int maxHealth);
+    public void setMaxHealth(double maxHealth);
+
+    /**
+     * Damage the Entity
+     *
+     * @param amount amount of health to take away from the Entity
+     */
+    void damage(double amount);
 
     /**
      * Is the Entity alive?
