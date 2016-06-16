@@ -9,9 +9,13 @@ import java.util.List;
 public class CommandManager {
 
     private final List<CommandHandler> commands;
+    private final List<ICommand> dynamicCommands;
+    private final List<RegistryHandler> handlers;
 
     public CommandManager() {
         this.commands = new ArrayList<CommandHandler>();
+        this.dynamicCommands = new ArrayList<ICommand>();
+        this.handlers = new ArrayList<RegistryHandler>();
     }
 
     public void registerCommands(Object source) {
@@ -19,17 +23,47 @@ public class CommandManager {
             if (Modifier.isPublic(method.getModifiers())) {
                 if (method.isAnnotationPresent(Command.class)) {
                     Command command = method.getAnnotation(Command.class);
-                    commands.add(new CommandHandler(command, method, source));
+                    CommandHandler cmdHandler = new CommandHandler(command, method, source);
+                    commands.add(cmdHandler);
+                    for (RegistryHandler handler : handlers) {
+                        handler.onRegister(cmdHandler);
+                    }
                 }
             }
         }
     }
 
+    public void registerHandler(RegistryHandler handler) {
+        this.handlers.add(handler);
+    }
+
+    public void registerCommand(ICommand iCommand) {
+        for (RegistryHandler handler : handlers) {
+            handler.onRegister(iCommand);
+        }
+        dynamicCommands.add(iCommand);
+    }
+
+
     public void fireCommand(String command, String[] arguments, CommandSender sender) {
         for (CommandHandler handler : commands) {
             if (handler.command.name().equalsIgnoreCase(command)) {
                 fireCommand(handler, arguments, sender);
+                return;
             }
+        }
+        for (ICommand dynCmd : dynamicCommands) {
+            if (dynCmd.name().equalsIgnoreCase(command)) {
+                fireCommand(dynCmd, arguments, sender);
+                return;
+            }
+        }
+    }
+
+    public void fireCommand(ICommand command, String[] arguments, CommandSender sender) {
+        Class<? extends CommandSender> senderClass = command.allow();
+        if (senderClass.isAssignableFrom(sender.getClass())) {
+            command.onExecute(senderClass.cast(sender), arguments);
         }
     }
 
