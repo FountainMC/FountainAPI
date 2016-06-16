@@ -33,11 +33,15 @@ public class CommandManager {
         }
     }
 
+    public CommandBuilder newCommand(String cmdName) {
+        return new CommandBuilder(this, cmdName);
+    }
+
     public void registerHandler(RegistryHandler handler) {
         this.handlers.add(handler);
     }
 
-    public void registerCommand(ICommand iCommand) {
+    void registerCommand(ICommand iCommand) {
         for (RegistryHandler handler : handlers) {
             handler.onRegister(iCommand);
         }
@@ -80,6 +84,10 @@ public class CommandManager {
 
     public List<CommandHandler> getCommands() {
         return commands;
+    }
+
+    public List<ICommand> getDynamicCommands() {
+        return dynamicCommands;
     }
 
     public class CommandHandler {

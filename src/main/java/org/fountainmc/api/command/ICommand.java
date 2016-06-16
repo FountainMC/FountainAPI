@@ -15,6 +15,10 @@ public interface ICommand<T extends CommandSender> {
         return "You do not have permission to run this command";
     }
 
+    default String usage() {
+        return "";
+    }
+
     default String[] aliases() {
         return new String[0];
     }
