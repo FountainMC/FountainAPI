@@ -5,6 +5,7 @@ package org.fountainmc.api.command;
  * Alternative to using annotations.
  */
 public abstract class AbstractCommand<T extends CommandSender> {
+
     public abstract String name();
 
     public String permission() {

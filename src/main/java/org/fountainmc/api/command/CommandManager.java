@@ -44,7 +44,6 @@ public class CommandManager {
         dynamicCommands.add(abstractCommand);
     }
 
-
     public void fireCommand(String command, String[] arguments, CommandSender sender) {
         for (CommandHandler handler : commands) {
             if (handler.command.name().equalsIgnoreCase(command)) {
