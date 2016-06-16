@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableList;
 import org.fountainmc.api.command.CommandManager;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.EntityType;
+import org.fountainmc.api.event.EventManager;
 import org.fountainmc.api.plugin.PluginManager;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -17,6 +18,8 @@ public interface Server extends ServerInfo {
     PluginManager getPluginManager();
 
     CommandManager getCommandManager();
+
+    EventManager getEventManager();
 
     ImmutableList<String> getLaunchArguments();
 
