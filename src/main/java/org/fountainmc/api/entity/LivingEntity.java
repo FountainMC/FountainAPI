@@ -10,28 +10,28 @@ public interface LivingEntity extends Entity {
      *
      * @return health of the Entity
      */
-    double getHealth();
+    float getHealth();
 
     /**
      * Set the health of the Entity
      *
      * @param health amount of health to set the Entity to
      */
-    void setHealth(double health);
+    void setHealth(float health);
 
     /**
      * Get the maximum health this entity can have.
      *
      * @return the maximum health
      */
-    public double getMaxHealth();
+    float getMaxHealth();
 
     /**
      * Set the new maximum health this entity can have.
      *
      * @param maxHealth the new maximum health
      */
-    public void setMaxHealth(double maxHealth);
+    void setMaxHealth(float maxHealth);
 
     /**
      * Damage the Entity
@@ -50,6 +50,6 @@ public interface LivingEntity extends Entity {
     }
 
     @Override
-    public EntityType<? extends LivingEntity> getEntityType();
+    EntityType<? extends LivingEntity> getEntityType();
 
 }
