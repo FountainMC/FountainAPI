@@ -9,6 +9,7 @@ import org.fountainmc.api.world.Chunk;
 import static com.google.common.base.Preconditions.*;
 
 public interface ChunkUnloadEvent extends ChunkEvent, Cancellable {
+
     @Nonnull
     public static ChunkUnloadEvent create(@Nonnull Chunk chunk) {
         checkNotNull(chunk, "Null chunk");
@@ -22,4 +23,5 @@ public interface ChunkUnloadEvent extends ChunkEvent, Cancellable {
         }
         return new SimpleChunkUnloadEvent();
     }
+
 }

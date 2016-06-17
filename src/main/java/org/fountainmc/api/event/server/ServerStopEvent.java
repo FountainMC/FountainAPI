@@ -3,7 +3,6 @@ package org.fountainmc.api.event.server;
 import javax.annotation.Nonnull;
 
 import org.fountainmc.api.Server;
-import org.fountainmc.api.event.AbstractCancellable;
 import org.fountainmc.api.event.Event;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -17,4 +16,5 @@ public interface ServerStopEvent extends Event {
         checkNotNull(server, "Null server");
         return () -> server;
     }
+
 }

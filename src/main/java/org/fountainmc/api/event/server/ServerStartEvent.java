@@ -4,10 +4,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.fountainmc.api.Server;
-import org.fountainmc.api.event.AbstractCancellable;
 import org.fountainmc.api.event.Event;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @ParametersAreNonnullByDefault
 public interface ServerStartEvent extends Event {
