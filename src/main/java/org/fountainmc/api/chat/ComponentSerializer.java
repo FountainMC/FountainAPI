@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.JsonArray;
@@ -80,16 +81,9 @@ public class ComponentSerializer implements JsonSerializer<Component<?>>, JsonDe
         }
 
         // Now, figure out the component value.
-        ComponentValue value = null;
-        if (object.has("text")) {
-            value = Text.of(object.get("text").getAsString());
-        }
+        ComponentValue value = context.deserialize(object, ComponentValue.class);
 
-        if (value == null) {
-            throw new JsonParseException("Invalid value");
-        }
-
-        return new Component<ComponentValue>(null, bold, italic, underlined, strikethrough, obfuscated, color, hoverEvent, clickEvent,
+        return new Component<>(null, bold, italic, underlined, strikethrough, obfuscated, color, hoverEvent, clickEvent,
                 insertion, value, extra);
     }
 
@@ -136,8 +130,9 @@ public class ComponentSerializer implements JsonSerializer<Component<?>>, JsonDe
             }
 
             // Serialize values.
-            if (component.getValue() instanceof Text) {
-                object.addProperty("text", ((Text) component.getValue()).getText());
+            JsonObject value = context.serialize(component.getValue()).getAsJsonObject();
+            for (Map.Entry<String, JsonElement> entry : value.entrySet()) {
+                object.add(entry.getKey(), entry.getValue());
             }
             return object;
         } finally {

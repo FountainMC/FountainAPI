@@ -11,6 +11,7 @@ import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.events.ClickEventSerializer;
 import org.fountainmc.api.chat.events.HoverEvent;
 import org.fountainmc.api.chat.events.HoverEventSerializer;
+import org.fountainmc.api.chat.values.ComponentValue;
 import org.fountainmc.api.chat.values.Text;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -26,6 +27,7 @@ public class Components {
             .registerTypeAdapter(Component.class, new ComponentSerializer())
             .registerTypeAdapter(HoverEvent.class, new HoverEventSerializer())
             .registerTypeAdapter(ClickEvent.class, new ClickEventSerializer())
+            .registerTypeAdapter(ComponentValue.class, new ComponentValueSerializer())
             .create();
 
     /**

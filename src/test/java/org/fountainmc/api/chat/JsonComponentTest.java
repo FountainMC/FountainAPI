@@ -1,8 +1,10 @@
 package org.fountainmc.api.chat;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.fountainmc.api.chat.values.Text;
+import org.fountainmc.api.chat.values.Translatable;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -51,6 +53,24 @@ public class JsonComponentTest {
         Component<?> extra = deserialized.get(0).getExtra().get(0);
         assertThat(extra.getValue(), instanceOf(Text.class));
         assertThat(((Text) extra.getValue()).getText(), equalTo("Hello, world!"));
+    }
+
+    @Test
+    public void translatableDeserialize() {
+        List<Component<?>> deserialized = Components.fromJson("[{\"translate\":\"demo.day.2\"}]");
+        assertThat(deserialized, hasSize(1));
+        assertThat(deserialized.get(0).getValue(), instanceOf(Translatable.class));
+        assertThat(((Translatable) deserialized.get(0).getValue()).getMessage(), equalTo("demo.day.2"));
+    }
+
+    @Test
+    public void translatableDeserializeWith() {
+        List<Component<?>> deserialized = Components.fromJson("[{\"translate\":\"multiplayer.player.joined\",\"with\":[\"Notch\"]}]");
+        assertThat(deserialized, hasSize(1));
+        assertThat(deserialized.get(0).getValue(), instanceOf(Translatable.class));
+        assertThat(((Translatable) deserialized.get(0).getValue()).getMessage(), equalTo("multiplayer.player.joined"));
+        assertThat(((Translatable) deserialized.get(0).getValue()).getSubstitutions(), equalTo(
+                Collections.singletonList("Notch")));
     }
 
 }
