@@ -8,6 +8,4 @@ public interface DirectionalBlock extends BlockState {
 
     public boolean mayBeVertical();
 
-    boolean isDirectional();
-
 }
