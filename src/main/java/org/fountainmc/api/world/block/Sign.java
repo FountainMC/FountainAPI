@@ -12,6 +12,12 @@ public interface Sign extends DirectionalBlock {
      * @return how this sign is attached
      */
     @Nonnull
-    SignAttachmentType getSignAttachmentType();
+    AttachmentType getAttachmentType();
 
+    enum AttachmentType {
+
+        STANDING,
+        AGAINST_BLOCK
+
+    }
 }
