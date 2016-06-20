@@ -1,16 +1,15 @@
 package org.fountainmc.api.entity;
 
 import java.util.UUID;
-
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableList;
 
 import org.fountainmc.api.command.CommandSender;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.*;
 
 /**
  * A connected player.
@@ -81,8 +80,81 @@ public interface Player extends LivingEntity, CommandSender {
     public boolean isConnected();
 
     @Override
+    @Nonnull
     default EntityType<Player> getEntityType() {
         return EntityType.PLAYER;
+    }
+
+    public void setGameMode(GameMode gameMode);
+
+    @Nonnull
+    public GameMode getGameMode();
+
+    public boolean setCanFly(boolean canFly);
+
+    public boolean canFly();
+
+    @Nonnegative
+    public float getPercentageToNextExperienceLevel();
+
+    public void setPercentageToNextExperienceLevel(@Nonnegative float percentage);
+
+    @Nonnegative
+    public int getExperienceLevel();
+
+    public void setExperienceLevel(@Nonnegative int experienceLevel);
+
+    public default void giveExp(@Nonnegative long amount) {
+        checkArgument(amount >= 0, "Can't give negative exp %s! Use takeExp(long) if you want that!", amount);
+        setTotalExperience(getTotalExperience() + amount);
+    }
+
+
+    public default void takeExp(@Nonnegative long amount) {
+        checkArgument(amount >= 0, "Can't give negative exp %s! Use takeExp(long) if you want that!", amount);
+        long exp = getTotalExperience();
+        checkState(exp >= amount, "Can't take away %s exp because the player only has %s exp.", amount, exp);
+        setTotalExperience(exp - amount);
+    }
+
+    /**
+     * Calculate and return the player's total experience
+     * <p>The experience in each level is given in </p>
+     *
+     * @return the player's total experience
+     */
+    @Nonnegative
+    public default long getTotalExperience() {
+        int level = getExperienceLevel();
+        long total = Math.round(getServer().getExpAtLevel(level--) * getPercentageToNextExperienceLevel());
+        for (; level >= 0; level--) {
+            // Use addExact in case somehow stupid players ever get more than 2^64 exp
+            total = Math.addExact(total, getServer().getExpAtLevel(level));
+        }
+        return total;
+    }
+
+    public default void setTotalExperience(long total) {
+        checkArgument(total >= 0, "Negative experience %s", total);
+        int level = 0;
+        while (true) {
+            long expAtLevel = getServer().getExpAtLevel(level);
+            if (expAtLevel <= total) {
+                total -= expAtLevel;
+                level++;
+            } else {
+                setPercentageToNextExperienceLevel((float) ((double) total / (double) expAtLevel));
+                break;
+            }
+        }
+        setExperienceLevel(level);
+    }
+
+    public static enum GameMode {
+        CREATIVE,
+        SURVIVAL,
+        ADVENTURE,
+        SPECTATING;
     }
 
 }

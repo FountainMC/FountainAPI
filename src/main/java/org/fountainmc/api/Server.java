@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.ImmutableList;
+
 import org.fountainmc.api.command.CommandManager;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.EntityType;
@@ -57,4 +58,12 @@ public interface Server extends ServerInfo {
         }
     }
 
+    /**
+     * Get the total number of experience points at the given level
+     *
+     * @param level the exp level
+     * @return if the exp
+     * @throws IllegalArgumentException if the level is negative
+     */
+    public long getExpAtLevel(int level);
 }

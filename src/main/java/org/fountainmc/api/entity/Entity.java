@@ -9,6 +9,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 
+import org.fountainmc.api.Server;
 import org.fountainmc.api.world.Location;
 import org.fountainmc.api.world.World;
 
@@ -19,6 +20,8 @@ import static com.google.common.base.Preconditions.*;
  */
 @ParametersAreNonnullByDefault
 public interface Entity {
+
+    public Server getServer();
 
     /**
      * Get the Location of the Entity within the World

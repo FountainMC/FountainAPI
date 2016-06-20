@@ -1,8 +1,11 @@
 package org.fountainmc.api.world;
 
+import org.fountainmc.api.Server;
 import org.fountainmc.api.world.block.BlockState;
 
 public interface World {
+
+    Server getServer();
 
     String getName();
 

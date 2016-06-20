@@ -1,5 +1,7 @@
 package org.fountainmc.api.entity;
 
+import javax.annotation.Nonnull;
+
 /**
  * Entity with health
  */
@@ -50,6 +52,11 @@ public interface LivingEntity extends Entity {
     }
 
     @Override
+    @Nonnull
     public EntityType<? extends LivingEntity> getEntityType();
+
+    public boolean setOnFire(boolean fire);
+
+    public boolean isOnFire();
 
 }
