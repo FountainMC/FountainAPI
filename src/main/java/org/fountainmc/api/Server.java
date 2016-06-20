@@ -6,12 +6,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.google.common.collect.ImmutableList;
 
 import org.fountainmc.api.command.CommandManager;
+import org.fountainmc.api.enchantments.EnchantmentType;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.EntityType;
 import org.fountainmc.api.event.EventManager;
+import org.fountainmc.api.inventory.item.ItemFactory;
 import org.fountainmc.api.plugin.PluginManager;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.*;
 
 @ParametersAreNonnullByDefault
 public interface Server extends ServerInfo {
@@ -66,4 +68,8 @@ public interface Server extends ServerInfo {
      * @throws IllegalArgumentException if the level is negative
      */
     public long getExpAtLevel(int level);
+
+    public EnchantmentType getEnchantmentTypeByName(String name);
+
+    public ItemFactory getItemFactory();
 }
