@@ -1,0 +1,11 @@
+language: java
+jdk:
+  - oraclejdk8
+sudo: false
+notifications:
+  email: false
+script: mvn clean package
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '.checkstyle-config'
