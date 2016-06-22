@@ -22,86 +22,86 @@ import static com.google.common.base.Preconditions.*;
  */
 @ParametersAreNonnullByDefault
 public interface Item {
-    public Server getServer();
+    Server getServer();
 
-    public Material getType();
+    Material getType();
 
     @Deprecated
-    public short getRawData();
+    short getRawData();
 
     @SuppressWarnings("deprecation") // I have to use rawData to implement rawData -_-
     @Deprecated
-    public default Item withRawData(short rawData) {
+    default Item withRawData(short rawData) {
         return asBuilder().rawData(rawData).build();
     }
 
-    public int getAmount();
+    int getAmount();
 
-    public default Item withAmount(int amount) {
+    default Item withAmount(int amount) {
         return asBuilder().amount(amount).build();
     }
 
-    public boolean isUnbreakable();
+    boolean isUnbreakable();
 
-    public default Item withUnbreakable(boolean unbreakable) {
+    default Item withUnbreakable(boolean unbreakable) {
         return asBuilder().unbreakable(unbreakable).build();
     }
 
     @Nullable
-    public String getDisplayName();
+    String getDisplayName();
 
-    public default Item withDisplayName(@Nullable String displayName) {
+    default Item withDisplayName(@Nullable String displayName) {
         return asBuilder().displayName(displayName).build();
     }
 
-    public default boolean hasDisplayName() {
+    default boolean hasDisplayName() {
         return getDisplayName() != null;
     }
 
     @Nonnull
-    public ImmutableList<String> getLore();
+    ImmutableList<String> getLore();
 
-    public default Item withLore(List<String> lore) {
+    default Item withLore(List<String> lore) {
         return asBuilder().lore(lore).build();
     }
 
-    public default boolean hasLore() {
+    default boolean hasLore() {
         return !getLore().isEmpty();
     }
 
     // Enchantment methods
 
     @Nonnull
-    public ImmutableMap<EnchantmentType, Integer> getEnchantments();
+    ImmutableMap<EnchantmentType, Integer> getEnchantments();
 
-    public default Item withEnchantments(Map<EnchantmentType, Integer> enchantments) {
+    default Item withEnchantments(Map<EnchantmentType, Integer> enchantments) {
         return asBuilder().enchantments(enchantments).build();
     }
 
-    public default Item withEnchantment(EnchantmentType type, int level) {
+    default Item withEnchantment(EnchantmentType type, int level) {
         return asBuilder().withEnchantment(type, level).build();
     }
 
-    public default Item withEnchantmentRemoved(EnchantmentType type) {
+    default Item withEnchantmentRemoved(EnchantmentType type) {
         return asBuilder().withEnchantmentRemoved(type).build();
     }
 
-    public default boolean isEnchanted() {
+    default boolean isEnchanted() {
         return !getEnchantments().isEmpty();
     }
 
     // Builders
 
-    public default Builder asBuilder() {
+    default Builder asBuilder() {
         return builder(getServer(), getType()).copyFrom(this);
     }
 
-    public static Builder builder(Server server, Material type) {
+    static Builder builder(Server server, Material type) {
         return new Builder(server, type);
     }
 
     @ParametersAreNonnullByDefault
-    public static class Builder {
+    class Builder {
         private final Server server;
         @Nonnull
         private final Material type;

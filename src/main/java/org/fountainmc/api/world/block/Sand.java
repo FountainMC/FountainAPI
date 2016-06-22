@@ -5,11 +5,11 @@ import javax.annotation.Nonnull;
 @Nonnull
 public interface Sand extends FallingBlock {
 
-    public SandType getType();
+    SandType getType();
 
-    public Sand withType(SandType type);
+    Sand withType(SandType type);
 
-    public static enum SandType {
+    enum SandType {
         SAND,
         RED_SAND;
     }

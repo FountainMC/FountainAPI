@@ -2,6 +2,7 @@ package org.fountainmc.api.chat.events;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+
 import org.fountainmc.api.chat.Component;
 
 /**
@@ -58,13 +59,10 @@ public class HoverEvent<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         HoverEvent<?> that = (HoverEvent<?>) o;
-        return action == that.action &&
-                Objects.equal(value, that.value);
+        return action == that.action && Objects.equal(value, that.value);
     }
 
     @Override
@@ -74,10 +72,10 @@ public class HoverEvent<T> {
 
     @Override
     public String toString() {
-        return "HoverEvent{" +
-                "action=" + action +
-                ", value=" + value +
-                '}';
+        return "HoverEvent{"
+                + "action=" + action
+                + ", value=" + value
+                + '}';
     }
 
     public enum Action {

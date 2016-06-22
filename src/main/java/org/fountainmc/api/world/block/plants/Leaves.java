@@ -7,11 +7,11 @@ public interface Leaves extends Plant {
      *
      * @return if able to decay
      */
-    public boolean canDecay();
+    boolean canDecay();
 
-    public LeafType getType();
+    LeafType getType();
 
-    public static enum LeafType {
+    enum LeafType {
         OAK,
         SPRUCE,
         BIRCH,

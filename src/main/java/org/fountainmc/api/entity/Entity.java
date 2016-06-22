@@ -1,6 +1,5 @@
 package org.fountainmc.api.entity;
 
-import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,7 +20,7 @@ import static com.google.common.base.Preconditions.*;
 @ParametersAreNonnullByDefault
 public interface Entity {
 
-    public Server getServer();
+    Server getServer();
 
     /**
      * Get the Location of the Entity within the World
@@ -78,21 +77,28 @@ public interface Entity {
      */
     boolean isOnGround();
 
-    public default boolean hasPassengers() {
+    default boolean hasPassengers() {
         return !getPassengers().isEmpty();
     }
 
     @Nullable
-    public Entity getPrimaryPassenger();
+    Entity getPrimaryPassenger();
+
+    /**
+     * Set the primary entity riding on top of this Entity.
+     *
+     * @param passenger the new passenger
+     */
+    void setPrimaryPassenger(Entity passenger);
 
     /**
      * Get the entities riding on top of this Entity.
      * Returns null if there is no Entity riding on top of this Entity.
      *
-     * @return the passenger
+     * @return the passengers
      */
     @Nonnull
-    public ImmutableList<Entity> getPassengers();
+    ImmutableList<Entity> getPassengers();
 
     /**
      * Get the entity's passengers
@@ -100,17 +106,18 @@ public interface Entity {
      * @param entities the passengers to set
      * @throws IllegalArgumentException if this would cause more passengers then the entity is allowed to have
      */
-    public default void setPassengers(ImmutableList<Entity> entities) {
+    default void setPassengers(ImmutableList<Entity> entities) {
         setPassengers(entities, false);
     }
 
     /**
      * Set the entity's passengers
      *
+     * @param entities the passengers to set
      * @param force weather to bypass passenger limits
      * @throws IllegalStateException if not force-adding and this would cause more passengers then the entity is allowed to have
      */
-    public default void setPassengers(ImmutableList<Entity> entities, boolean force) {
+    default void setPassengers(ImmutableList<Entity> entities, boolean force) {
         if (checkNotNull(entities, "Null entity list").size() > getMaximumPassengers() & !force) {
             throw new IllegalArgumentException(entities.size() + " entities were given, but only " + getMaximumPassengers() + " are allowed!");
         }
@@ -121,19 +128,13 @@ public interface Entity {
     }
 
     /**
-     * Set the primary entity riding on top of this Entity.
-     *
-     * @param passenger the new passenger
-     */
-    void setPrimaryPassenger(Entity passenger);
-
-    /**
      * Add a passenger to this entity
      *
      * @param entity the passenger to add
+     * @return if successfully added
      * @throws IllegalStateException if this would cause more passengers then the entity is allowed to have
      */
-    public default boolean addPassenger(Entity entity) {
+    default boolean addPassenger(Entity entity) {
         return this.addPassenger(entity, false);
     }
 
@@ -142,35 +143,37 @@ public interface Entity {
      *
      * @param entity the passenger to add
      * @param force  weather to bypass passenger limits
+     * @return if successfully added
      * @throws IllegalStateException if not force-adding and this would cause more passengers then the entity is allowed to have
      */
-    public boolean addPassenger(Entity entity, boolean force);
+    boolean addPassenger(Entity entity, boolean force);
 
     /**
      * Ejects all this entities passengers
      */
-    public void ejectAll();
+    void ejectAll();
 
     /**
      * Ejects the specified passenger from the entity
      *
+     * @param passenger the passenger to eject
      * @throws IllegalArgumentException if the give entity isn't a passenger of this entity.
      */
-    public void ejectPassenger(Entity passenger);
+    void ejectPassenger(Entity passenger);
 
-    public default void ejectPrimaryPassenger() {
+    default void ejectPrimaryPassenger() {
         Entity primaryPassenger = getPrimaryPassenger();
         if (primaryPassenger != null) ejectPassenger(primaryPassenger);
     }
 
     @Nonnegative
-    public int getMaximumPassengers();
+    int getMaximumPassengers();
 
 
     /**
      * Dismount this entity's vehicle if the entity is riding one
      */
-    public void dismountVehicle();
+    void dismountVehicle();
 
     /**
      * Get the Entity this Entity is riding on.
@@ -186,22 +189,21 @@ public interface Entity {
      * @param vehicle The Entity that this Entity will ride
      * @throws IllegalStateException if this would cause more passengers then the vehicle is allowed to have
      */
-    public default void setVehicle(Entity vehicle) {
+    default void setVehicle(Entity vehicle) {
         checkNotNull(vehicle, "Null vehicle").addPassenger(this);
     }
 
     /**
      * Leave this entity's vehicle
      */
-    public void leaveVehicle();
+    void leaveVehicle();
 
-    public default boolean isBeingRidden() {
+    default boolean isBeingRidden() {
         return getVehicle() != null;
     }
 
     /**
      * Get the bottom vehicle. Equivalent to:
-     * <p>
      * <pre>
      * Entity entity = ...
      * Entity bottom = null;
@@ -211,7 +213,7 @@ public interface Entity {
      * @return the bottom entity
      */
     @Nullable
-    public default Entity getBottomVehicle() {
+    default Entity getBottomVehicle() {
         Entity entity = this;
         Entity vehicle = null;
         while ((entity = entity.getVehicle()) != null) {
@@ -226,9 +228,9 @@ public interface Entity {
      * @param distance max distance to search for entities
      * @return a Collection of nearby Entities within the distance
      */
-    public ImmutableCollection<Entity> getNearbyEntities(double distance);
+    ImmutableCollection<Entity> getNearbyEntities(double distance);
 
     @Nonnull
-    public EntityType<?> getEntityType();
+    EntityType<?> getEntityType();
 
 }

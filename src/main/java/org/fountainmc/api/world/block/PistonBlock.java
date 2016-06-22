@@ -15,19 +15,19 @@ public interface PistonBlock extends BlockState, DirectionalBlock {
      *
      * @return if extended
      */
-    public boolean isExtended();
+    boolean isExtended();
 
     /**
      * Get a clone of this piston with the given extension flag
      * <p>If the piston is an extension ({@link #isExtension()}), then it must always be flagged as 'extended'.</p>
      *
      * @param b if the piston should be extended
-     * @throws IllegalStateException if the piston is a piston extension as returned by {@link #isExtension()}, and therefore must be extended
      * @return the new piston
+     * @throws IllegalStateException if the piston is a piston extension as returned by {@link #isExtension()}, and therefore must be extended
      */
-    public PistonBlock withExtended(boolean b);
+    PistonBlock withExtended(boolean b);
 
-    public Direction getDirection();
+    Direction getDirection();
 
     /**
      * Get a clone of this piston with the given direction
@@ -35,10 +35,10 @@ public interface PistonBlock extends BlockState, DirectionalBlock {
      * @param direction the new direction
      * @return the new piston
      */
-    public PistonBlock withDirection(Direction direction);
+    PistonBlock withDirection(Direction direction);
 
     @Override
-    public default boolean mayBeVertical() {
+    default boolean mayBeVertical() {
         return true;
     }
 
@@ -47,7 +47,7 @@ public interface PistonBlock extends BlockState, DirectionalBlock {
      *
      * @return if sticky
      */
-    public boolean isSticky();
+    boolean isSticky();
 
     /**
      * Get a clone of this piston with the given stickiness setting
@@ -55,14 +55,14 @@ public interface PistonBlock extends BlockState, DirectionalBlock {
      * @param sticky if the new piston should be sticky
      * @return the new piston
      */
-    public PistonBlock withStickiness(boolean sticky);
+    PistonBlock withStickiness(boolean sticky);
 
     /**
      * Get this piston as a sticky piston if it isn't already one
      *
      * @return this piston as a sticky piston
      */
-    public default PistonBlock asSticky() {
+    default PistonBlock asSticky() {
         return withStickiness(true);
     }
 
@@ -71,7 +71,7 @@ public interface PistonBlock extends BlockState, DirectionalBlock {
      *
      * @return this piston as a non-sticky piston
      */
-    public default PistonBlock asNonSticky() {
+    default PistonBlock asNonSticky() {
         return withStickiness(false);
     }
 
@@ -82,6 +82,6 @@ public interface PistonBlock extends BlockState, DirectionalBlock {
      *
      * @return if the block is an extension
      */
-    public boolean isExtension();
+    boolean isExtension();
 
 }

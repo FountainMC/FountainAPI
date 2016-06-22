@@ -4,13 +4,13 @@ import javax.annotation.Nonnegative;
 
 public interface Sugarcane extends GrowingPlant {
 
-    public static int MAXIMUM_GROWTH = 16;
+    int MAXIMUM_GROWTH = 16;
 
     @Override
-    public Sugarcane withGrowth(@Nonnegative int growth);
+    Sugarcane withGrowth(@Nonnegative int growth);
 
     @Override
-    public default int getMaxGrowth() {
+    default int getMaxGrowth() {
         return MAXIMUM_GROWTH;
     }
 

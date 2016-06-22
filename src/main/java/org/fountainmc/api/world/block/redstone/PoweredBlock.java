@@ -6,18 +6,18 @@ import org.fountainmc.api.world.block.BlockState;
 
 public interface PoweredBlock extends BlockState {
 
-    public static final int MAXIMUM_POWER = 15;
+    int MAXIMUM_POWER = 15;
 
     @Nonnegative
-    public int getPower();
+    int getPower();
 
     /**
      * Get a clone of this block with the given power
      *
-     * @throws IllegalArgumentException if power is negative or greater than {@link #MAXIMUM_POWER}
      * @param power the new power
      * @return the new chest
+     * @throws IllegalArgumentException if power is negative or greater than {@link #MAXIMUM_POWER}
      */
-    public PoweredBlock withPower(@Nonnegative int power);
+    PoweredBlock withPower(@Nonnegative int power);
 
 }

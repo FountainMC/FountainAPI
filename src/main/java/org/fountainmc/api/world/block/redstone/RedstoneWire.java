@@ -5,6 +5,6 @@ import javax.annotation.Nonnegative;
 public interface RedstoneWire extends PoweredBlock {
 
     @Override
-    public RedstoneWire withPower(@Nonnegative int power);
+    RedstoneWire withPower(@Nonnegative int power);
 
 }

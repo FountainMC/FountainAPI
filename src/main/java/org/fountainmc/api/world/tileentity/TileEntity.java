@@ -12,19 +12,19 @@ import static com.google.common.base.Preconditions.*;
  */
 public interface TileEntity {
 
-    public int getX();
+    int getX();
 
-    public int getY();
+    int getY();
 
-    public int getZ();
+    int getZ();
 
-    public default BlockPosition getPosition() {
+    default BlockPosition getPosition() {
         return new BlockPosition(getWorld(), getX(), getY(), getZ());
     }
 
-    public World getWorld();
+    World getWorld();
 
-    public BlockType getBlockType();
+    BlockType getBlockType();
 
     /**
      * Returns if the tile entity is still valid.
@@ -35,7 +35,7 @@ public interface TileEntity {
      *
      * @return if valid
      */
-    public boolean isValid();
+    boolean isValid();
 
     /**
      * Get the blockstate of the tile entity
@@ -43,7 +43,7 @@ public interface TileEntity {
      *
      * @return the blockstate
      */
-    public default BlockState getBlockState() {
+    default BlockState getBlockState() {
         checkState(isValid());
         return getWorld().getBlock(getPosition());
     }
@@ -54,7 +54,7 @@ public interface TileEntity {
      *
      * @param blockState the blockstate
      */
-    public default void setBlockState(BlockState blockState) {
+    default void setBlockState(BlockState blockState) {
         checkArgument(checkNotNull(blockState, "Null BlockState").getBlockType().equals(getBlockType()), "BlockState's type %s doesn't match TileEntity's type %s", blockState, this);
         checkState(isValid());
         getWorld().setBlock(getPosition(), blockState);

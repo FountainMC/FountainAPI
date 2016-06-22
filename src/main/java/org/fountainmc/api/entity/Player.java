@@ -31,7 +31,7 @@ public interface Player extends LivingEntity, CommandSender {
      * @return UUID of the Player
      */
     @Nonnull
-    UUID getUUID();
+    UUID getUniqueId();
 
     /**
      * Send a chat message to the Player
@@ -67,9 +67,9 @@ public interface Player extends LivingEntity, CommandSender {
      * @param entity the entity to check if the player can see
      * @return if the player can see the specified entity
      */
-    public boolean canSee(Entity entity);
+    boolean canSee(Entity entity);
 
-    public ImmutableCollection<? extends Entity> getHiddenEntities();
+    ImmutableCollection<? extends Entity> getHiddenEntities();
 
     /**
      * Return if the player is still connected to the server
@@ -77,7 +77,7 @@ public interface Player extends LivingEntity, CommandSender {
      *
      * @return if connected
      */
-    public boolean isConnected();
+    boolean isConnected();
 
     @Override
     @Nonnull
@@ -85,32 +85,32 @@ public interface Player extends LivingEntity, CommandSender {
         return EntityType.PLAYER;
     }
 
-    public void setGameMode(GameMode gameMode);
+    void setGameMode(GameMode gameMode);
 
     @Nonnull
-    public GameMode getGameMode();
+    GameMode getGameMode();
 
-    public boolean setCanFly(boolean canFly);
+    boolean setCanFly(boolean canFly);
 
-    public boolean canFly();
-
-    @Nonnegative
-    public float getPercentageToNextExperienceLevel();
-
-    public void setPercentageToNextExperienceLevel(@Nonnegative float percentage);
+    boolean canFly();
 
     @Nonnegative
-    public int getExperienceLevel();
+    float getPercentageToNextExperienceLevel();
 
-    public void setExperienceLevel(@Nonnegative int experienceLevel);
+    void setPercentageToNextExperienceLevel(@Nonnegative float percentage);
 
-    public default void giveExp(@Nonnegative long amount) {
+    @Nonnegative
+    int getExperienceLevel();
+
+    void setExperienceLevel(@Nonnegative int experienceLevel);
+
+    default void giveExp(@Nonnegative long amount) {
         checkArgument(amount >= 0, "Can't give negative exp %s! Use takeExp(long) if you want that!", amount);
         setTotalExperience(getTotalExperience() + amount);
     }
 
 
-    public default void takeExp(@Nonnegative long amount) {
+    default void takeExp(@Nonnegative long amount) {
         checkArgument(amount >= 0, "Can't give negative exp %s! Use takeExp(long) if you want that!", amount);
         long exp = getTotalExperience();
         checkState(exp >= amount, "Can't take away %s exp because the player only has %s exp.", amount, exp);
@@ -124,7 +124,7 @@ public interface Player extends LivingEntity, CommandSender {
      * @return the player's total experience
      */
     @Nonnegative
-    public default long getTotalExperience() {
+    default long getTotalExperience() {
         int level = getExperienceLevel();
         long total = Math.round(getServer().getExpAtLevel(level--) * getPercentageToNextExperienceLevel());
         for (; level >= 0; level--) {
@@ -134,7 +134,7 @@ public interface Player extends LivingEntity, CommandSender {
         return total;
     }
 
-    public default void setTotalExperience(long total) {
+    default void setTotalExperience(long total) {
         checkArgument(total >= 0, "Negative experience %s", total);
         int level = 0;
         while (true) {
@@ -150,7 +150,7 @@ public interface Player extends LivingEntity, CommandSender {
         setExperienceLevel(level);
     }
 
-    public static enum GameMode {
+    enum GameMode {
         CREATIVE,
         SURVIVAL,
         ADVENTURE,

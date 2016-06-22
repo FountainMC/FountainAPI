@@ -7,8 +7,8 @@ import org.fountainmc.api.Color;
 @Nonnull
 public interface ColoredBlock extends BlockState {
 
-    public Color getColor();
+    Color getColor();
 
-    public ColoredBlock withColor(Color color);
+    ColoredBlock withColor(Color color);
 
 }

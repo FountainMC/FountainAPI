@@ -2,9 +2,9 @@ package org.fountainmc.api.world.block.plants;
 
 public interface Flower extends Plant {
 
-    public FlowerType getType();
+    FlowerType getType();
 
-    public static enum FlowerType {
+    enum FlowerType {
         POPPY,
         BLUE_ORCHARD,
         ALLIUM,

@@ -5,18 +5,18 @@ import org.fountainmc.api.world.block.BlockState;
 public interface BlockType extends Material {
 
     @Override
-    public default boolean isBlock() {
+    default boolean isBlock() {
         return true;
     }
 
-    public boolean isFlammable();
+    boolean isFlammable();
 
     /**
      * Return if the block completely blocks all vision
      *
      * @return if opaque
      */
-    public boolean isOpaque();
+    boolean isOpaque();
 
     /**
      * Return if the block is transparent and the player can see through it
@@ -24,13 +24,13 @@ public interface BlockType extends Material {
      *
      * @return if transparent
      */
-    public boolean isTransparent();
+    boolean isTransparent();
 
     /**
      * Get the default state the block is in
      *
      * @return the default state of the block
      */
-    public BlockState getDefaultState();
+    BlockState getDefaultState();
 
 }

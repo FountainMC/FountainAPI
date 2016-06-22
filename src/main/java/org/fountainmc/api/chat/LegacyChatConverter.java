@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
+
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.values.Text;
 
@@ -17,7 +18,7 @@ import org.fountainmc.api.chat.values.Text;
  * This class is used to parse the text in a legacy chat message using a state
  * machine.
  */
-class LegacyChatConverter {
+final class LegacyChatConverter {
 
     private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
     private final String text;
@@ -86,6 +87,8 @@ class LegacyChatConverter {
                         foundText.append(at);
                     }
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected state: "  + state);
             }
         }
 
@@ -169,7 +172,7 @@ class LegacyChatConverter {
         LOOKING_FOR_CODE
     }
 
-    private class LegacyChatPart {
+    private final class LegacyChatPart {
 
         private final Set<ChatColor> formattingFound;
         private final String url;

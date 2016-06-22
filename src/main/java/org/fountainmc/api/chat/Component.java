@@ -1,13 +1,13 @@
 package org.fountainmc.api.chat;
 
 import java.util.List;
-
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.events.HoverEvent;
 import org.fountainmc.api.chat.values.ComponentValue;
@@ -33,7 +33,7 @@ public class Component<T extends ComponentValue> {
     private final List<Component<?>> extra;
 
     protected Component(Component<?> parent, Boolean bold, Boolean italic, Boolean underlined, Boolean strikethrough, Boolean obfuscated,
-            ChatColor color, HoverEvent<?> hoverEvent, ClickEvent clickEvent, String insertion, T value, List<Component<?>> extra) {
+                        ChatColor color, HoverEvent<?> hoverEvent, ClickEvent clickEvent, String insertion, T value, List<Component<?>> extra) {
         this.parent = parent;
         this.bold = bold;
         this.italic = italic;
@@ -179,7 +179,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code bold} value.
-     * 
+     *
      * @param bold the new value
      * @return a copy of this component with a new value
      */
@@ -190,7 +190,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code italic} value.
-     * 
+     *
      * @param italic the new value
      * @return a copy of this component with a new value
      */
@@ -201,7 +201,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code underlined} value.
-     * 
+     *
      * @param underlined the new value
      * @return a copy of this component with a new value
      */
@@ -212,7 +212,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code strikethrough} value.
-     * 
+     *
      * @param strikethrough the new value
      * @return a copy of this component with a new value
      */
@@ -223,7 +223,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code obfuscated} value.
-     * 
+     *
      * @param obfuscated the new value
      * @return a copy of this component with a new value
      */
@@ -234,7 +234,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code color} value.
-     * 
+     *
      * @param color the new value
      * @return a copy of this component with a new value
      */
@@ -248,7 +248,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code hoverEvent} value.
-     * 
+     *
      * @param hoverEvent the new value
      * @return a copy of this component with a new value
      */
@@ -259,7 +259,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code clickEvent} value.
-     * 
+     *
      * @param clickEvent the new value
      * @return a copy of this component with a new value
      */
@@ -270,7 +270,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code insertion} value.
-     * 
+     *
      * @param insertion the new value
      * @return a copy of this component with a new value
      */
@@ -281,9 +281,9 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new
-     * {@code value). Note that a component can only have its value changed
+     * {@code value}. Note that a component can only have its value changed
      * from the one it currently has.
-     * 
+     *
      * @param value the new value
      * @return a copy of this component with a new value
      */
@@ -296,8 +296,8 @@ public class Component<T extends ComponentValue> {
     }
 
     /**
-     * Returns a copy of this component with a new {@code parent).
-     * 
+     * Returns a copy of this component with a new {@code parent}.
+     *
      * @param parent the new value
      * @return a copy of this component with a new value
      */
@@ -308,7 +308,7 @@ public class Component<T extends ComponentValue> {
 
     /**
      * Returns a copy of this component with a new {@code extra} value.
-     * 
+     *
      * @param extra the new value
      * @return a copy of this component with a new value
      */
@@ -319,23 +319,21 @@ public class Component<T extends ComponentValue> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Component<?> component = (Component<?>) o;
-        return Objects.equal(parent, component.parent) &&
-                Objects.equal(bold, component.bold) &&
-                Objects.equal(italic, component.italic) &&
-                Objects.equal(underlined, component.underlined) &&
-                Objects.equal(strikethrough, component.strikethrough) &&
-                Objects.equal(obfuscated, component.obfuscated) &&
-                color == component.color &&
-                Objects.equal(hoverEvent, component.hoverEvent) &&
-                Objects.equal(clickEvent, component.clickEvent) &&
-                Objects.equal(insertion, component.insertion) &&
-                Objects.equal(value, component.value) &&
-                Objects.equal(extra, component.extra);
+        return Objects.equal(parent, component.parent)
+                && Objects.equal(bold, component.bold)
+                && Objects.equal(italic, component.italic)
+                && Objects.equal(underlined, component.underlined)
+                && Objects.equal(strikethrough, component.strikethrough)
+                && Objects.equal(obfuscated, component.obfuscated)
+                && color == component.color
+                && Objects.equal(hoverEvent, component.hoverEvent)
+                && Objects.equal(clickEvent, component.clickEvent)
+                && Objects.equal(insertion, component.insertion)
+                && Objects.equal(value, component.value)
+                && Objects.equal(extra, component.extra);
     }
 
     @Override
@@ -345,19 +343,19 @@ public class Component<T extends ComponentValue> {
 
     @Override
     public String toString() {
-        return "Component{" +
-                "bold=" + isBold() +
-                ", italic=" + isItalic() +
-                ", underlined=" + isUnderlined() +
-                ", strikethrough=" + isStrikethrough() +
-                ", obfuscated=" + isObfuscated() +
-                ", color=" + getColor() +
-                ", hoverEvent=" + getHoverEvent() +
-                ", clickEvent=" + getClickEvent() +
-                ", insertion='" + getInsertion() + '\'' +
-                ", value=" + getValue() +
-                ", extra=" + getExtra() +
-                '}';
+        return "Component{"
+                + "bold=" + isBold()
+                + ", italic=" + isItalic()
+                + ", underlined=" + isUnderlined()
+                + ", strikethrough=" + isStrikethrough()
+                + ", obfuscated=" + isObfuscated()
+                + ", color=" + getColor()
+                + ", hoverEvent=" + getHoverEvent()
+                + ", clickEvent=" + getClickEvent()
+                + ", insertion='" + getInsertion() + '\''
+                + ", value=" + getValue()
+                + ", extra=" + getExtra()
+                + '}';
     }
 
 }

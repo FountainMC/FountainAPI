@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
 import org.fountainmc.api.chat.events.ClickEvent;
 import org.fountainmc.api.chat.events.ClickEventSerializer;
 import org.fountainmc.api.chat.events.HoverEvent;
@@ -14,9 +15,10 @@ import org.fountainmc.api.chat.events.HoverEventSerializer;
 import org.fountainmc.api.chat.values.ComponentValue;
 import org.fountainmc.api.chat.values.Text;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.*;
 
-public class Components {
+public final class Components {
+    private Components() {}
 
     /**
      * An empty component with no text.

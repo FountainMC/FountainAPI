@@ -10,7 +10,7 @@ import com.google.common.collect.ImmutableList;
 /**
  * Represents a translatable Minecraft message.
  */
-public class Translatable implements ComponentValue {
+public final class Translatable implements ComponentValue {
 
     private final String message;
     private final List<String> substitutions;
@@ -72,8 +72,7 @@ public class Translatable implements ComponentValue {
             return false;
         }
         Translatable that = (Translatable) o;
-        return Objects.equal(message, that.message) &&
-                Objects.equal(substitutions, that.substitutions);
+        return Objects.equal(message, that.message) && Objects.equal(substitutions, that.substitutions);
     }
 
     @Override
@@ -83,10 +82,10 @@ public class Translatable implements ComponentValue {
 
     @Override
     public String toString() {
-        return "Translatable{" +
-                "message='" + message + '\'' +
-                ", substitutions=" + substitutions +
-                '}';
+        return "Translatable{"
+                + "message='" + message + '\''
+                + ", substitutions=" + substitutions
+                + '}';
     }
 
 }

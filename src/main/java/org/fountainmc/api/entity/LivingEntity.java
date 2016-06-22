@@ -26,14 +26,14 @@ public interface LivingEntity extends Entity {
      *
      * @return the maximum health
      */
-    public double getMaxHealth();
+    double getMaxHealth();
 
     /**
      * Set the new maximum health this entity can have.
      *
      * @param maxHealth the new maximum health
      */
-    public void setMaxHealth(double maxHealth);
+    void setMaxHealth(double maxHealth);
 
     /**
      * Damage the Entity
@@ -53,10 +53,10 @@ public interface LivingEntity extends Entity {
 
     @Override
     @Nonnull
-    public EntityType<? extends LivingEntity> getEntityType();
+    EntityType<? extends LivingEntity> getEntityType();
 
-    public boolean setOnFire(boolean fire);
+    boolean setOnFire(boolean fire);
 
-    public boolean isOnFire();
+    boolean isOnFire();
 
 }

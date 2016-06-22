@@ -14,7 +14,7 @@ public interface ServerStartEvent extends Event {
     @Nonnull
     Server getServer();
 
-    public static ServerStartEvent create(Server server) {
+    static ServerStartEvent create(Server server) {
         checkNotNull(server, "Null server");
         return () -> server;
     }

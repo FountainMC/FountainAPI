@@ -10,7 +10,7 @@ public interface StairBlock extends BlockState, DirectionalBlock {
      *
      * @return the direction
      */
-    public Direction getDirection();
+    Direction getDirection();
 
     /**
      * Get a clone of this stair's state facing the given direction
@@ -20,29 +20,29 @@ public interface StairBlock extends BlockState, DirectionalBlock {
      * @return a stair state facing the given direction
      * @throws IllegalArgumentException if the direction is vertical
      */
-    public StairBlock withDirection(Direction direction);
+    StairBlock withDirection(Direction direction);
 
     @Override
-    public default boolean mayBeVertical() {
+    default boolean mayBeVertical() {
         return false;
     }
 
-    public boolean isUpsideDown();
+    boolean isUpsideDown();
 
-    public StairBlock withUpsideDown(boolean b);
+    StairBlock withUpsideDown(boolean b);
 
     /**
      * Get the type of the stairs
      *
      * @return the type
      */
-    public StairType getType();
+    StairType getType();
 
-    public default StairBlock asRightsideUp() {
+    default StairBlock asRightsideUp() {
         return withUpsideDown(false);
     }
 
-    public default StairBlock asUpsideDown() {
+    default StairBlock asUpsideDown() {
         return withUpsideDown(false);
     }
 

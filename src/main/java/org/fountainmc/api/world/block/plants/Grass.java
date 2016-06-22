@@ -6,9 +6,9 @@ package org.fountainmc.api.world.block.plants;
  */
 public interface Grass extends Plant {
 
-    public GrassType getType();
+    GrassType getType();
 
-    public static enum GrassType {
+    enum GrassType {
         SHRUB,
         TALL_GRASS,
         FERN;

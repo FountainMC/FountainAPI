@@ -5,6 +5,6 @@ import org.fountainmc.api.Color;
 public interface WoolBlock extends ColoredBlock {
 
     @Override
-    public WoolBlock withColor(Color color);
+    WoolBlock withColor(Color color);
 
 }

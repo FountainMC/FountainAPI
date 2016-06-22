@@ -11,7 +11,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public final class BlockPosition {
 
     private final World world;
-    private final int x, y, z;
+    private final int x;
+    private final int y;
+    private final int z;
 
     public BlockPosition(World world, int x, int y, int z) {
         this.world = checkNotNull(world, "Null world");

@@ -61,15 +61,15 @@ public interface Server extends ServerInfo {
     }
 
     /**
-     * Get the total number of experience points at the given level
+     * Get the total number of experience points at the given level.
      *
      * @param level the exp level
      * @return if the exp
      * @throws IllegalArgumentException if the level is negative
      */
-    public long getExpAtLevel(int level);
+    long getExpAtLevel(int level);
 
-    public EnchantmentType getEnchantmentTypeByName(String name);
+    EnchantmentType getEnchantmentTypeByName(String name);
 
-    public ItemFactory getItemFactory();
+    ItemFactory getItemFactory();
 }

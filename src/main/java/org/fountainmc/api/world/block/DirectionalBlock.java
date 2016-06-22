@@ -4,8 +4,8 @@ import org.fountainmc.api.Direction;
 
 public interface DirectionalBlock extends BlockState {
 
-    public DirectionalBlock withDirection(Direction direction);
+    DirectionalBlock withDirection(Direction direction);
 
-    public boolean mayBeVertical();
+    boolean mayBeVertical();
 
 }

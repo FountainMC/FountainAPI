@@ -6,20 +6,20 @@ package org.fountainmc.api;
  */
 public interface Material {
 
-    public int getId();
+    int getId();
 
-    public String getName();
+    String getName();
 
-    public boolean isBlock();
+    boolean isBlock();
 
-    public boolean isEdible();
+    boolean isEdible();
 
     /**
      * Return if the material is present in unmodified vanilla minecraft
      *
      * @return if in vanilla minecraft
      */
-    public default boolean isVanilla() {
+    default boolean isVanilla() {
         return getName().startsWith("minecraft:");
     }
 

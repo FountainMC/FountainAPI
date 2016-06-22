@@ -11,6 +11,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
+
 import org.fountainmc.api.chat.Component;
 import org.fountainmc.api.chat.values.Text;
 
@@ -28,8 +29,9 @@ public class HoverEventSerializer implements JsonDeserializer<HoverEvent<?>>, Js
                 return HoverEvent.showAchievement(object.get("value").getAsString());
             case SHOW_ITEM:
                 return HoverEvent.showItem(object.get("value").getAsString());
+            default:
+                throw new JsonParseException("invalid action?");
         }
-        throw new JsonParseException("invalid action?");
     }
 
     @Override

@@ -17,12 +17,12 @@ public interface EntityRemovedEvent extends EntityEvent, Cancellable {
     Location getLocation();
 
     @Nonnull
-    public static EntityRemovedEvent create(Entity entity) {
+    static EntityRemovedEvent create(Entity entity) {
         return create(entity, checkNotNull(entity, "Null entity").getLocation());
     }
 
     @Nonnull
-    public static EntityRemovedEvent create(Entity entity, Location location) {
+    static EntityRemovedEvent create(Entity entity, Location location) {
         checkArgument(checkNotNull(entity, "Null entity").getWorld().equals(checkNotNull(location, "Null location").getWorld()), "Entity's world %s doesn't match location's world %s", entity.getWorld(), location.getWorld());
         class SimpleEntityRemovedEvent extends AbstractCancellable implements EntityRemovedEvent {
 

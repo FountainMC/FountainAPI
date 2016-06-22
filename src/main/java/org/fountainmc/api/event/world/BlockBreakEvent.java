@@ -25,7 +25,7 @@ public interface BlockBreakEvent extends Event, Cancellable {
     @Nonnull
     Player getPlayer();
 
-    public static BlockBreakEvent create(Player player, BlockPosition position, BlockState state) {
+    static BlockBreakEvent create(Player player, BlockPosition position, BlockState state) {
         checkArgument(checkNotNull(player, "Null player").getWorld().equals(checkNotNull(position, "Null position").getWorld()),
                 "Player's world %s doesn't match position's world %s", player.getWorld(), position.getWorld());
         checkNotNull(state, "Null state");

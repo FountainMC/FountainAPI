@@ -3,7 +3,6 @@ package org.fountainmc.api.event.world;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import com.google.common.base.Preconditions;
 import org.fountainmc.api.entity.Player;
 import org.fountainmc.api.event.AbstractCancellable;
 import org.fountainmc.api.event.Cancellable;
@@ -11,8 +10,7 @@ import org.fountainmc.api.event.Event;
 import org.fountainmc.api.world.BlockPosition;
 import org.fountainmc.api.world.block.BlockState;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.*;
 
 @ParametersAreNonnullByDefault
 public interface BlockPlaceEvent extends Cancellable, Event {

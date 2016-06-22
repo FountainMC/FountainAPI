@@ -2,8 +2,8 @@ package org.fountainmc.api.event;
 
 public interface Cancellable {
 
-    public boolean isCancelled();
+    boolean isCancelled();
 
-    public void setCancelled(boolean value);
+    void setCancelled(boolean value);
 
 }

@@ -76,7 +76,7 @@ public enum StairType {
         }
     }
 
-    public static enum Category {
+    public enum Category {
         WOODEN,
         ROCKY,
         PURPUR;

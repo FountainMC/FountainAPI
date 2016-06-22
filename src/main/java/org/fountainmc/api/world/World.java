@@ -14,11 +14,11 @@ public interface World {
 
     BlockState getBlock(int x, int y, int z);
 
-    TileEntity getTileEntity(int x, int y, int z);
-
     default BlockState getBlock(BlockPosition pos) {
         return getBlock(pos.getX(), pos.getY(), pos.getZ());
     }
+
+    TileEntity getTileEntity(int x, int y, int z);
 
     default TileEntity getTileEntity(BlockPosition pos) {
         return getTileEntity(pos.getX(), pos.getY(), pos.getZ());

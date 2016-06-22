@@ -10,7 +10,7 @@ public interface Slab extends BlockState {
      *
      * @return the type of the slab
      */
-    public StairType getType();
+    StairType getType();
 
     /**
      * Return a copy of this slab with the given slab typez
@@ -18,29 +18,29 @@ public interface Slab extends BlockState {
      * @param type the new type
      * @return the new slab
      */
-    public Slab withType(StairType type);
+    Slab withType(StairType type);
 
     /**
      * If the slab is upside-down, and occupies the top half of its tile.
      *
      * @return if upside-down
      */
-    public boolean isUpsideDown();
+    boolean isUpsideDown();
 
     /**
      * If the slab is rightside-up, and occupies the bottom half of its tile.
      *
      * @return if rightside-up
      */
-    public boolean isRightsideUp();
+    boolean isRightsideUp();
 
-    public StairBlock withUpsideDown(boolean b);
+    StairBlock withUpsideDown(boolean b);
 
-    public default StairBlock asRightsideUp() {
+    default StairBlock asRightsideUp() {
         return withUpsideDown(false);
     }
 
-    public default StairBlock asUpsideDown() {
+    default StairBlock asUpsideDown() {
         return withUpsideDown(false);
     }
 

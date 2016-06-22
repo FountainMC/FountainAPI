@@ -4,7 +4,7 @@ import org.fountainmc.api.Direction;
 
 public interface Chest extends BlockState, DirectionalBlock {
 
-    public Direction getDirection();
+    Direction getDirection();
 
     /**
      * Get a clone of this chest with the given direction
@@ -12,10 +12,10 @@ public interface Chest extends BlockState, DirectionalBlock {
      * @param direction the new direction
      * @return the new chest
      */
-    public Chest withDirection(Direction direction);
+    Chest withDirection(Direction direction);
 
     @Override
-    public default boolean mayBeVertical() {
+    default boolean mayBeVertical() {
         return false;
     }
 

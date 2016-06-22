@@ -16,11 +16,11 @@ public interface EntitySpawnEvent extends EntityEvent, Cancellable {
     @Nonnull
     Location getLocation();
 
-    public static EntitySpawnEvent create(Entity entity) {
+    static EntitySpawnEvent create(Entity entity) {
         return create(entity, checkNotNull(entity, "Null entity").getLocation());
     }
 
-    public static EntitySpawnEvent create(Entity entity, Location location) {
+    static EntitySpawnEvent create(Entity entity, Location location) {
         checkArgument(checkNotNull(entity, "Null entity").getWorld().equals(checkNotNull(location, "Null location").getWorld()), "Entity's world %s doesn't match location's world %s", entity.getWorld(), location.getWorld());
         class SimpleEntitySpawnEvent extends AbstractCancellable implements EntitySpawnEvent {
 

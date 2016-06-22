@@ -9,7 +9,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public interface ChunkLoadEvent extends ChunkEvent {
 
     @Nonnull
-    public static ChunkLoadEvent create(@Nonnull Chunk chunk) {
+    static ChunkLoadEvent create(@Nonnull Chunk chunk) {
         checkNotNull(chunk, "Null chunk");
         return () -> chunk;
     }

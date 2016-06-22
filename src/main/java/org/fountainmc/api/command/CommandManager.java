@@ -85,7 +85,7 @@ public class CommandManager {
         return dynamicCommands;
     }
 
-    public class CommandHandler {
+    public final class CommandHandler {
 
         private final Command command;
         private final Method method;

@@ -9,7 +9,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public final class Location {
 
     private final World world;
-    private final double x, y, z;
+    private final double x;
+    private final double y;
+    private final double z;
 
     public Location(World world, double x, double y, double z) {
         this.world = checkNotNull(world, "Null world");

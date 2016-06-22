@@ -9,18 +9,18 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Command {
 
-    public String name();
+    String name();
 
-    public String permission() default "";
+    String permission() default "";
 
-    public String noPermissionMessage() default "You do not have permission to run this command";
+    String noPermissionMessage() default "You do not have permission to run this command";
 
-    public String[] aliases() default {};
+    String[] aliases() default {};
 
-    public String description() default "";
+    String description() default "";
 
-    public String usage() default "";
+    String usage() default "";
 
-    public Class<? extends CommandSender> allow() default CommandSender.class;
+    Class<? extends CommandSender> allow() default CommandSender.class;
 
 }

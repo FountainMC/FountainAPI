@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+
 import org.fountainmc.api.chat.values.ComponentValue;
 import org.fountainmc.api.chat.values.Text;
 import org.fountainmc.api.chat.values.Translatable;

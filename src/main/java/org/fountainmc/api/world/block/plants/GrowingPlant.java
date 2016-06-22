@@ -5,7 +5,7 @@ import javax.annotation.Nonnegative;
 public interface GrowingPlant extends Plant {
 
     @Nonnegative
-    public default double getGrowthPercentage() {
+    default double getGrowthPercentage() {
         return getGrowth() / (double) getMaxGrowth();
     }
 
@@ -13,16 +13,16 @@ public interface GrowingPlant extends Plant {
     // plugins should explicitly handle getMaxGrowth()
 
     @Nonnegative
-    public int getGrowth();
+    int getGrowth();
 
     /**
      * Get a copy of this plant with the given growth level
      *
-     * @throws IllegalArgumentException if the growth level is negative or greater than {@link #getMaxGrowth()}
      * @param growth the growth level
      * @return the new plant
+     * @throws IllegalArgumentException if the growth level is negative or greater than {@link #getMaxGrowth()}
      */
-    public GrowingPlant withGrowth(@Nonnegative int growth);
+    GrowingPlant withGrowth(@Nonnegative int growth);
 
     /**
      * A utility method to get this type of plant's maximum growth height
@@ -31,9 +31,9 @@ public interface GrowingPlant extends Plant {
      * @return the maximum growth height
      */
     @Nonnegative
-    public int getMaxGrowth();
+    int getMaxGrowth();
 
-    public default boolean isFresh() {
+    default boolean isFresh() {
         return getGrowth() == 0;
     }
 

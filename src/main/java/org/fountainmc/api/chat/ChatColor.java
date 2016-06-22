@@ -1,11 +1,10 @@
 package org.fountainmc.api.chat;
 
+import java.util.Map;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Map;
 
 /**
  * Represents all available chat colors in Minecraft.

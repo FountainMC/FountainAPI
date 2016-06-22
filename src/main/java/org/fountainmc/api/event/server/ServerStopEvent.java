@@ -10,9 +10,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public interface ServerStopEvent extends Event {
 
     @Nonnull
-    public Server getServer();
+    Server getServer();
 
-    public static ServerStopEvent create(Server server) {
+    static ServerStopEvent create(Server server) {
         checkNotNull(server, "Null server");
         return () -> server;
     }

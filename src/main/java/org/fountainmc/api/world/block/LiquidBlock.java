@@ -5,8 +5,8 @@ import javax.annotation.Nonnegative;
 public interface LiquidBlock extends BlockState {
 
     @Nonnegative
-    public int getLevel();
+    int getLevel();
 
-    public boolean isFlowing();
+    boolean isFlowing();
 
 }

@@ -1,13 +1,13 @@
 package org.fountainmc.api.enchantments;
 
 public interface EnchantmentType {
-    public String getName();
+    String getName();
 
-    public int getId();
+    int getId();
 
-    public default int getMinLevel() {
+    default int getMinLevel() {
         return 1;
     }
 
-    public int getMaxLevel();
+    int getMaxLevel();
 }

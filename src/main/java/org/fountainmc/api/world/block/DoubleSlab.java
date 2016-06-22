@@ -7,7 +7,7 @@ public interface DoubleSlab extends BlockState {
      *
      * @return the type of the slab
      */
-    public StairType getType();
+    StairType getType();
 
     /**
      * Get a copy of this slab with the given type
@@ -15,17 +15,17 @@ public interface DoubleSlab extends BlockState {
      * @param type the new type
      * @return the new slab
      */
-    public Slab withType(StairType type);
+    Slab withType(StairType type);
 
-    public boolean isSmooth();
+    boolean isSmooth();
 
-    public DoubleSlab withSmoothness(boolean smooth);
+    DoubleSlab withSmoothness(boolean smooth);
 
-    public default DoubleSlab asSmooth() {
+    default DoubleSlab asSmooth() {
         return withSmoothness(true);
     }
 
-    public default DoubleSlab asRough() {
+    default DoubleSlab asRough() {
         return withSmoothness(false);
     }
 

@@ -11,6 +11,6 @@ import org.fountainmc.api.BlockType;
 public interface BlockState {
 
     @Nonnull
-    public BlockType getBlockType();
+    BlockType getBlockType();
 
 }

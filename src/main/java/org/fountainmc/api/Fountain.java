@@ -1,5 +1,7 @@
 package org.fountainmc.api;
 
+import static com.google.common.base.Preconditions.*;
+
 public final class Fountain {
 
     private static Server server = null;
@@ -12,8 +14,7 @@ public final class Fountain {
     }
 
     public static void setServer(Server s) {
-        if (server != null)
-            throw new IllegalArgumentException("Server can not be redefined.");
+        checkState(s != null, "Server can not be redefined.");
         server = s;
     }
 
