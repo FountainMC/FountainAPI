@@ -198,7 +198,10 @@ public interface Entity {
      */
     void leaveVehicle();
 
-    default boolean isBeingRidden() {
+    /**
+     * Return if the entity is riding another entity
+     */
+    default boolean isRiding() {
         return getVehicle() != null;
     }
 
