@@ -1,20 +1,22 @@
 package org.fountainmc.api;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.ImmutableList;
-
 import org.fountainmc.api.command.CommandManager;
 import org.fountainmc.api.enchantments.EnchantmentType;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.EntityType;
+import org.fountainmc.api.entity.Player;
 import org.fountainmc.api.event.EventManager;
 import org.fountainmc.api.inventory.item.ItemFactory;
 import org.fountainmc.api.plugin.PluginManager;
 import org.fountainmc.api.scheduler.Scheduler;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkArgument;
 
 @ParametersAreNonnullByDefault
 public interface Server extends ServerInfo {
@@ -74,7 +76,9 @@ public interface Server extends ServerInfo {
 
     ItemFactory getItemFactory();
 
-    int getOnlinePlayers();
+    int getOnlinePlayerCount();
+
+    List<Player> getOnlinePlayers();
 
     Scheduler getBlockingScheduler();
 
