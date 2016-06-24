@@ -12,6 +12,7 @@ import org.fountainmc.api.entity.EntityType;
 import org.fountainmc.api.event.EventManager;
 import org.fountainmc.api.inventory.item.ItemFactory;
 import org.fountainmc.api.plugin.PluginManager;
+import org.fountainmc.api.scheduler.Scheduler;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -74,4 +75,9 @@ public interface Server extends ServerInfo {
     ItemFactory getItemFactory();
 
     int getOnlinePlayers();
+
+    Scheduler getBlockingScheduler();
+
+    Scheduler getAsynchronousScheduler();
+
 }
