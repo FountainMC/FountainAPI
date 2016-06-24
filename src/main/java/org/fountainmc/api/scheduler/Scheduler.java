@@ -1,7 +1,7 @@
 package org.fountainmc.api.scheduler;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.concurrent.Executor;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * The {@link Scheduler} class represents a task scheduler, which may or may not be asynchronous.
@@ -10,6 +10,7 @@ import java.util.concurrent.Executor;
  */
 @ParametersAreNonnullByDefault
 public interface Scheduler {
+
     /**
      * Schedules a task to run.
      * @param runnable the runnable to execute

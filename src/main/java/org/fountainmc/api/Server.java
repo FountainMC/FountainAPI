@@ -1,7 +1,6 @@
 package org.fountainmc.api;
 
 import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 

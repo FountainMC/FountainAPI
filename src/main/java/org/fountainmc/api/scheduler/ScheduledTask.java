@@ -4,6 +4,7 @@ package org.fountainmc.api.scheduler;
  * {@link ScheduledTask} specifies a scheduled task.
  */
 public interface ScheduledTask {
+
     /**
      * Returns whether or not this scheduled task has been cancelled.
      * @return if the task is cancelled or not
