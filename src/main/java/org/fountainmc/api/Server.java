@@ -72,4 +72,6 @@ public interface Server extends ServerInfo {
     EnchantmentType getEnchantmentTypeByName(String name);
 
     ItemFactory getItemFactory();
+
+    int getOnlinePlayers();
 }
