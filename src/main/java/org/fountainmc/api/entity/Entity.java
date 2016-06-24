@@ -200,6 +200,8 @@ public interface Entity {
 
     /**
      * Return if the entity is riding another entity
+     *
+     * @return if riding
      */
     default boolean isRiding() {
         return getVehicle() != null;

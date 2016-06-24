@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.ImmutableList;
+
 import org.fountainmc.api.command.CommandManager;
 import org.fountainmc.api.enchantments.EnchantmentType;
 import org.fountainmc.api.entity.Entity;
