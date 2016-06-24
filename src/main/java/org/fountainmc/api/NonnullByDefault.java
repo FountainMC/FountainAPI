@@ -16,7 +16,6 @@ import javax.annotation.meta.TypeQualifierDefault;
         ElementType.METHOD,
         ElementType.PARAMETER,
         ElementType.CONSTRUCTOR,
-        ElementType.LOCAL_VARIABLE,
         ElementType.ANNOTATION_TYPE,
         ElementType.PACKAGE,
 })

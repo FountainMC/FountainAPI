@@ -3,11 +3,11 @@ package org.fountainmc.api.entity;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 
+import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.Server;
 import org.fountainmc.api.world.Location;
 import org.fountainmc.api.world.World;
@@ -17,7 +17,7 @@ import static com.google.common.base.Preconditions.*;
 /**
  * Base interface for every Entity.
  */
-@ParametersAreNonnullByDefault
+@NonnullByDefault
 public interface Entity {
 
     Server getServer();
@@ -27,10 +27,8 @@ public interface Entity {
      *
      * @return the Location of the Entity
      */
-    @Nonnull
     Location getLocation();
 
-    @Nonnull
     default World getWorld() {
         return getLocation().getWorld();
     }
@@ -97,7 +95,6 @@ public interface Entity {
      *
      * @return the passengers
      */
-    @Nonnull
     ImmutableList<Entity> getPassengers();
 
     /**
@@ -114,7 +111,7 @@ public interface Entity {
      * Set the entity's passengers
      *
      * @param entities the passengers to set
-     * @param force weather to bypass passenger limits
+     * @param force    weather to bypass passenger limits
      * @throws IllegalStateException if not force-adding and this would cause more passengers then the entity is allowed to have
      */
     default void setPassengers(ImmutableList<Entity> entities, boolean force) {
@@ -142,11 +139,33 @@ public interface Entity {
      * Add a passenger to this entity
      *
      * @param entity the passenger to add
-     * @param force  weather to bypass passenger limits
+     * @param force  whether to bypass passenger limits
      * @return if successfully added
      * @throws IllegalStateException if not force-adding and this would cause more passengers then the entity is allowed to have
      */
-    boolean addPassenger(Entity entity, boolean force);
+    default boolean addPassenger(Entity entity, boolean force) {
+        return checkNotNull(entity, "Null entity").startRiding(this, force);
+    }
+
+    /**
+     * Start riding the specified vehicle
+     *
+     * @param vehicle the vehicle to start riding
+     * @return if successful
+     * @throws IllegalStateException if this would cause more passengers then the vehicle is allowed to have
+     */
+    default boolean startRiding(Entity vehicle) {
+        return startRiding(vehicle, false);
+    }
+
+    /**
+     * Start riding the specified vehicle
+     * @param vehicle the vehicle to start riding
+     * @param force whether to bypass passenger limits
+     * @return if succcessfully added
+     * @throws IllegalStateException if not force-adding and this would cause more passengers then the entity is allowed to have
+     */
+    boolean startRiding(Entity vehicle, boolean force);
 
     /**
      * Ejects all this entities passengers
@@ -192,11 +211,6 @@ public interface Entity {
     default void setVehicle(Entity vehicle) {
         checkNotNull(vehicle, "Null vehicle").addPassenger(this);
     }
-
-    /**
-     * Leave this entity's vehicle
-     */
-    void leaveVehicle();
 
     /**
      * Return if the entity is riding another entity
