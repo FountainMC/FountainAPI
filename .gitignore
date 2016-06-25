@@ -11,3 +11,6 @@ bin
 target
 dependency-reduced-pom.xml
 .checkstyle-cache
+
+# Gradle
+build
