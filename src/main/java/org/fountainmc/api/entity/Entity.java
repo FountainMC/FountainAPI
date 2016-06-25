@@ -160,8 +160,9 @@ public interface Entity {
 
     /**
      * Start riding the specified vehicle
+     *
      * @param vehicle the vehicle to start riding
-     * @param force whether to bypass passenger limits
+     * @param force   whether to bypass passenger limits
      * @return if succcessfully added
      * @throws IllegalStateException if not force-adding and this would cause more passengers then the entity is allowed to have
      */
@@ -252,4 +253,25 @@ public interface Entity {
     @Nonnull
     EntityType<?> getEntityType();
 
+    int getTicksOnFire();
+
+    void setTicksOnFire(int ticksOnFire);
+
+    default boolean isOnFire() {
+        return getTicksOnFire() >= 0;
+    }
+
+    /**
+     * Set if this entity is on fire
+     * <p>Setting this entity on fire is equivalent to setting this entity to be on fire for Integer.MAX_VALUE ticks</p>
+     *
+     * @param b whether to be on fire
+     */
+    default void setOnFire(boolean b) {
+        setTicksOnFire(b ? Integer.MAX_VALUE : 0);
+    }
+
+    boolean isImmuneToFire();
+
+    void setImmuneToFire(boolean immuneToFire);
 }

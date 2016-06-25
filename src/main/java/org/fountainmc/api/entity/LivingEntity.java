@@ -54,9 +54,4 @@ public interface LivingEntity extends Entity {
     @Override
     @Nonnull
     EntityType<? extends LivingEntity> getEntityType();
-
-    boolean setOnFire(boolean fire);
-
-    boolean isOnFire();
-
 }
