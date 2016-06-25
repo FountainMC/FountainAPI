@@ -253,6 +253,8 @@ public interface Entity {
     @Nonnull
     EntityType<?> getEntityType();
 
+    boolean isDead();
+
     int getTicksOnFire();
 
     void setTicksOnFire(int ticksOnFire);

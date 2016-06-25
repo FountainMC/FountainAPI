@@ -42,15 +42,6 @@ public interface LivingEntity extends Entity {
      */
     void damage(double amount);
 
-    /**
-     * Is the Entity alive?
-     *
-     * @return if the Entity is alive or not
-     */
-    default boolean isAlive() {
-        return getHealth() > 0;
-    }
-
     @Override
     @Nonnull
     EntityType<? extends LivingEntity> getEntityType();
