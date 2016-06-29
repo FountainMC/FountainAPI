@@ -1,22 +1,35 @@
 package org.fountainmc.api.entity.hanging;
 
-import javax.annotation.Nullable;
-
-import org.fountainmc.api.Direction;
+import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.Entity;
+import org.fountainmc.api.entity.data.EntityData;
+import org.fountainmc.api.entity.data.PlayerData;
+import org.fountainmc.api.entity.data.hanging.HangingEntityData;
+import org.fountainmc.api.entity.data.hanging.MutableHangingEntityData;
 
 /**
  * An entity handing on a wall or other object.
  */
-public interface HangingEntity extends Entity {
+@NonnullByDefault
+public interface HangingEntity extends MutableHangingEntityData, Entity {
+    /**
+     * Copy all of the given data to this entity.
+     * <p>Doesn't copy passenger information.</p>
+     *
+     * @param data the data to copy from
+     */
+    @Override
+    default void copyDataFrom(EntityData data) {
+        MutableHangingEntityData.super.copyDataFrom(data);
+    }
 
     /**
-     * Get the Direction the Entity is facing
-     * The Direction will be null for Entities like LeashKnots.
+     * Take a snapshot of this entity's data
+     * <p>The resulting snapshot is thread-safe.</p>
      *
-     * @return the Direction the Entity is facing
+     * @return a snapshot
      */
-    @Nullable
-    Direction getDirection();
+    @Override
+    HangingEntityData snapshot();
 
 }

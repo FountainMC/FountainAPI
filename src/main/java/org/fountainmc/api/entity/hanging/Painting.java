@@ -1,22 +1,33 @@
 package org.fountainmc.api.entity.hanging;
 
+import org.fountainmc.api.NonnullByDefault;
+import org.fountainmc.api.entity.data.EntityData;
+import org.fountainmc.api.entity.data.hanging.MutablePaintingData;
+import org.fountainmc.api.entity.data.hanging.PaintingData;
+
 /**
  * A painting that is hanging on a wall.
  */
-public interface Painting extends HangingEntity {
+@NonnullByDefault
+public interface Painting extends MutablePaintingData, HangingEntity {
 
     /**
-     * Get the width of the painting in blocks.
+     * Copy all of the given data to this entity.
+     * <p>Doesn't copy passenger information.</p>
      *
-     * @return the width of the painting
+     * @param data the data to copy from
      */
-    int getWidth();
+    @Override
+    default void copyDataFrom(EntityData data) {
+        MutablePaintingData.super.copyDataFrom(data);
+    }
 
     /**
-     * Get the height of the painting in blocks.
+     * Take a snapshot of this entity's data
+     * <p>The resulting snapshot is thread-safe.</p>
      *
-     * @return the height of the painting
+     * @return a snapshot
      */
-    int getHeight();
-
+    @Override
+    PaintingData snapshot();
 }

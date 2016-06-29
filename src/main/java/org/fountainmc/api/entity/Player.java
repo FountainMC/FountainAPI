@@ -1,37 +1,24 @@
 package org.fountainmc.api.entity;
 
-import java.util.UUID;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.collect.ImmutableCollection;
 
+import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.command.CommandSender;
+import org.fountainmc.api.entity.data.EntityData;
+import org.fountainmc.api.entity.data.LivingEntityData;
+import org.fountainmc.api.entity.data.MutableLivingEntityData;
+import org.fountainmc.api.entity.data.MutablePlayerData;
+import org.fountainmc.api.entity.data.PlayerData;
 
 import static com.google.common.base.Preconditions.*;
 
 /**
  * A connected player.
  */
-@ParametersAreNonnullByDefault
-public interface Player extends LivingEntity, CommandSender {
-
-    /**
-     * Get the name of the Player.
-     *
-     * @return name of the Player
-     */
-    @Nonnull
-    String getName();
-
-    /**
-     * Get the Unique Identifier of the Player.
-     *
-     * @return UUID of the Player
-     */
-    @Nonnull
-    UUID getUniqueId();
+@NonnullByDefault
+public interface Player extends LivingEntity, MutablePlayerData, CommandSender {
 
     /**
      * Send a chat message to the Player
@@ -60,7 +47,6 @@ public interface Player extends LivingEntity, CommandSender {
      */
     void hide(Entity entity);
 
-
     /**
      * Return if the player can see a specified entity
      *
@@ -85,76 +71,25 @@ public interface Player extends LivingEntity, CommandSender {
         return EntityType.PLAYER;
     }
 
-    void setGameMode(GameMode gameMode);
-
-    @Nonnull
-    GameMode getGameMode();
-
-    boolean setCanFly(boolean canFly);
-
-    boolean canFly();
-
-    @Nonnegative
-    float getPercentageToNextExperienceLevel();
-
-    void setPercentageToNextExperienceLevel(@Nonnegative float percentage);
-
-    @Nonnegative
-    int getExperienceLevel();
-
-    void setExperienceLevel(@Nonnegative int experienceLevel);
-
-    default void giveExp(@Nonnegative long amount) {
-        checkArgument(amount >= 0, "Can't give negative exp %s! Use takeExp(long) if you want that!", amount);
-        setTotalExperience(getTotalExperience() + amount);
+    /**
+     * Copy all of the given data to this player.
+     * <p>Doesn't copy passenger information.</p>
+     *
+     * @param data the data to copy from
+     */
+    @Override
+    default void copyDataFrom(EntityData data) {
+        MutablePlayerData.super.copyDataFrom(data);
     }
 
-
-    default void takeExp(@Nonnegative long amount) {
-        checkArgument(amount >= 0, "Can't give negative exp %s! Use takeExp(long) if you want that!", amount);
-        long exp = getTotalExperience();
-        checkState(exp >= amount, "Can't take away %s exp because the player only has %s exp.", amount, exp);
-        setTotalExperience(exp - amount);
-    }
 
     /**
-     * Calculate and return the player's total experience
-     * <p>The experience in each level is given in </p>
+     * Take a snapshot of this player's data
+     * <p>The resulting snapshot is thread-safe.</p>
      *
-     * @return the player's total experience
+     * @return a snapshot
      */
-    @Nonnegative
-    default long getTotalExperience() {
-        int level = getExperienceLevel();
-        long total = Math.round(getServer().getExpAtLevel(level--) * getPercentageToNextExperienceLevel());
-        for (; level >= 0; level--) {
-            // Use addExact in case somehow stupid players ever get more than 2^64 exp
-            total = Math.addExact(total, getServer().getExpAtLevel(level));
-        }
-        return total;
-    }
-
-    default void setTotalExperience(long total) {
-        checkArgument(total >= 0, "Negative experience %s", total);
-        int level = 0;
-        while (true) {
-            long expAtLevel = getServer().getExpAtLevel(level);
-            if (expAtLevel <= total) {
-                total -= expAtLevel;
-                level++;
-            } else {
-                setPercentageToNextExperienceLevel((float) ((double) total / (double) expAtLevel));
-                break;
-            }
-        }
-        setExperienceLevel(level);
-    }
-
-    enum GameMode {
-        CREATIVE,
-        SURVIVAL,
-        ADVENTURE,
-        SPECTATING;
-    }
+    @Override
+    PlayerData snapshot();
 
 }
