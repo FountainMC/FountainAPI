@@ -58,31 +58,9 @@ public interface PlayerData extends LivingEntityData {
      * @return the player's total experience
      */
     @Nonnegative
-    default long getTotalExperience() {
-        int level = getExperienceLevel();
-        long total = Math.round(getServer().getExpAtLevel(level--) * getPercentageToNextExperienceLevel());
-        for (; level >= 0; level--) {
-            // Use addExact in case somehow stupid players ever get more than 2^64 exp
-            total = Math.addExact(total, getServer().getExpAtLevel(level));
-        }
-        return total;
-    }
+    long getTotalExperience();
 
-    default void setTotalExperience(long total) {
-        checkArgument(total >= 0, "Negative experience %s", total);
-        int level = 0;
-        while (true) {
-            long expAtLevel = getServer().getExpAtLevel(level);
-            if (expAtLevel <= total) {
-                total -= expAtLevel;
-                level++;
-            } else {
-                setPercentageToNextExperienceLevel((float) ((double) total / (double) expAtLevel));
-                break;
-            }
-        }
-        setExperienceLevel(level);
-    }
+    void setTotalExperience(long total);
 
     default void giveExp(@Nonnegative long amount) {
         checkArgument(amount >= 0, "Can't give negative exp %s! Use takeExp(long) if you want that!", amount);
