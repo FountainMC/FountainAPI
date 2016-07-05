@@ -37,9 +37,13 @@ public interface PlayerData extends LivingEntityData {
 
     void setGameMode(GameMode gameMode);
 
-    boolean canFly();
+    boolean isFlying();
 
-    boolean setCanFly(boolean canFly);
+    void setFlying(boolean flying);
+
+    boolean isFlyingAllowed();
+
+    void setFlyingAllowed(boolean canFly);
 
     @Nonnegative
     float getPercentageToNextExperienceLevel();
@@ -79,7 +83,8 @@ public interface PlayerData extends LivingEntityData {
         LivingEntityData.super.copyDataFrom(data);
         if (data instanceof PlayerData) {
             this.setGameMode(((PlayerData) data).getGameMode());
-            this.setCanFly(((PlayerData) data).canFly());
+            this.setFlying(((PlayerData) data).isFlying());
+            this.setFlyingAllowed(((PlayerData) data).isFlyingAllowed());
             this.setPercentageToNextExperienceLevel(((PlayerData) data).getPercentageToNextExperienceLevel());
             this.setExperienceLevel(((PlayerData) data).getExperienceLevel());
         }
