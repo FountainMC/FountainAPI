@@ -1,5 +1,7 @@
 package org.fountainmc.api.entity.data.hanging;
 
+import org.fountainmc.api.entity.data.EntityData;
+
 /**
  * A painting's data.
  */
@@ -19,4 +21,9 @@ public interface PaintingData extends HangingEntityData {
      */
     int getHeight();
 
+    @Override
+    default void copyDataFrom(EntityData data) {
+        HangingEntityData.super.copyDataFrom(data);
+        // if we ever get anything to copy add it here
+    }
 }

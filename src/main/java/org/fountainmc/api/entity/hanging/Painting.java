@@ -2,14 +2,13 @@ package org.fountainmc.api.entity.hanging;
 
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.data.EntityData;
-import org.fountainmc.api.entity.data.hanging.MutablePaintingData;
 import org.fountainmc.api.entity.data.hanging.PaintingData;
 
 /**
  * A painting that is hanging on a wall.
  */
 @NonnullByDefault
-public interface Painting extends MutablePaintingData, HangingEntity {
+public interface Painting extends PaintingData, HangingEntity {
 
     /**
      * Copy all of the given data to this entity.
@@ -19,7 +18,7 @@ public interface Painting extends MutablePaintingData, HangingEntity {
      */
     @Override
     default void copyDataFrom(EntityData data) {
-        MutablePaintingData.super.copyDataFrom(data);
+        PaintingData.super.copyDataFrom(data);
     }
 
     /**

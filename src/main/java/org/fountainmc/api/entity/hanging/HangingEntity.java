@@ -4,13 +4,12 @@ import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.data.EntityData;
 import org.fountainmc.api.entity.data.hanging.HangingEntityData;
-import org.fountainmc.api.entity.data.hanging.MutableHangingEntityData;
 
 /**
  * An entity handing on a wall or other object.
  */
 @NonnullByDefault
-public interface HangingEntity extends MutableHangingEntityData, Entity {
+public interface HangingEntity extends HangingEntityData, Entity {
     /**
      * Copy all of the given data to this entity.
      * <p>Doesn't copy passenger information.</p>
@@ -19,7 +18,7 @@ public interface HangingEntity extends MutableHangingEntityData, Entity {
      */
     @Override
     default void copyDataFrom(EntityData data) {
-        MutableHangingEntityData.super.copyDataFrom(data);
+        HangingEntityData.super.copyDataFrom(data);
     }
 
     /**

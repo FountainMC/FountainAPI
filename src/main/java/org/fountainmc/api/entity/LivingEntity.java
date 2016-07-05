@@ -3,13 +3,12 @@ package org.fountainmc.api.entity;
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.data.EntityData;
 import org.fountainmc.api.entity.data.LivingEntityData;
-import org.fountainmc.api.entity.data.MutableLivingEntityData;
 
 /**
  * An entity that is alive.
  */
 @NonnullByDefault
-public interface LivingEntity extends Entity, MutableLivingEntityData {
+public interface LivingEntity extends Entity, LivingEntityData {
 
     /**
      * Damage the Entity
@@ -26,7 +25,7 @@ public interface LivingEntity extends Entity, MutableLivingEntityData {
      */
     @Override
     default void copyDataFrom(EntityData data) {
-        MutableLivingEntityData.super.copyDataFrom(data);
+        LivingEntityData.super.copyDataFrom(data);
     }
 
 

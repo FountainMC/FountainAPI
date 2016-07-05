@@ -17,7 +17,7 @@ public interface EntityDataFactory {
 
     Server getServer();
 
-    MutableEntityData createEntityData(
+    EntityData createEntityData(
             EntityType<?> type,
             float pitch,
             float yaw,
@@ -26,13 +26,13 @@ public interface EntityDataFactory {
             boolean immuneToFire
     );
 
-    MutableLivingEntityData createLivingEntityData(
+    LivingEntityData createLivingEntityData(
             EntityData entityData,
             double health,
             double maxHealth
     );
 
-    MutablePlayerData createPlayerData(
+    PlayerData createPlayerData(
             LivingEntityData entityData,
             String name,
             UUID uniqueId,

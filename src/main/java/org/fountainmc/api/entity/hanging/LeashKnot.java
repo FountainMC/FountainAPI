@@ -5,11 +5,10 @@ import javax.annotation.Nullable;
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.data.EntityData;
-import org.fountainmc.api.entity.data.hanging.HangingEntity;
-import org.fountainmc.api.entity.data.hanging.MutableLeashKnotData;
+import org.fountainmc.api.entity.data.hanging.LeashKnotData;
 
 @NonnullByDefault
-public interface LeashKnot extends HangingEntity, MutableLeashKnotData {
+public interface LeashKnot extends HangingEntity, LeashKnotData {
 
     @Nullable
     @Override
@@ -23,7 +22,7 @@ public interface LeashKnot extends HangingEntity, MutableLeashKnotData {
      */
     @Override
     default void copyDataFrom(EntityData data) {
-        MutableLeashKnotData.super.copyDataFrom(data);
+        LeashKnotData.super.copyDataFrom(data);
     }
 
 

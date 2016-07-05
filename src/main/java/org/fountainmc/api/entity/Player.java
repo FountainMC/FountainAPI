@@ -7,9 +7,6 @@ import com.google.common.collect.ImmutableCollection;
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.command.CommandSender;
 import org.fountainmc.api.entity.data.EntityData;
-import org.fountainmc.api.entity.data.LivingEntityData;
-import org.fountainmc.api.entity.data.MutableLivingEntityData;
-import org.fountainmc.api.entity.data.MutablePlayerData;
 import org.fountainmc.api.entity.data.PlayerData;
 
 import static com.google.common.base.Preconditions.*;
@@ -18,7 +15,7 @@ import static com.google.common.base.Preconditions.*;
  * A connected player.
  */
 @NonnullByDefault
-public interface Player extends LivingEntity, MutablePlayerData, CommandSender {
+public interface Player extends LivingEntity, PlayerData, CommandSender {
 
     /**
      * Send a chat message to the Player
@@ -79,7 +76,7 @@ public interface Player extends LivingEntity, MutablePlayerData, CommandSender {
      */
     @Override
     default void copyDataFrom(EntityData data) {
-        MutablePlayerData.super.copyDataFrom(data);
+        PlayerData.super.copyDataFrom(data);
     }
 
 

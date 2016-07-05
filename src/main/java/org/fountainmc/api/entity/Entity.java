@@ -1,7 +1,6 @@
 package org.fountainmc.api.entity;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableCollection;
@@ -10,7 +9,6 @@ import com.google.common.collect.ImmutableList;
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.Server;
 import org.fountainmc.api.entity.data.EntityData;
-import org.fountainmc.api.entity.data.MutableEntityData;
 import org.fountainmc.api.world.Location;
 import org.fountainmc.api.world.World;
 
@@ -20,7 +18,7 @@ import static com.google.common.base.Preconditions.*;
  * Base interface for every Entity.
  */
 @NonnullByDefault
-public interface Entity extends MutableEntityData {
+public interface Entity extends EntityData {
 
     Server getServer();
 
@@ -245,7 +243,7 @@ public interface Entity extends MutableEntityData {
      */
     @Override
     default void copyDataFrom(EntityData data) {
-        MutableEntityData.super.copyDataFrom(data);
+        EntityData.super.copyDataFrom(data);
     }
 
 

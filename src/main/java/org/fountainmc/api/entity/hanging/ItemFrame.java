@@ -3,13 +3,13 @@ package org.fountainmc.api.entity.hanging;
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.data.EntityData;
 import org.fountainmc.api.entity.data.hanging.ItemFrameData;
-import org.fountainmc.api.entity.data.hanging.MutableItemFrameData;
 
 /**
  * An ItemFrame that is hanging on a wall
  */
 @NonnullByDefault
-public interface ItemFrame extends HangingEntity, MutableItemFrameData {
+public interface ItemFrame extends HangingEntity, ItemFrameData {
+
     /**
      * Copy all of the given data to this item frame.
      * <p>Doesn't copy passenger information.</p>
@@ -18,7 +18,7 @@ public interface ItemFrame extends HangingEntity, MutableItemFrameData {
      */
     @Override
     default void copyDataFrom(EntityData data) {
-        MutableItemFrameData.super.copyDataFrom(data);
+        ItemFrameData.super.copyDataFrom(data);
     }
 
     /**

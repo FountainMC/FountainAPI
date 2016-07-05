@@ -15,4 +15,12 @@ public interface HangingEntityData extends EntityData {
      */
     @Nullable
     Direction getDirection();
+
+    @Override
+    default void copyDataFrom(EntityData data) {
+        EntityData.super.copyDataFrom(data);
+        if (data instanceof HangingEntityData) {
+            // if we ever get anything to copy add it here
+        }
+    }
 }
