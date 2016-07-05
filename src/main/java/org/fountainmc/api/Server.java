@@ -11,6 +11,7 @@ import org.fountainmc.api.enchantments.EnchantmentType;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.EntityType;
 import org.fountainmc.api.entity.Player;
+import org.fountainmc.api.entity.data.EntityDataFactory;
 import org.fountainmc.api.event.EventManager;
 import org.fountainmc.api.inventory.item.ItemFactory;
 import org.fountainmc.api.plugin.PluginManager;
@@ -84,4 +85,5 @@ public interface Server extends ServerInfo {
 
     Scheduler getAsynchronousScheduler();
 
+    EntityDataFactory getEntityDataFactory();
 }

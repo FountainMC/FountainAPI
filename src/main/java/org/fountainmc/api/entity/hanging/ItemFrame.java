@@ -1,31 +1,33 @@
 package org.fountainmc.api.entity.hanging;
 
-import org.fountainmc.api.Material;
+import org.fountainmc.api.NonnullByDefault;
+import org.fountainmc.api.entity.data.EntityData;
+import org.fountainmc.api.entity.data.hanging.ItemFrameData;
 
 /**
  * An ItemFrame that is hanging on a wall
  */
-public interface ItemFrame extends HangingEntity {
+@NonnullByDefault
+public interface ItemFrame extends HangingEntity, ItemFrameData {
 
     /**
-     * Does the ItemFrame contain an Item?
+     * Copy all of the given data to this item frame.
+     * <p>Doesn't copy passenger information.</p>
      *
-     * @return whether the ItemFrame contains an Item
+     * @param data the data to copy from
      */
-    boolean containsItem();
+    @Override
+    default void copyDataFrom(EntityData data) {
+        ItemFrameData.super.copyDataFrom(data);
+    }
 
     /**
-     * Get the Material of the Item in the ItemFrame.
+     * Take a snapshot of this entity's data
+     * <p>The resulting snapshot is thread-safe.</p>
      *
-     * @return the Material of the Item in the ItemFrame
+     * @return a snapshot
      */
-    Material getMaterial();
-
-    /**
-     * Set the Material of the Item in the ItemFrame.
-     *
-     * @param material the Material to set the Item in the ItemFrame to
-     */
-    void setMaterial(Material material);
+    @Override
+    ItemFrameData snapshot();
 
 }

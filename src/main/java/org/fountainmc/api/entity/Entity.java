@@ -1,7 +1,6 @@
 package org.fountainmc.api.entity;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableCollection;
@@ -9,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.Server;
+import org.fountainmc.api.entity.data.EntityData;
 import org.fountainmc.api.world.Location;
 import org.fountainmc.api.world.World;
 
@@ -18,7 +18,7 @@ import static com.google.common.base.Preconditions.*;
  * Base interface for every Entity.
  */
 @NonnullByDefault
-public interface Entity {
+public interface Entity extends EntityData {
 
     Server getServer();
 
@@ -28,6 +28,13 @@ public interface Entity {
      * @return the Location of the Entity
      */
     Location getLocation();
+
+    /**
+     * Check if the Entity is on the ground.
+     *
+     * @return Whether the Entity is on the ground
+     */
+    boolean isOnGround();
 
     default World getWorld() {
         return getLocation().getWorld();
@@ -40,46 +47,8 @@ public interface Entity {
      */
     void teleport(Location destination);
 
-    /**
-     * Get the Pitch of the Entity.
-     *
-     * @return the pitch
-     */
-    float getPitch();
-
-    /**
-     * Set the Pitch of the Entity.
-     *
-     * @param pitch Pitch to set the Entity to
-     */
-    void setPitch(float pitch);
-
-    /**
-     * Get the Yaw of the Entity.
-     *
-     * @return the yaw
-     */
-    float getYaw();
-
-    /**
-     * Set the Yaw of the Entity.
-     *
-     * @param yaw Yaw to set the Entity to
-     */
-    void setYaw(float yaw);
-
-    /**
-     * Check if the Entity is on the ground.
-     *
-     * @return Whether the Entity is on the ground
-     */
-    boolean isOnGround();
-
-    default boolean hasPassengers() {
-        return !getPassengers().isEmpty();
-    }
-
     @Nullable
+    @Override
     Entity getPrimaryPassenger();
 
     /**
@@ -95,6 +64,7 @@ public interface Entity {
      *
      * @return the passengers
      */
+    @Override
     ImmutableList<Entity> getPassengers();
 
     /**
@@ -189,29 +159,10 @@ public interface Entity {
     @Nonnegative
     int getMaximumPassengers();
 
-
     /**
      * Dismount this entity's vehicle if the entity is riding one
      */
     void dismountVehicle();
-
-    /**
-     * Get the Entity this Entity is riding on.
-     *
-     * @return the Entity this Entity is riding on
-     */
-    @Nullable
-    Entity getVehicle();
-
-    /**
-     * Set the Entity that this Entity will ride.
-     *
-     * @param vehicle The Entity that this Entity will ride
-     * @throws IllegalStateException if this would cause more passengers then the vehicle is allowed to have
-     */
-    default void setVehicle(Entity vehicle) {
-        checkNotNull(vehicle, "Null vehicle").addPassenger(this);
-    }
 
     /**
      * Return if the entity is riding another entity
@@ -221,6 +172,14 @@ public interface Entity {
     default boolean isRiding() {
         return getVehicle() != null;
     }
+
+    /**
+     * Get the Entity this Entity is riding on.
+     *
+     * @return the Entity this Entity is riding on
+     */
+    @Nullable
+    Entity getVehicle();
 
     /**
      * Get the bottom vehicle. Equivalent to:
@@ -243,6 +202,16 @@ public interface Entity {
     }
 
     /**
+     * Set the Entity that this Entity will ride.
+     *
+     * @param vehicle The Entity that this Entity will ride
+     * @throws IllegalStateException if this would cause more passengers then the vehicle is allowed to have
+     */
+    default void setVehicle(Entity vehicle) {
+        checkNotNull(vehicle, "Null vehicle").addPassenger(this);
+    }
+
+    /**
      * Get any nearby Entities within a certain distance.
      *
      * @param distance max distance to search for entities
@@ -250,30 +219,38 @@ public interface Entity {
      */
     ImmutableCollection<Entity> getNearbyEntities(double distance);
 
-    @Nonnull
-    EntityType<?> getEntityType();
-
+    /**
+     * Return if the entity is 'dead'.
+     * <p>An entity is only considered dead once it has been invalidated by the server, and not just once it reaches 0 health.</p>
+     *
+     * @return if 'dead'
+     */
     boolean isDead();
 
-    int getTicksOnFire();
-
-    void setTicksOnFire(int ticksOnFire);
-
-    default boolean isOnFire() {
-        return getTicksOnFire() >= 0;
-    }
+    /**
+     * Take a snapshot of this entity's data
+     * <p>The resulting snapshot is thread-safe.</p>
+     *
+     * @return a snapshot
+     */
+    EntityData snapshot();
 
     /**
-     * Set if this entity is on fire
-     * <p>Setting this entity on fire is equivalent to setting this entity to be on fire for Integer.MAX_VALUE ticks</p>
+     * Copy all of the given data to this entity.
+     * <p>Doesn't copy passenger information.</p>
      *
-     * @param b whether to be on fire
+     * @param data the data to copy from
      */
-    default void setOnFire(boolean b) {
-        setTicksOnFire(b ? Integer.MAX_VALUE : 0);
+    @Override
+    default void copyDataFrom(EntityData data) {
+        EntityData.super.copyDataFrom(data);
     }
 
-    boolean isImmuneToFire();
 
-    void setImmuneToFire(boolean immuneToFire);
+    /**
+     * The type of this entity
+     */
+    @Override
+    EntityType<?> getEntityType();
+
 }

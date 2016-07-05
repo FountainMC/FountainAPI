@@ -1,39 +1,14 @@
 package org.fountainmc.api.entity;
 
-import javax.annotation.Nonnull;
+import org.fountainmc.api.NonnullByDefault;
+import org.fountainmc.api.entity.data.EntityData;
+import org.fountainmc.api.entity.data.LivingEntityData;
 
 /**
- * Entity with health
+ * An entity that is alive.
  */
-public interface LivingEntity extends Entity {
-
-    /**
-     * Get the health of the Entity
-     *
-     * @return health of the Entity
-     */
-    double getHealth();
-
-    /**
-     * Set the health of the Entity
-     *
-     * @param health amount of health to set the Entity to
-     */
-    void setHealth(double health);
-
-    /**
-     * Get the maximum health this entity can have.
-     *
-     * @return the maximum health
-     */
-    double getMaxHealth();
-
-    /**
-     * Set the new maximum health this entity can have.
-     *
-     * @param maxHealth the new maximum health
-     */
-    void setMaxHealth(double maxHealth);
+@NonnullByDefault
+public interface LivingEntity extends Entity, LivingEntityData {
 
     /**
      * Damage the Entity
@@ -42,7 +17,24 @@ public interface LivingEntity extends Entity {
      */
     void damage(double amount);
 
+    /**
+     * Copy all of the given data to this entity.
+     * <p>Doesn't copy passenger information.</p>
+     *
+     * @param data the data to copy from
+     */
     @Override
-    @Nonnull
-    EntityType<? extends LivingEntity> getEntityType();
+    default void copyDataFrom(EntityData data) {
+        LivingEntityData.super.copyDataFrom(data);
+    }
+
+
+    /**
+     * Take a snapshot of this entity's data
+     * <p>The resulting snapshot is thread-safe.</p>
+     *
+     * @return a snapshot
+     */
+    @Override
+    LivingEntityData snapshot();
 }
