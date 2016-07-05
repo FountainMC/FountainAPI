@@ -2,7 +2,6 @@ package org.fountainmc.api.entity.hanging;
 
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.data.EntityData;
-import org.fountainmc.api.entity.data.hanging.HangingEntityData;
 import org.fountainmc.api.entity.data.hanging.ItemFrameData;
 import org.fountainmc.api.entity.data.hanging.MutableItemFrameData;
 

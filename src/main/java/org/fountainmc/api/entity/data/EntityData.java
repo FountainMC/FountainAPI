@@ -72,6 +72,8 @@ public interface EntityData {
 
     /**
      * The type of entity this data is intended for
+     *
+     * @return the type
      */
     @Nonnull
     EntityType<?> getEntityType();

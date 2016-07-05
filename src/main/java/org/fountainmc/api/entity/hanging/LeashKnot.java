@@ -5,9 +5,7 @@ import javax.annotation.Nullable;
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.data.EntityData;
-import org.fountainmc.api.entity.data.hanging.HangingEntityData;
-import org.fountainmc.api.entity.data.hanging.LeashKnotData;
-import org.fountainmc.api.entity.data.hanging.MutableHangingEntityData;
+import org.fountainmc.api.entity.data.hanging.HangingEntity;
 import org.fountainmc.api.entity.data.hanging.MutableLeashKnotData;
 
 @NonnullByDefault
