@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.UUID;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.google.common.collect.ImmutableList;
-
 import org.fountainmc.api.GameMode;
 import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.Server;

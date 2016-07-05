@@ -1,10 +1,12 @@
 package org.fountainmc.api.entity.data.hanging;
 
+import org.fountainmc.api.NonnullByDefault;
 import org.fountainmc.api.entity.data.EntityData;
 
 /**
  * A painting's data.
  */
+@NonnullByDefault
 public interface PaintingData extends HangingEntityData {
 
     /**
