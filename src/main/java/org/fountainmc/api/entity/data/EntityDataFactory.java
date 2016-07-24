@@ -37,7 +37,7 @@ public interface EntityDataFactory {
             GameMode gameMode,
             boolean canFly,
             float percentageToNextExperienceLevel,
-            int experienceLeve
+            int experienceLevel
     );
 
 

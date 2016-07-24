@@ -12,6 +12,7 @@ import org.fountainmc.api.entity.Entity;
 import org.fountainmc.api.entity.EntityType;
 import org.fountainmc.api.entity.Player;
 import org.fountainmc.api.entity.data.EntityDataFactory;
+import org.fountainmc.api.entity.data.PlayerData;
 import org.fountainmc.api.event.EventManager;
 import org.fountainmc.api.inventory.item.ItemFactory;
 import org.fountainmc.api.plugin.PluginManager;
@@ -64,14 +65,9 @@ public interface Server extends ServerInfo {
         }
     }
 
-    /**
-     * Get the total number of experience points at the given level.
-     *
-     * @param level the exp level
-     * @return if the exp
-     * @throws IllegalArgumentException if the level is negative
-     */
-    long getExpAtLevel(int level);
+    long calculateTotalExperience(PlayerData.ExperienceData experienceData);
+
+    PlayerData.ExperienceData calculateExperienceData(long totalExperience);
 
     EnchantmentType getEnchantmentTypeByName(String name);
 
