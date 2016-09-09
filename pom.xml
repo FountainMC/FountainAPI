@@ -5,13 +5,13 @@
     <groupId>org.fountainmc</groupId>
     <artifactId>fountain-api</artifactId>
     <packaging>jar</packaging>
-    <version>1.9.4-alpha1-SNAPSHOT</version>
+    <version>1.10.2-alpha1-SNAPSHOT</version>
     <name>FountainAPI</name>
-    <url>https://github.com/Fountain/FountainAPI</url>
+    <url>https://github.com/FountainMC/FountainAPI</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <minecraft.version>1.9.4</minecraft.version>
+        <minecraft.version>1.10.2</minecraft.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -111,3 +111,4 @@
         </snapshotRepository>
     </distributionManagement>
 </project>
+
