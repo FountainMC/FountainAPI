@@ -1,9 +1,13 @@
 plugins {
     id "java"
     id "maven"
+    id "org.jetbrains.kotlin.jvm" version "1.1.2-2"
 }
 
 ext.versionSignature = rawComputeVersionSignature()
+apply plugin: "java"
+apply plugin: "maven"
+apply plugin: "org.jetbrains.kotlin.jvm"
 
 group = 'org.fountainmc'
 version = '0.1.0-alpha1-SNAPSHOT'
@@ -13,20 +17,41 @@ description = """FountainAPI"""
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
+    options.encoding = 'UTF-8'
 }
 
 repositories {
     mavenCentral()
     maven { url "https://repo.techcable.net/content/groups/public/" }
 }
+
 dependencies {
-    compile 'com.google.guava:guava:19.0'
-    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jre8'
+    compile 'org.jetbrains.kotlin:kotlin-reflect' // Include kotlin reflection too ^_^
+    compile 'com.google.guava:guava:21.0'
+    compile 'com.google.code.gson:gson:2.8.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-junit:2.0.0.0'
     compileOnly 'com.google.code.findbugs:jsr305:1.3.9'
 }
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+jar {
+    inputs.property("versionSignature", versionSignature) // Recompute manifest when signature changes
+    manifest {
+        attributes(
+                "Specification-Title": "FountainAPI",
+                "Specification-Version": versionSignature,
+                "Specification-Vendor": "FountainMC Team",
+        )
+    }
+}
+
 
 String rawComputeVersionSignature() {
     def version = project.version.toString()

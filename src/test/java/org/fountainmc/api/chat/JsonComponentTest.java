@@ -17,7 +17,7 @@ public class JsonComponentTest {
 
     @Test
     public void simpleJsonDeserialize() {
-        List<Component<?>> deserialized = Components.fromJson("[{\"text\":\"Hello, world!\"}]");
+        List<Component<?>> deserialized = Components.INSTANCE.fromJson("[{\"text\":\"Hello, world!\"}]");
         assertThat(deserialized, hasSize(1));
         assertThat(deserialized.get(0).getValue(), instanceOf(Text.class));
         assertThat(((Text) deserialized.get(0).getValue()).getText(), equalTo("Hello, world!"));
@@ -25,7 +25,7 @@ public class JsonComponentTest {
 
     @Test
     public void simpleJsonDeserializeWithColor() {
-        List<Component<?>> deserialized = Components.fromJson("[{\"text\":\"Hello, world!\",\"color\":\"gray\"}]");
+        List<Component<?>> deserialized = Components.INSTANCE.fromJson("[{\"text\":\"Hello, world!\",\"color\":\"gray\"}]");
         assertThat(deserialized, hasSize(1));
         assertThat(deserialized.get(0).getValue(), instanceOf(Text.class));
         assertThat(deserialized.get(0).getColor(), is(ChatColor.GREY));
@@ -34,7 +34,7 @@ public class JsonComponentTest {
 
     @Test
     public void arrayComponentDeserialize() {
-        List<Component<?>> deserialized = Components.fromJson("[\"\",{\"text\":\"Hello, world!\",\"bold\":true}]");
+        List<Component<?>> deserialized = Components.INSTANCE.fromJson("[\"\",{\"text\":\"Hello, world!\",\"bold\":true}]");
         assertThat(deserialized, hasSize(2)); // there's an empty component!
         assertThat(deserialized.get(0).getValue(), instanceOf(Text.class));
         assertThat(((Text) deserialized.get(0).getValue()).getText(), equalTo(""));
@@ -46,7 +46,7 @@ public class JsonComponentTest {
 
     @Test
     public void jsonDeserializeWithExtra() {
-        List<Component<?>> deserialized = Components.fromJson("[{\"text\":\"\",\"extra\":[{\"text\":\"Hello, world!\"}]}]");
+        List<Component<?>> deserialized = Components.INSTANCE.fromJson("[{\"text\":\"\",\"extra\":[{\"text\":\"Hello, world!\"}]}]");
         assertThat(deserialized, hasSize(1));
         assertThat(deserialized.get(0).getValue(), instanceOf(Text.class));
         assertThat(deserialized.get(0).getExtra(), hasSize(1));
@@ -57,7 +57,7 @@ public class JsonComponentTest {
 
     @Test
     public void translatableDeserialize() {
-        List<Component<?>> deserialized = Components.fromJson("[{\"translate\":\"demo.day.2\"}]");
+        List<Component<?>> deserialized = Components.INSTANCE.fromJson("[{\"translate\":\"demo.day.2\"}]");
         assertThat(deserialized, hasSize(1));
         assertThat(deserialized.get(0).getValue(), instanceOf(Translatable.class));
         assertThat(((Translatable) deserialized.get(0).getValue()).getMessage(), equalTo("demo.day.2"));
@@ -65,7 +65,7 @@ public class JsonComponentTest {
 
     @Test
     public void translatableDeserializeWith() {
-        List<Component<?>> deserialized = Components.fromJson("[{\"translate\":\"multiplayer.player.joined\",\"with\":[\"Notch\"]}]");
+        List<Component<?>> deserialized = Components.INSTANCE.fromJson("[{\"translate\":\"multiplayer.player.joined\",\"with\":[\"Notch\"]}]");
         assertThat(deserialized, hasSize(1));
         assertThat(deserialized.get(0).getValue(), instanceOf(Translatable.class));
         assertThat(((Translatable) deserialized.get(0).getValue()).getMessage(), equalTo("multiplayer.player.joined"));

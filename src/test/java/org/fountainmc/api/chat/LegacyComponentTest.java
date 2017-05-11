@@ -15,14 +15,14 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyText() {
-        List<Component<Text>> converted = Components.forLegacyText("Hello, world!");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("Hello, world!");
         assertThat(converted, hasSize(1));
         assertThat(converted.get(0).getValue().getText(), equalTo("Hello, world!"));
     }
 
     @Test
     public void simpleLegacyTextWithColor() {
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7cHello, world!");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7cHello, world!");
         assertThat(converted, hasSize(1));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.RED));
         assertThat(converted.get(0).getValue().getText(), equalTo("Hello, world!"));
@@ -30,7 +30,7 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyTextTwoColors() {
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7cHello, \u00a7eworld!");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7cHello, \u00a7eworld!");
         assertThat(converted, hasSize(2));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.RED));
         assertThat(converted.get(0).getValue().getText(), equalTo("Hello, "));
@@ -40,7 +40,7 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyTextFormattingAndColor() {
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7c\u00a7lHello, world!");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7c\u00a7lHello, world!");
         assertThat(converted, hasSize(1));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.RED));
         assertThat(converted.get(0).isBold(), is(true));
@@ -50,7 +50,7 @@ public class LegacyComponentTest {
     @Test
     public void simpleLegacyTextWithOverlappingColors() {
         // The last color (&e) should be used.
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7c\u00a7eHello, world!");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7c\u00a7eHello, world!");
         assertThat(converted, hasSize(1));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.YELLOW));
         assertThat(converted.get(0).getValue().getText(), equalTo("Hello, world!"));
@@ -59,7 +59,7 @@ public class LegacyComponentTest {
     @Test
     public void simpleLegacyTextWithManyFormattingCodes() {
         // The last color (&e) should be used.
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7c\u00a7l\u00a7nHello, world!");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7c\u00a7l\u00a7nHello, world!");
         assertThat(converted, hasSize(1));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.RED));
         assertThat(converted.get(0).isBold(), is(true));
@@ -69,7 +69,7 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyTextWithColorTextThenFormat() {
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7cHello, \u00a7lworld!");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7cHello, \u00a7lworld!");
         assertThat(converted, hasSize(2));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.RED));
         assertThat(converted.get(0).isBold(), is(false));
@@ -82,7 +82,7 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyTextReset() {
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7c\u00a7lHello, \u00a7rworld!");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7c\u00a7lHello, \u00a7rworld!");
         assertThat(converted, hasSize(2));
         assertThat(converted.get(0).getColor(), equalTo(ChatColor.RED));
         assertThat(converted.get(0).isBold(), is(true));
@@ -95,7 +95,7 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyTextUrl() {
-        List<Component<Text>> converted = Components.forLegacyText("http://fountainmc.org");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("http://fountainmc.org");
         assertThat(converted, hasSize(1));
         ClickEvent event = converted.get(0).getClickEvent();
         assertThat(event != null, is(true));
@@ -106,7 +106,7 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyTextUrlBetweenText() {
-        List<Component<Text>> converted = Components.forLegacyText("abc mumble http://fountainmc.org grumble xyz");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("abc mumble http://fountainmc.org grumble xyz");
         assertThat(converted, hasSize(3));
 
         assertThat(converted.get(0).getValue().getText(), equalTo("abc mumble "));
@@ -122,7 +122,7 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyTextUrlPreservesFormatting() {
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7ctest http://fountainmc.org tset");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7ctest http://fountainmc.org tset");
         assertThat(converted, hasSize(3));
 
         assertThat(converted.get(0).getValue().getText(), equalTo("test "));
@@ -141,7 +141,7 @@ public class LegacyComponentTest {
 
     @Test
     public void simpleLegacyTextUrlSeparateFormatting() {
-        List<Component<Text>> converted = Components.forLegacyText("\u00a7ctest \u00a7rhttp://fountainmc.org tset");
+        List<Component<Text>> converted = Components.INSTANCE.forLegacyText("\u00a7ctest \u00a7rhttp://fountainmc.org tset");
         assertThat(converted, hasSize(3));
 
         assertThat(converted.get(0).getValue().getText(), equalTo("test "));
