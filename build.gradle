@@ -1,16 +1,23 @@
-plugins {
-    id "java"
-    id "maven"
-    id "org.jetbrains.kotlin.jvm" version "1.1.2-2"
+buildscript {
+    ext.kotlin_version = '1.1.2-2'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
-ext.versionSignature = rawComputeVersionSignature()
+apply from: "utils.gradle"
+
 apply plugin: "java"
 apply plugin: "maven"
-apply plugin: "org.jetbrains.kotlin.jvm"
+apply plugin: "kotlin"
 
 group = 'org.fountainmc'
 version = '0.1.0-alpha1-SNAPSHOT'
+
+ext.versionSignature = rawComputeVersionSignature(version)
 
 description = """FountainAPI"""
 
@@ -26,8 +33,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.jetbrains.kotlin:kotlin-stdlib-jre8'
-    compile 'org.jetbrains.kotlin:kotlin-reflect' // Include kotlin reflection too ^_^
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"// Include kotlin reflection too ^_^
     compile 'com.google.guava:guava:21.0'
     compile 'com.google.code.gson:gson:2.8.0'
     testCompile 'junit:junit:4.12'
@@ -52,26 +59,3 @@ jar {
     }
 }
 
-
-String rawComputeVersionSignature() {
-    def version = project.version.toString()
-    if (!version.endsWith("-SNAPSHOT")) {
-        // If it's not a snapshot version, there's nothing to do
-        return version
-    }
-    def versionBase = version.replace("-SNAPSHOT", "")
-    // Determine the current git commit
-    // Determine if there are uncommitted changes
-    def prog = "git status --porcelain=1".execute()
-    def isClean = prog.text.allWhitespace
-    assert prog.waitFor() == 0, "Failed to execute git status!"
-    /*
-     * NOTE: Prefer the short option over manual slicing since it handles uniqueness.
-     * If we ever run into hash collisions in the first few chars, it'll still work.
-     */
-    prog = "git rev-parse --short HEAD".execute()
-    def currentCommit = prog.text.trim()
-    assert prog.waitFor() == 0, "Failed to execute git rev-parse!"
-    def statusText = isClean ? "dev" : "dirty"
-    return "$versionBase-$statusText-$currentCommit"
-}

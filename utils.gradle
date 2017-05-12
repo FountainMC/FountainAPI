@@ -1,0 +1,23 @@
+static String rawComputeVersionSignature(String version) {
+    if (!version.endsWith("-SNAPSHOT")) {
+        // If it's not a snapshot version, just mark it as 'release'
+        return version + '-release'
+    }
+    def versionBase = version.replace("-SNAPSHOT", "")
+    // Determine the current git commit
+    // Determine if there are uncommitted changes
+    def prog = "git status --porcelain=1".execute()
+    def isClean = prog.text.allWhitespace
+    assert prog.waitFor() == 0, "Failed to execute git status!"
+    /*
+     * NOTE: Prefer the short option over manual slicing since it handles uniqueness.
+     * If we ever run into hash collisions in the first few chars, it'll still work.
+     */
+    prog = "git rev-parse --short HEAD".execute()
+    def currentCommit = prog.text.trim()
+    assert prog.waitFor() == 0, "Failed to execute git rev-parse!"
+    def statusText = isClean ? "dev" : "dirty"
+    return "$versionBase-$statusText-$currentCommit"
+}
+
+ext.rawComputeVersionSignature = { String version -> rawComputeVersionSignature(version) }
