@@ -6,7 +6,7 @@ static String rawComputeVersionSignature(String version) {
     def versionBase = version.replace("-SNAPSHOT", "")
     // Determine the current git commit
     // Determine if there are uncommitted changes
-    def prog = "git status --porcelain=1".execute()
+    def prog = "git status --porcelain".execute()
     def isClean = prog.text.allWhitespace
     assert prog.waitFor() == 0, "Failed to execute git status!"
     /*
