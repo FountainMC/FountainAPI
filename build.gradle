@@ -34,9 +34,11 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"// Include kotlin reflection too ^_^
-    compile 'com.google.guava:guava:21.0'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version" // Include kotlin reflection too ^_^
+    compile "com.google.guava:guava:$guava_version"
+    compile "com.google.code.gson:gson:$gson_version"
+    // Use slf4j to abstract away the underlying logging framework and avoid the bukkit/bungee logging fiasco
+    compile "org.slf4j:slf4j-api:$slf4j_version"
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-junit:2.0.0.0'
     compileOnly 'com.google.code.findbugs:jsr305:1.3.9'

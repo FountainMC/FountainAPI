@@ -1,5 +1,7 @@
 package org.fountainmc.api.plugin
 
+import org.slf4j.Logger
+
 /**
  * A wrapper around a plugin.
  */
@@ -19,4 +21,5 @@ interface PluginContainer {
 
     val instance: Any
 
+    val logger: Logger
 }

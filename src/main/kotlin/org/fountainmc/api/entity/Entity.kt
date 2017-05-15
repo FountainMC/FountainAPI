@@ -50,12 +50,9 @@ interface Entity : EntityData {
      *
      * @param entities the passengers to set
      * @param force if passenger limits should be forcibly bypassed
-     * @throws IllegalArgumentException if not force-adding and this would cause more passengers then the entity is allowed to have
+     * @throws IllegalArgumentException if this entity can't accept one of the specified passengers
      */
     fun setPassengers(entities: List<Entity>, force: Boolean) {
-        require(force || entities.size <= maximumPassengers) {
-            "${entities.size} entities were given, but only $maximumPassengers are allowed!"
-        }
         if (!passengers.isEmpty()) this.ejectAll()
         for (entity in entities) {
             addPassenger(entity, force)
@@ -68,7 +65,7 @@ interface Entity : EntityData {
      * @param entity the passenger to add
      * @param force whether to bypass passenger limits
      * @return if successfully added
-     * @throws IllegalStateException If the entity would have too many passengers
+     * @throws IllegalStateException If this entity can't accept the passenger, and it's not forced too
      */
     fun addPassenger(entity: Entity, force: Boolean = false): Boolean {
         return entity.startRiding(this, force)
@@ -102,7 +99,10 @@ interface Entity : EntityData {
         if (primaryPassenger != null) ejectPassenger(primaryPassenger)
     }
 
-    val maximumPassengers: Int
+    /**
+     * Return if this entity can be ridden by the specified entity.
+     */
+    fun canAcceptPassenger(passenger: Entity): Boolean
 
     /**
      * Dismount this entity's vehicle if the entity is riding one
@@ -135,12 +135,14 @@ interface Entity : EntityData {
         }
 
     /**
-     * Get any nearby Entities within a certain distance.
+     * Get any nearby Entities within the specified radius.
      *
-     * @param distance max distance to search for entities
-     * @return a Collection of nearby Entities within the distance
+     * @param xRadius the radius in the x direction
+     * @param yRadius the radius in the y direction
+     * @param zRadius the radius in the z direction
+     * @return the set of entities within the given radius
      */
-    fun getNearbyEntities(distance: Double): ImmutableSet<Entity>
+    fun getNearbyEntities(xRadius: Double, yRadius: Double, zRadius: Double): Set<Entity>
 
     /**
      * If the entity is 'dead'.

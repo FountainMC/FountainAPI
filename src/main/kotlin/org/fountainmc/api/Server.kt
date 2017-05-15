@@ -13,6 +13,8 @@ import org.fountainmc.api.event.EventManager
 import org.fountainmc.api.inventory.item.ItemFactory
 import org.fountainmc.api.plugin.PluginManager
 import org.fountainmc.api.scheduler.Scheduler
+import org.slf4j.ILoggerFactory
+import org.slf4j.Logger
 import kotlin.reflect.KClass
 
 interface Server : ServerInfo {
@@ -62,5 +64,13 @@ interface Server : ServerInfo {
     val asynchronousScheduler: Scheduler
 
     val entityDataFactory: EntityDataFactory
+
+    val loggerFactory: ILoggerFactory
+
+    @Deprecated(
+            message = "Plugins should use their own logger",
+            replaceWith = ReplaceWith("currentPluginLogger", "org.fountainmc.api.utils.currentPluginLogger")
+    )
+    val serverLogger: Logger
 }
 
